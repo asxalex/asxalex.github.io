@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>asxalex&#39;s blog</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2016-11-09T03:20:02.546Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>asxalex</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>test</title>
+    <link href="http://yoursite.com/2016/11/08/test/"/>
+    <id>http://yoursite.com/2016/11/08/test/</id>
+    <published>2016-11-08T01:56:43.000Z</published>
+    <updated>2016-11-09T03:20:02.546Z</updated>
+    
+    <content type="html"><![CDATA[<p>This is a test</p>
+<p>this is line 2</p>
+<p>thie is line 3</p>
+<a id="more"></a>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Hello world\n"</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;This is a test&lt;/p&gt;
+&lt;p&gt;this is line 2&lt;/p&gt;
+&lt;p&gt;thie is line 3&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="test1" scheme="http://yoursite.com/tags/test1/"/>
+    
+  </entry>
+  
+</feed>
