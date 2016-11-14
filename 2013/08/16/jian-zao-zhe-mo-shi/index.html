@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设计模式（4）——建造者模式 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="建造者模式（builder）用于将复杂对象的构建与它的表示分离，使得同样的构造过程可以创建不同的表示（《Design Patterns》）。我们可以设想这样一个情况：我们还是要造那个小熊。风水轮流转，这次我们成了这个制造工厂中的“工人”，而不再是那个客户了。
+在造小熊的时候，我们遵从“工序”————首先造头，之后造手和脚，如果这个小熊可以说个“世界，你好”或者“Hello world”的话，我们还">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式（4）——建造者模式">
+<meta property="og:url" content="http://yoursite.com/2013/08/16/jian-zao-zhe-mo-shi/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="建造者模式（builder）用于将复杂对象的构建与它的表示分离，使得同样的构造过程可以创建不同的表示（《Design Patterns》）。我们可以设想这样一个情况：我们还是要造那个小熊。风水轮流转，这次我们成了这个制造工厂中的“工人”，而不再是那个客户了。
+在造小熊的时候，我们遵从“工序”————首先造头，之后造手和脚，如果这个小熊可以说个“世界，你好”或者“Hello world”的话，我们还">
+<meta property="og:image" content="http://asxalex.qiniudn.com/builder.png">
+<meta property="og:updated_time" content="2016-11-14T09:32:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式（4）——建造者模式">
+<meta name="twitter:description" content="建造者模式（builder）用于将复杂对象的构建与它的表示分离，使得同样的构造过程可以创建不同的表示（《Design Patterns》）。我们可以设想这样一个情况：我们还是要造那个小熊。风水轮流转，这次我们成了这个制造工厂中的“工人”，而不再是那个客户了。
+在造小熊的时候，我们遵从“工序”————首先造头，之后造手和脚，如果这个小熊可以说个“世界，你好”或者“Hello world”的话，我们还">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/builder.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-jian-zao-zhe-mo-shi" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/16/jian-zao-zhe-mo-shi/" class="article-date">
+  <time datetime="2013-08-16T11:39:00.000Z" itemprop="datePublished">2013-08-16</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      设计模式（4）——建造者模式
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>建造者模式（builder）用于将复杂对象的构建与它的表示分离，使得同样的构造过程可以创建不同的表示（《Design Patterns》）。我们可以设想这样一个情况：我们还是要造那个小熊。风水轮流转，这次我们成了这个制造工厂中的“工人”，而不再是那个客户了。</p>
+<p>在造小熊的时候，我们遵从“工序”————首先造头，之后造手和脚，如果这个小熊可以说个“世界，你好”或者“Hello world”的话，我们还有“教它”语言的工序。<a id="more"></a></p>
+<p>在这个工厂里，又有一道道流水线。而每一条流水线都有自己“个性”的工序，有的造的脚是broken-leg（只是举个栗子，不会有哪个工厂特地制造次品吧:-) ），有的“教的”是英语……</p>
+<p>所以，我们在生产过程中，只要到每条流水线的末端去等就行了。我们先看看这个模式的类图：</p>
+<img src="http://asxalex.qiniudn.com/builder.png">
+<p>这里，在画类图和编码时用的是man，而不是bear，但不影响理解。</p>
+<p>首先，HumanBuilder类给我们的制造工序提供了接口，其中有采取的默认动作（默认都是制造normal的部件）。而它的派生类则特化实际生产的部件，图中特化了两条流水线————一条生产普通的但是讲英语的人，另一条生产有个broken-leg的人。当我们需要得到（生产出）一件成品时。我们从GetMan中调用get_a_man()方法。该方法类似于<strong>命令一条流水线开工</strong>。详细看下面的代码：</p>
+<figure class="highlight c++"><figcaption><span>human_builder.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">class</span> Human&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">claim</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"I have a "</span> &lt;&lt; head &lt;&lt; <span class="string">", and "</span> &lt;&lt; arms &lt;&lt; <span class="string">" and "</span> &lt;&lt; legs &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"I speak "</span> &lt;&lt; language &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">teach_lang</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> lang)</span></span>&#123;language = lang;&#125;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">get_legs</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> leg)</span></span>&#123;legs = leg;&#125;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">get_arms</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> arm)</span></span>&#123;arms = arm;&#125;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">get_head</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> heade)</span></span>&#123;head = heade;&#125;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> language;</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> head;</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> arms;</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> legs;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">//=======================================================================</span></div><div class="line"></div><div class="line"><span class="keyword">class</span> HumanBuilder&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">build_man</span><span class="params">()</span></span>&#123;_human = <span class="keyword">new</span> Human;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">build_head</span><span class="params">()</span></span>&#123; _human -&gt; get_head(<span class="string">"normal head"</span>);&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">build_arms</span><span class="params">()</span></span>&#123; _human -&gt; get_arms(<span class="string">"normal arms"</span>);&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">build_legs</span><span class="params">()</span></span>&#123; _human -&gt; get_legs(<span class="string">"normal legs"</span>);&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">teach_language</span><span class="params">()</span></span>&#123; _human -&gt; teach_lang(<span class="string">"international language"</span>);&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> Human *<span class="title">get_human</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> _human;&#125;</div><div class="line">        <span class="keyword">virtual</span> ~HumanBuilder()&#123;<span class="keyword">delete</span> _human;&#125;</div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">        HumanBuilder()&#123;&#125;</div><div class="line">        Human *_human;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> normal_man_speaks_Chinese :<span class="keyword">public</span> HumanBuilder&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">teach_language</span><span class="params">()</span></span>&#123; _human -&gt; teach_lang(<span class="string">"Chinese"</span>);&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> man_with_broken_legs : <span class="keyword">public</span> HumanBuilder&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">build_legs</span><span class="params">()</span></span>&#123; _human -&gt; get_legs(<span class="string">"broken legs"</span>);&#125;</div><div class="line">&#125;;</div><div class="line"><span class="comment">//=========================================================================</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="keyword">class</span> GetMan&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function">Human * <span class="title">get_a_man</span><span class="params">(HumanBuilder &amp;builder)</span></span>;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">claim_it</span><span class="params">(Human *man)</span></span>&#123;man -&gt; claim();&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Human * GetMan::get_a_man(HumanBuilder &amp;builder)&#123;</div><div class="line">    builder.build_man();</div><div class="line">    builder.build_head();</div><div class="line">    builder.build_legs();</div><div class="line">    builder.build_arms();</div><div class="line">    builder.teach_language();</div><div class="line">    <span class="keyword">return</span> builder.get_human();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用方法：</p>
+<figure class="highlight c++"><figcaption><span>human_builder.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"human_builder.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    GetMan man;</div><div class="line">    normal_man_speaks_Chinese Chinese;</div><div class="line">    man_with_broken_legs broken_legs;</div><div class="line">    man.claim_it(man.get_a_man(Chinese));</div><div class="line">    man.claim_it(man.get_a_man(broken_legs));</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从中我们可以看到，当我们需要一个不同的产品时，我们只需<strong>构造一条不同的流水线</strong>（特化某个构造过程），之后就可以通过GetMan类得到那个刚刚构造好的Human对象。</p>
+<p>相较于之前的“电话订购方式”，我们通过建造者模式（builder pattern）可以对产品构造过程有更精细的控制。</p>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2013/08/16/song/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          废话（1）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/16/abstract-method/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          设计模式（3）——抽象工厂模式
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-jian-zao-zhe-mo-shi" data-title="设计模式（4）——建造者模式" data-url="http://yoursite.com/2013/08/16/jian-zao-zhe-mo-shi/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

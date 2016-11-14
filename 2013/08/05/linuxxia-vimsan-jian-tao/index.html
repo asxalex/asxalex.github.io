@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>linux下vim三件套 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="linux的用户都会知道世界上的两大编辑器————编辑器之神vim 和 神之编辑器emacs。他们之所以“神”，全在于他们可以大大提高用户的效率。全键盘的操作可以让用户在键盘上舞动全部的十个手指而不需在键盘和鼠标之间来回不停地切换。今天要向大家推荐三个linux下类vim的工具，在这三个工具的帮助下，我们几乎可以在不用鼠标的情况下完成一天的工作及娱乐。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux下vim三件套">
+<meta property="og:url" content="http://yoursite.com/2013/08/05/linuxxia-vimsan-jian-tao/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="linux的用户都会知道世界上的两大编辑器————编辑器之神vim 和 神之编辑器emacs。他们之所以“神”，全在于他们可以大大提高用户的效率。全键盘的操作可以让用户在键盘上舞动全部的十个手指而不需在键盘和鼠标之间来回不停地切换。今天要向大家推荐三个linux下类vim的工具，在这三个工具的帮助下，我们几乎可以在不用鼠标的情况下完成一天的工作及娱乐。">
+<meta property="og:updated_time" content="2016-11-14T09:32:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux下vim三件套">
+<meta name="twitter:description" content="linux的用户都会知道世界上的两大编辑器————编辑器之神vim 和 神之编辑器emacs。他们之所以“神”，全在于他们可以大大提高用户的效率。全键盘的操作可以让用户在键盘上舞动全部的十个手指而不需在键盘和鼠标之间来回不停地切换。今天要向大家推荐三个linux下类vim的工具，在这三个工具的帮助下，我们几乎可以在不用鼠标的情况下完成一天的工作及娱乐。">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-linuxxia-vimsan-jian-tao" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/05/linuxxia-vimsan-jian-tao/" class="article-date">
+  <time datetime="2013-08-05T06:50:00.000Z" itemprop="datePublished">2013-08-05</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      linux下vim三件套
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>linux的用户都会知道世界上的两大编辑器————编辑器之神vim 和 神之编辑器emacs。他们之所以“神”，全在于他们可以大大提高用户的效率。全键盘的操作可以让用户在键盘上舞动全部的十个手指而不需在键盘和鼠标之间来回不停地切换。今天要向大家推荐三个linux下类vim的工具，在这三个工具的帮助下，我们几乎可以在不用鼠标的情况下完成一天的工作及娱乐。<a id="more"></a></p>
+<h2 id="i3"><a href="#i3" class="headerlink" title="i3"></a>i3</h2><p>诶，i3不是处理器的i3、i5、i7吗？它也变成一个工具了？还类vim？我要说此i3非彼i3，这是一个平铺式窗口管理器，简称<a href="http://zh.wikipedia.org/wiki/%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86%E5%99%A8" target="_blank" rel="external">WM</a>（window manager）。这个i3窗口管理器提供了一系列工具，包括i3-msg，i3-bar等，它的默认配置已经十分符合我的口味了，具体配置可参见他们的<a href="http://i3wm.org/docs/userguide.html" target="_blank" rel="external">i3用户指南</a>。我在用的时候只将它默认的上下左右方向键改成了Alt+h、j、k、l。后来又用feh将设置了一下桌面背景，这样几乎就可以应付日常应用了，还有其它需求的用户还可以按照用户手册自定义。为了实现无鼠标式操作，我在它的配置文件里添加了两个命令，分别用于启动gnome-terminal和firefox。这两个窗口几乎就可以满足我日常应用了。</p>
+<h2 id="vimperator"><a href="#vimperator" class="headerlink" title="vimperator"></a>vimperator</h2><p>话说<a href="http://zh.wikipedia.org/wiki/Vimperator" target="_blank" rel="external">vimperator</a>是一个firefox下的一个插件。它的标语是：Make Firefox look and behave like Vim！这个插件的好处是它将firefox浏览器下的许多操作绑定到vim的快捷键上，这让vim用户倍感亲切。常用的h、j、k、l，用于模拟超链接点击的f，用于选定输入框的gi，用于下一页的Ctrl-f，下半页的Ctrl-d，gg，G等等，用了这个插件，浏览网页就像用vim编辑文档一样舒服。</p>
+<h2 id="ranger"><a href="#ranger" class="headerlink" title="ranger"></a>ranger</h2><p>ranger是一个基于文本的文件管理器。相较于其它文件管理器，ranger最大的优点是小巧和可定制性。默认绑定vim移动快捷键自不必说。ranger是用python编写的，我们可以在它原来基础上自己定义命令，绑定自己喜欢的快捷键，可定制性非常高。虽然我用ranger已经好长一段时间了，但还没真正自定义快捷键，平时用的最多的还是h、j、k、l和它的open_with。有定制需求的可以查看<a href="https://wiki.archlinux.org/index.php/Ranger" target="_blank" rel="external">ranger的archwiki</a></p>
+<p>虽然vim有着较陡的学习曲线，但这绝对是一个一劳永逸的“买卖”。有了以上三个“神器”，我们就可以在linux下高效简单地用全键盘完成自己一天的工作，帮助我们尽量缩短坐在电脑前的时间。在享受coding乐趣的同时，还能让我们将多出的时间花在运动上，再也不用抱着一本《颈椎病康复指南》了。特此推荐！</p>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CoolTool/">CoolTool</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2013/08/06/c-plus-plus-rong-qi/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          c++容器
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/03/zhuan-zai-zhi-guan-xue-xi-pai-xu-suan-fa-shi-jue-zhi-guan-gan-shou-ruo-gan-chang-yong-pai-xu-suan-fa/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          [转载][直观学习排序算法] 视觉直观感受若干常用排序算法 
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-linuxxia-vimsan-jian-tao" data-title="linux下vim三件套" data-url="http://yoursite.com/2013/08/05/linuxxia-vimsan-jian-tao/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

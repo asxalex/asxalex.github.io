@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="asxalex's blog">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="asxalex's blog">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+	</div>
+</header>
+
+    <div id="main">
+      
+  
+    <article id="post-jian-zao-zhe-mo-shi" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/16/jian-zao-zhe-mo-shi/" class="article-date">
+  <time datetime="2013-08-16T11:39:00.000Z" itemprop="datePublished">2013-08-16</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/16/jian-zao-zhe-mo-shi/">设计模式（4）——建造者模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>建造者模式（builder）用于将复杂对象的构建与它的表示分离，使得同样的构造过程可以创建不同的表示（《Design Patterns》）。我们可以设想这样一个情况：我们还是要造那个小熊。风水轮流转，这次我们成了这个制造工厂中的“工人”，而不再是那个客户了。</p>
+<p>在造小熊的时候，我们遵从“工序”————首先造头，之后造手和脚，如果这个小熊可以说个“世界，你好”或者“Hello world”的话，我们还有“教它”语言的工序。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/16/jian-zao-zhe-mo-shi/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-abstract-method" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/16/abstract-method/" class="article-date">
+  <time datetime="2013-08-16T06:23:00.000Z" itemprop="datePublished">2013-08-16</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/16/abstract-method/">设计模式（3）——抽象工厂模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>抽象工厂模式（abstract factory）也是一种创建型模式。《Design Patterns》上说：抽象工厂模式的意图为提供一个创建<strong>一系列</strong>相关或相互依赖对象的接口，而无需指定他们具体的类。</p>
+<p>上面那个“一系列”比较重要：还记得工厂方法模式的意图吗，工厂方法模式是创建一个对象的接口。所以这是那个<strong>一系列</strong>是区分他们两个的关键。在简单工厂模式中，我们利用参数来实现一个工厂生产“一系列”产品。在我看来，简单工厂模式与工厂方法模式的结合就<strong>类似于</strong>抽象工厂模式。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/16/abstract-method/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-gong-han-fang-fa-mo-shi-(factory-method)" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/16/gong-han-fang-fa-mo-shi-(factory-method)/" class="article-date">
+  <time datetime="2013-08-16T05:04:00.000Z" itemprop="datePublished">2013-08-16</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/16/gong-han-fang-fa-mo-shi-(factory-method)/">设计模式（2）——工厂方法模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>根据经典的GoF的《Design Patterns》上的定义，工厂方法模式（Factory Method）的意图为：定义一个用于创建对象的接口，让子类决定实例化哪个类。它使一个类的实例化推迟到其子类。</p>
+<p>我们首先用为所生产的产品定义一个抽象的product类，用于提供接口。之后让具体的产品类继承这个product类。然后再定义一个抽象的工厂类。当我们要特别生产某个产品时，就从这个工厂类派生出某个类来生产它。这就相当于在一个有很多车间的工厂中会产生很多产品，而每个车间负责生产一个特定产品。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/16/gong-han-fang-fa-mo-shi-(factory-method)/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-jian-dan-gong-han-mo-shi-(simple-factory)" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/16/jian-dan-gong-han-mo-shi-(simple-factory)/" class="article-date">
+  <time datetime="2013-08-15T16:45:00.000Z" itemprop="datePublished">2013-08-16</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/16/jian-dan-gong-han-mo-shi-(simple-factory)/">设计模式（1）——简单工厂模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>根据这几天对设计模式的学习和理解，总体来说，它主要利用了继承、抽象、封装和多态来实现代码最大程度的复用。</p>
+<p>简单工厂模式（Simple Factory）将所要生产的产品类型放在工厂类中进行判断，使其在一定程度上对用户透明。比如说我们想要制造一个teddy bear和polar bear玩具熊，通过对bear这个概念的抽象，并辅以工厂类factory。在实际“生产”的时候，我们通过向工厂传递一个参数来告诉工厂现在应该生产什么产品。这好比在实际生活中，我们想要某样产品，我们只需向生产该产品的工厂打个电话，告诉他们我们的需求，接下来的事就不关我们的事了————生产过程对我们完全透明。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/16/jian-dan-gong-han-mo-shi-(simple-factory)/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-wo-de-linuxshi-yong-jian-shi" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/15/wo-de-linuxshi-yong-jian-shi/" class="article-date">
+  <time datetime="2013-08-15T13:01:00.000Z" itemprop="datePublished">2013-08-15</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/15/wo-de-linuxshi-yong-jian-shi/">我的linux使用简史</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>说来惭愧，自从接触到linux之后，我就成了重度粉丝。但这么些天过去了，还没建一个linux的category。今天还是看到网上一个同好的博客才想到要给linux建个category。但苦于还没想好该写点什么，就说说我使用linux的简史吧。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/15/wo-de-linuxshi-yong-jian-shi/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-she-ji-mo-shi-xi-lie" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/15/she-ji-mo-shi-xi-lie/" class="article-date">
+  <time datetime="2013-08-15T08:34:00.000Z" itemprop="datePublished">2013-08-15</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/15/she-ji-mo-shi-xi-lie/">设计模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>设计模式基于前人的经验。他们在解决许多问题的基础上，从问题中抽取出一类通用的解题方案，并总结成一些模式，以达到代码复用的目的。</p>
+<p>设计模式由两个词组成————设计和模式。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/15/she-ji-mo-shi-xi-lie/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-umllei-tu-yu-lei-de-guan-xi" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/14/umllei-tu-yu-lei-de-guan-xi/" class="article-date">
+  <time datetime="2013-08-14T12:47:00.000Z" itemprop="datePublished">2013-08-14</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/14/umllei-tu-yu-lei-de-guan-xi/">UML类图与类的关系</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>这几天在学习设计模式《Design patterns》，发现在设计类的时候，类图是一个很好的工具。在画类图的时候，理清类与类之间的关系是重点。类的关系有泛化（Generalization）、依赖（Dependency）和关联（Association）。其中关联又分为一般关联关系，聚合关系（Aggregation）和合成关系（Composition）。下面我们结合实例理解这些关系。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/14/umllei-tu-yu-lei-de-guan-xi/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UML/">UML</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-c-plus-plus-rong-qi" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/06/c-plus-plus-rong-qi/" class="article-date">
+  <time datetime="2013-08-05T17:52:00.000Z" itemprop="datePublished">2013-08-06</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/06/c-plus-plus-rong-qi/">c++容器</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>c++标准库中定义了一些容器，其中包括顺序容器和关联容器。当时学习的时候感觉看得挺明白的，但当真正要写代码的时候，比如在set容器中插入一个元素，只依稀记得有insert方法，但要确切指出各种参数等等细节的时候还是有点迷糊，还得google之。为此，用这篇文章记录一下，以备后用。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/06/c-plus-plus-rong-qi/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/">cpp</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-linuxxia-vimsan-jian-tao" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/05/linuxxia-vimsan-jian-tao/" class="article-date">
+  <time datetime="2013-08-05T06:50:00.000Z" itemprop="datePublished">2013-08-05</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/05/linuxxia-vimsan-jian-tao/">linux下vim三件套</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>linux的用户都会知道世界上的两大编辑器————编辑器之神vim 和 神之编辑器emacs。他们之所以“神”，全在于他们可以大大提高用户的效率。全键盘的操作可以让用户在键盘上舞动全部的十个手指而不需在键盘和鼠标之间来回不停地切换。今天要向大家推荐三个linux下类vim的工具，在这三个工具的帮助下，我们几乎可以在不用鼠标的情况下完成一天的工作及娱乐。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/05/linuxxia-vimsan-jian-tao/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CoolTool/">CoolTool</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-zhuan-zai-zhi-guan-xue-xi-pai-xu-suan-fa-shi-jue-zhi-guan-gan-shou-ruo-gan-chang-yong-pai-xu-suan-fa" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/03/zhuan-zai-zhi-guan-xue-xi-pai-xu-suan-fa-shi-jue-zhi-guan-gan-shou-ruo-gan-chang-yong-pai-xu-suan-fa/" class="article-date">
+  <time datetime="2013-08-03T15:03:00.000Z" itemprop="datePublished">2013-08-03</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/03/zhuan-zai-zhi-guan-xue-xi-pai-xu-suan-fa-shi-jue-zhi-guan-gan-shou-ruo-gan-chang-yong-pai-xu-suan-fa/">[转载][直观学习排序算法] 视觉直观感受若干常用排序算法 </a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<h2 id="1-快速排序"><a href="#1-快速排序" class="headerlink" title="1 快速排序"></a>1 快速排序</h2><p><strong>介绍：</strong></p>
+<p>快速排序是由<a href="http://zh.wikipedia.org/wiki/%E6%9D%B1%E5%B0%BC%C2%B7%E9%9C%8D%E7%88%BE">东尼·霍尔</a>所发展的一种<a href="http://zh.wikipedia.org/wiki/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95">排序算法</a>。在平均状况下，排序 n 个项目要<a href="http://zh.wikipedia.org/wiki/%E5%A4%A7O%E7%AC%A6%E5%8F%B7">Ο</a>(n log n)次比较。在最坏状况下则需要Ο(n^2)次比较，但这种状况并不常见。事实上，快速排序通常明显比其他Ο(n log n) 算法更快，因为它的内部循环（inner loop）可以在大部分的架构上很有效率地被实现出来，且在大部分真实世界的数据，可以决定设计的选择，减少所需时间的二次方项之可能性。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/03/zhuan-zai-zhi-guan-xue-xi-pai-xu-suan-fa-shi-jue-zhi-guan-gan-shou-ruo-gan-chang-yong-pai-xu-suan-fa/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+    </nav>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

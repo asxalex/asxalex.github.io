@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设计模式（13）——代理模式 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="代理模式（proxy）为其它对象提供一种代理以控制这个对象的访问。在我们要访问一个对象的时候，可能暂且并不需要这个对象的某个功能，这时我们就可以为这个对象创建一个代理，在不需要的时候不去对这个对象做操作，而在需要时，利用这个代理来完成我们想要在原对象身上的操作。我们现在来看一个打开大图片的栗子。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式（13）——代理模式">
+<meta property="og:url" content="http://yoursite.com/2013/08/19/proxy/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="代理模式（proxy）为其它对象提供一种代理以控制这个对象的访问。在我们要访问一个对象的时候，可能暂且并不需要这个对象的某个功能，这时我们就可以为这个对象创建一个代理，在不需要的时候不去对这个对象做操作，而在需要时，利用这个代理来完成我们想要在原对象身上的操作。我们现在来看一个打开大图片的栗子。">
+<meta property="og:image" content="http://asxalex.qiniudn.com/proxy.png">
+<meta property="og:updated_time" content="2016-11-14T09:32:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式（13）——代理模式">
+<meta name="twitter:description" content="代理模式（proxy）为其它对象提供一种代理以控制这个对象的访问。在我们要访问一个对象的时候，可能暂且并不需要这个对象的某个功能，这时我们就可以为这个对象创建一个代理，在不需要的时候不去对这个对象做操作，而在需要时，利用这个代理来完成我们想要在原对象身上的操作。我们现在来看一个打开大图片的栗子。">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/proxy.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-proxy" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/19/proxy/" class="article-date">
+  <time datetime="2013-08-19T12:51:00.000Z" itemprop="datePublished">2013-08-19</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      设计模式（13）——代理模式
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>代理模式（proxy）为其它对象提供一种代理以控制这个对象的访问。在我们要访问一个对象的时候，可能暂且并不需要这个对象的某个功能，这时我们就可以为这个对象创建一个代理，在不需要的时候不去对这个对象做操作，而在需要时，利用这个代理来完成我们想要在原对象身上的操作。我们现在来看一个打开大图片的栗子。<a id="more"></a></p>
+<p>我们有个Image类，BigImage派生自Image。有时候我们打开BigImage的时候打开时间比较长。为了提高加载速度，我们在BigImage类上建了个proxy类，通过proxy类来控制BigImage类的访问：我们打开时不需要显示这个图的内容，通过proxy来打开这个BigImage的“句柄”，当我们真正需要显示的时候再显示。下面为proxy模式栗子的类图：</p>
+<img src="http://asxalex.qiniudn.com/proxy.png">
+<p>实现代码：</p>
+<figure class="highlight c++"><figcaption><span>proxy.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"></div><div class="line"><span class="comment">//proxy can be used to postpone an operation, namely "lazy"</span></div><div class="line"></div><div class="line"><span class="keyword">class</span> Image&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        Image(<span class="built_in">std</span>::<span class="built_in">string</span> imgname): name(imgname)&#123;&#125;</div><div class="line">        <span class="keyword">virtual</span> ~Image()&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> name;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> BigImage : <span class="keyword">public</span> Image&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        BigImage(<span class="built_in">std</span>::<span class="built_in">string</span> imgname):Image(imgname)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"showing Very BIG Image "</span> &lt;&lt; name &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">        ~BigImage()&#123;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> proxy :<span class="keyword">public</span> Image&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        proxy(<span class="built_in">std</span>::<span class="built_in">string</span> name):Image(name),big_img(<span class="number">0</span>)&#123;&#125;;</div><div class="line">        ~proxy()&#123;<span class="keyword">delete</span> big_img;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="keyword">if</span>(big_img == <span class="number">0</span>)</div><div class="line">                big_img = <span class="keyword">new</span> BigImage(name);</div><div class="line">            big_img -&gt; show();</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        Image *big_img;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>proxy.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"proxy.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    Image *a = <span class="keyword">new</span> proxy(<span class="string">"big.jpeg"</span>);</div><div class="line">    a -&gt; show();</div><div class="line">    <span class="keyword">delete</span> a;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在proxy的“代理”下，当我们调用proxy的show()的时候才真正“显示”这张BigImage。而在初始化时只是“记录”了那张“大图片”的名字，并未做实际的动作。</p>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2013/08/19/chainofresponsibility/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          设计模式（14）——职责链模式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/19/flyweight/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          设计模式（12）——享元模式
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-proxy" data-title="设计模式（13）——代理模式" data-url="http://yoursite.com/2013/08/19/proxy/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

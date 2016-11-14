@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>UML类图与类的关系 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="这几天在学习设计模式《Design patterns》，发现在设计类的时候，类图是一个很好的工具。在画类图的时候，理清类与类之间的关系是重点。类的关系有泛化（Generalization）、依赖（Dependency）和关联（Association）。其中关联又分为一般关联关系，聚合关系（Aggregation）和合成关系（Composition）。下面我们结合实例理解这些关系。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UML类图与类的关系">
+<meta property="og:url" content="http://yoursite.com/2013/08/14/umllei-tu-yu-lei-de-guan-xi/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="这几天在学习设计模式《Design patterns》，发现在设计类的时候，类图是一个很好的工具。在画类图的时候，理清类与类之间的关系是重点。类的关系有泛化（Generalization）、依赖（Dependency）和关联（Association）。其中关联又分为一般关联关系，聚合关系（Aggregation）和合成关系（Composition）。下面我们结合实例理解这些关系。">
+<meta property="og:image" content="http://asxalex.qiniudn.com/class.png">
+<meta property="og:image" content="http://asxalex.qiniudn.com/generalization.png">
+<meta property="og:image" content="http://asxalex.qiniudn.com/dependency.png">
+<meta property="og:image" content="http://asxalex.qiniudn.com/association.png">
+<meta property="og:image" content="http://asxalex.qiniudn.com/aggregation.png">
+<meta property="og:image" content="http://asxalex.qiniudn.com/composition.png">
+<meta property="og:updated_time" content="2016-11-14T09:38:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UML类图与类的关系">
+<meta name="twitter:description" content="这几天在学习设计模式《Design patterns》，发现在设计类的时候，类图是一个很好的工具。在画类图的时候，理清类与类之间的关系是重点。类的关系有泛化（Generalization）、依赖（Dependency）和关联（Association）。其中关联又分为一般关联关系，聚合关系（Aggregation）和合成关系（Composition）。下面我们结合实例理解这些关系。">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/class.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-umllei-tu-yu-lei-de-guan-xi" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/14/umllei-tu-yu-lei-de-guan-xi/" class="article-date">
+  <time datetime="2013-08-14T12:47:00.000Z" itemprop="datePublished">2013-08-14</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      UML类图与类的关系
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>这几天在学习设计模式《Design patterns》，发现在设计类的时候，类图是一个很好的工具。在画类图的时候，理清类与类之间的关系是重点。类的关系有泛化（Generalization）、依赖（Dependency）和关联（Association）。其中关联又分为一般关联关系，聚合关系（Aggregation）和合成关系（Composition）。下面我们结合实例理解这些关系。<a id="more"></a></p>
+<h2 id="类图（Class-Diagram）"><a href="#类图（Class-Diagram）" class="headerlink" title="类图（Class Diagram）"></a>类图（Class Diagram）</h2><p>类图（Class Diagram）是面向对象系统建模中最常用和最重要的图，是定义其它图的基础。类图主要是用来显示系统中的类、接口以及它们之间的静态结构和关系的一种静态模型。 </p>
+<p>类的三个基本组件：类名、属性和方法。</p>
+<img src="http://asxalex.qiniudn.com/class.png">
+<p>其中，若类名为正体字，则表明类是<strong>可被实例化</strong>的，若为斜体字，则表明为<strong>抽象类</strong>。方法及属性前的减号（-）代表private，加号（+）代表public，#（sharp）代表protected。如果属性或方法下面有下划线，则表明为静态的。</p>
+<h2 id="泛化（generalization）"><a href="#泛化（generalization）" class="headerlink" title="泛化（generalization）"></a>泛化（generalization）</h2><p>泛化(generalization)表示is-a的关系，是对象之间耦合度最大的一种关系，子类继承父类的所有细节。直接使用语言中的继承表达。在类图中使用带三角箭头的实线表示，箭头从子类指向父类。</p>
+<img src="http://asxalex.qiniudn.com/generalization.png">
+<h2 id="依赖（Dependency）"><a href="#依赖（Dependency）" class="headerlink" title="依赖（Dependency）"></a>依赖（Dependency）</h2><p>依赖(Dependency)是对象之间最弱的一种关联方式，表示use-a的关系，是临时性的关联。代码中一般指由局部变量、函数参数、返回值建立的对于其他对象的调用关系。一个类调用被依赖类中的某些方法而得以完成这个类的一些职责。在类图使用带箭头的虚线表示，箭头从使用类指向被依赖的类。若类A依赖于类B，则类B体现为局部变量、方法的参数、返回值或静态方法的调用</p>
+<img src="http://asxalex.qiniudn.com/dependency.png">
+<h2 id="关联（Association）"><a href="#关联（Association）" class="headerlink" title="关联（Association）"></a>关联（Association）</h2><p>关联(Association)是对象之间一种引用关系，比如客户类与订单类之间的关系。这种关系通常使用类的属性表达。关联又分为一般关联、聚合关联与组合关联。后两种在后面分析。在类图使用带箭头的实线表示，箭头从使用类指向被关联的类。可以是单向和双向。若类A关联于类B，则类B体现为类A的全局变量。</p>
+<img src="http://asxalex.qiniudn.com/association.png">
+<h2 id="聚合（Aggregation）"><a href="#聚合（Aggregation）" class="headerlink" title="聚合（Aggregation）"></a>聚合（Aggregation）</h2><p>聚合(Aggregation)表示has-a的关系，是一种不稳定的包含关系。较强于一般关联,有整体与局部的关系,并且没有了整体,局部也可单独存在。如公司和员工的关系，公司包含员工，但如果公司倒闭，员工依然可以换公司。在类图使用空心的菱形表示，菱形从局部指向整体。若类A由类B聚合而成，则表现为类A包含类B的全局对象，而类B对象可以不在类A创建时刻创建。</p>
+<img src="http://asxalex.qiniudn.com/aggregation.png">
+<h2 id="组合（Composition）"><a href="#组合（Composition）" class="headerlink" title="组合（Composition）"></a>组合（Composition）</h2><p>组合(Composition)表示contains-a的关系，是一种强烈的包含关系。组合类负责被组合类的生命周期。是一种更强的聚合关系。部分不能脱离整体存在。体现为严格的<strong>整体——部分</strong>关系，生命周期一致。若类A由类B组成，则类A包含类B的全局对象，并且B在A创建时刻创建。如公司和部门的关系，没有了公司，部门也不能存在了；调查问卷中问题和选项的关系；订单和订单选项的关系。在类图使用实心的菱形表示，菱形从局部指向整体。</p>
+<img src="http://asxalex.qiniudn.com/composition.png">
+<p>在掌握这些uml类图的基本知识之后，我们就可以在以后的面向对象设计中有章可循，在画出类图之后，就可以十分顺手地编码了。</p>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UML/">UML</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2013/08/15/she-ji-mo-shi-xi-lie/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          设计模式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/06/c-plus-plus-rong-qi/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          c++容器
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-umllei-tu-yu-lei-de-guan-xi" data-title="UML类图与类的关系" data-url="http://yoursite.com/2013/08/14/umllei-tu-yu-lei-de-guan-xi/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
