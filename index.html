@@ -48,11 +48,11 @@
     <div id="main">
       
   
-    <article id="post-test" class="post">
+    <article id="post-c-plus-plus-dui-xiang-nei-cun-bu-ju" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
-			<a href="/2016/11/08/test/" class="article-date">
-  <time datetime="2016-11-08T01:56:43.000Z" itemprop="datePublished">2016-11-08</time>
+			<a href="/2013/09/19/c-plus-plus-dui-xiang-nei-cun-bu-ju/" class="article-date">
+  <time datetime="2013-09-19T04:44:00.000Z" itemprop="datePublished">2013-09-19</time>
 </a>
 		</span>
 		<span class="meta-elements author">asxalex</span>
@@ -65,19 +65,17 @@
 		
   
     <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2016/11/08/test/">test</a>
+      <a class="article-title" href="/2013/09/19/c-plus-plus-dui-xiang-nei-cun-bu-ju/">C++对象在内存中的布局</a>
     </h1>
   
 
 	</header>
 	<div class="entry-content">
 		
-			<p>This is a test</p>
-<p>this is line 2</p>
-<p>thie is line 3</p>
+			<p>最近在看c++对象模型，要理解c++对象模型，必须得了解c++对象在计算机内存中的布局情况。虚函数是c++中多态的基础，而多态是通过虚函数表来实现的。在每个拥有虚函数的对象中，都有一个vptr指向这个对象的虚函数表vtable。下面，我们就单继承与多继承两种情况来对c++对象在内存中的布局进行实验，用直观的方式来“打印”类对象在内存中的位置。需要说明的是：类对象在内存中的布局与操作系统以及编译器都有关系，所以在不同编译环境下打印结果可能不同。这个实验旨在让我更清晰地了解类对象在内存中的布局。</p>
 			
 				<p class="article-more-link">
-					<a href="/2016/11/08/test/#more">Read More</a>
+					<a href="/2013/09/19/c-plus-plus-dui-xiang-nei-cun-bu-ju/#more">Read More</a>
 				</p>
       
     
@@ -89,7 +87,7 @@
 			</span>
 			<span class="tags">
 				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/test1/">test1</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/">cpp</a></li></ul>
 
 			</span>
 		</div>
@@ -106,6 +104,523 @@
 
 
   
+    <article id="post-raiiyu-zi-yuan-guan-li" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/09/11/raiiyu-zi-yuan-guan-li/" class="article-date">
+  <time datetime="2013-09-11T12:50:00.000Z" itemprop="datePublished">2013-09-11</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/09/11/raiiyu-zi-yuan-guan-li/">RAII与资源管理</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>RAII（Resource Acquirsition Is Initialization），资源获得即初始化，是一种管理资源的极好的方法。这个术语的意思：在对象的初始化中包含它所要管理的资源的获取操作，而在该对象被析构时，被管理资源的释放动作会被执行（RRID，Resource Release Is Destruction）。</p>
+<p>这里的资源是一个广义的概念：它可以是动态分配的堆空间，或是一个文件的句柄，抑或是一个经过抽象的打印机……这些资源的一个共同点是：当我们不再需要这个资源时，得对它进行释放操作。一旦客户忘记释放操作（我们可能会在不知不觉中忘记这个操作，比如说，在if语句中，我们调用了delete将动态分配的空间进行了释放，但在else中忘了释放……）将会导致资源泄漏，这对于一个运行几百毫秒的程序可能没什么大的影响，但对于一个要常年运行的服务器来说却是不可忍受的，一个小小的有资源泄漏的代码块执行成千上万次，所泄漏的资源就不能忽略不计了。
+			
+				<p class="article-more-link">
+					<a href="/2013/09/11/raiiyu-zi-yuan-guan-li/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/">cpp</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-jiao-cha-bian-yi-vim7-dot-4" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/09/08/jiao-cha-bian-yi-vim7-dot-4/" class="article-date">
+  <time datetime="2013-09-08T10:09:00.000Z" itemprop="datePublished">2013-09-08</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/09/08/jiao-cha-bian-yi-vim7-dot-4/">交叉编译vim7.4</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>vim，作为编辑器之神，相信每一个接触过linux的人都很熟悉（至少听说过）。大概一个月前，vim发布了最新版vim7.4。作为vim的忠实用户，当然要下载下来体验一下喽。正好这几天正在玩RPi，所以，趁着这个机会，顺便学习一下交叉编译软件，以下是我在ubuntu12.04下交叉编译vim7.4的过程。</p>
+<p>准备工作：安装之前的准备工作没什么好说的，至少要得到源代码吧？在下载完vim7.4之后（随便google一下就能搜到下载源代码的方法），由于vim还依赖libncurses.so这个动态链接库，所以也要下载ncurses-5.9.tar.gz（ftp下载：ftp.keystealth.org , 在pub/gnu/ncurses目录下）。
+			
+				<p class="article-more-link">
+					<a href="/2013/09/08/jiao-cha-bian-yi-vim7-dot-4/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fun/">Fun</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-rpijian-kong" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/09/05/rpijian-kong/" class="article-date">
+  <time datetime="2013-09-05T15:33:00.000Z" itemprop="datePublished">2013-09-05</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/09/05/rpijian-kong/">RPi图片抓拍</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>用这个名字是因为我也不知道该怎么叫它。说白了，就是利用一个RPi，以一定频率拍个照，然后上传到七牛云存储空间，利用它的外链功能来使这个博客里引用的图片<strong>假实时</strong>刷新，就是这样，喵～</p>
+<p>原理上很简单，但真正实际做时还是碰到了一些困难。</p>
+<p>RPi有个ethernet接口，但校园网下想要用起来还是有点困难（虽然不是不可能）。于是索性搞了个无线网卡（<a href="http://asxalex.tk/blog/2013/08/26/raspberrypi/">看这里</a>）,并ssh到RPi上，所以也没那么多线，就插了个usb无线网卡和一个usb摄像头，看起来清爽多了:-)
+			
+				<p class="article-more-link">
+					<a href="/2013/09/05/rpijian-kong/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fun/">Fun</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-crontab" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/09/03/crontab/" class="article-date">
+  <time datetime="2013-09-03T05:15:00.000Z" itemprop="datePublished">2013-09-03</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/09/03/crontab/">crontab</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>在linux下面有许许多多有用的工具，能够极大解放生产力。crontab就是其中的一个工具软件。</p>
+<p>crontab用于在一定的时间间隔调度一些命令的执行（以一定的频率执行用户事先确定好的命令，脚本等）。系统有一个/etc/crontab文件，里面存放了系统的调度程序。除此之外，每个用户都可以建立自己的crontab。这些用户自己的crontab文件在/var/spool/cron/username目录下。比如我的文件夹就是/var/spool/cron/alex。</p>
+<p>crontab命令的用法简单而功能强大：用户只要编辑一个文本文档，就可以让crontab在规定的时间间隔里执行相应的命令。编辑这个文件的格式如下图所示：</p>
+<img src="http://asxalex.qiniudn.com/crontab.png">
+			
+				<p class="article-more-link">
+					<a href="/2013/09/03/crontab/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CoolTool/">CoolTool</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-tmux" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/31/tmux/" class="article-date">
+  <time datetime="2013-08-31T12:12:00.000Z" itemprop="datePublished">2013-08-31</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/31/tmux/">使用tmux</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>tmux是一个终端复用软件。最早接触这个软件是在大概一年之前吧。那时候用的还是ubuntu 10.04 gnome桌面，用gnome桌面最大的缺点就是：在桌面上开了多个终端之后，终端之间的切换比较麻烦。那时候我通过google结识了终端复用软件——tmux。网络上说tmux是一款比screen还好用的终端复用软件（具体screen怎样，我也没用过，也不好下论断。）对于tmux，它的最大优点之一为：即使不正常断线，它还是可以保证当前任务运行完成。先前我也没有大量要使用ssh、telnet等远程服务，所以也体会不到它这个优点。但是，在我那会使用tmux时感觉确实挺好用——虽然没有进行大量的自己配置，但搭配快捷键后比在gnome下Ctrl-Tab键高效了许多。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/31/tmux/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CoolTool/">CoolTool</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-traits" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/29/traits/" class="article-date">
+  <time datetime="2013-08-29T14:50:00.000Z" itemprop="datePublished">2013-08-29</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/29/traits/">traits</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>traits是特点的意思。在c++中，traits class用于表现<strong>类型</strong>信息。容器类型利用模板可以包容不同类型的数据，如 std::vector\<int\> 就包含了int类型的数据，而 std::deque\<string\> 则包含了string类型的数据。c++利用traits技术来获得对象的类型信息。在我们获取不同对象的类型信息之后，就可以根据对象类型的不同而采取不同的操作。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/29/traits/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/">cpp</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-polymorphism" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/27/polymorphism/" class="article-date">
+  <time datetime="2013-08-27T11:27:00.000Z" itemprop="datePublished">2013-08-27</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/27/polymorphism/">继承与多态浅析</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>面向对象程序设计中两个重要的概念是继承性与多态性。通俗地讲，继承性是指派生类从基类中获得基类的成员变量及成员函数；而多态性是指在运行时根据对象实际类型确定实际调用的操作，实现“一个接口，多种实现”。在c++中，多态性是通过virtual函数实现的。在子类中通过重写父类中的virtual函数完成，而c++亦允许在子类中对父类的非virtual函数进行重写，一下就来剖析一下这两者的不同。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/27/polymorphism/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/">cpp</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-raspberrypi" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/26/raspberrypi/" class="article-date">
+  <time datetime="2013-08-26T15:44:00.000Z" itemprop="datePublished">2013-08-26</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/26/raspberrypi/">Raspberry pi配置使用无线网卡</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>前天刚到校，翻出了闲置很久的Rpi。那时候在买之前，我就下决心要好好利用它，但要将它连上校园网却不是很简单。没有网络的系统就像一潭死水一样毫无生机。就算你事先将许多软件安装好，在你开发时也常常会遇到某些工具软件没安装的情况，这会让人十分苦恼。而且手工安装缺失的软件实在不是一种明智的选择————linux下的包依赖关系几乎是无法手工管理的。</p>
+<p>为了连上网络，我以前也尝试过使用linux客户端进行少量的修改来认证，但毕竟架构不同，尝试了许多最终还是以失败告终。遂将其闲置了几个月。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/26/raspberrypi/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fun/">Fun</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+    <article id="post-qing-xing-si-kao-de-yi-zhu" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/24/qing-xing-si-kao-de-yi-zhu/" class="article-date">
+  <time datetime="2013-08-24T14:02:00.000Z" itemprop="datePublished">2013-08-24</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/24/qing-xing-si-kao-de-yi-zhu/">《清醒思考的艺术》读后感</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>《清醒思考的艺术》是一本比较薄的书，我是完全利用零碎时间把它读完的。我读书喜欢先看目录，从中挑选自己感兴趣的内容先看看，若是感觉讲得好，讲得在理，就继续从头开始读。这是一本我愿意从头读到尾的书。</p>
+<p>我们的生活中充满了选择，我们几乎每天都要面对选择：要去A超市还是B超市，要继续干某件事还是就此放弃，要……而在这些选择背后决定我们选择的是我们的思维。但是，正如书中所说（大致意思）：我们的思维并不能像手脚一样毫无错误，而会经常犯错误。如果我们能理性分析一下我们的行为以及行为背后的思维，我们就会发现在我们生活中，甚至是我们习以为常的决定，都会存在相当的不合理性。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/24/qing-xing-si-kao-de-yi-zhu/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
     </div>

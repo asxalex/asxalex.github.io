@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设计模式（7）——适配器模式 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="适配器模式（adaptor）用于将一个类的接口转换成客户所希望的另外一个接口。Adaptor模式使得原本由于接口不兼容而不能一起工作的类可以一起工作（《Design Patterns》）
+其实，C++标准已经提供了三种容器适配器，分别是stack、queue和priority_queue。在这里我们实现两个适配器————MyQueue和MyStack。Queue是FIFO的数据结构，而stack是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式（7）——适配器模式">
+<meta property="og:url" content="http://yoursite.com/2013/08/18/adaptor/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="适配器模式（adaptor）用于将一个类的接口转换成客户所希望的另外一个接口。Adaptor模式使得原本由于接口不兼容而不能一起工作的类可以一起工作（《Design Patterns》）
+其实，C++标准已经提供了三种容器适配器，分别是stack、queue和priority_queue。在这里我们实现两个适配器————MyQueue和MyStack。Queue是FIFO的数据结构，而stack是">
+<meta property="og:image" content="http://asxalex.qiniudn.com/adaptor.png">
+<meta property="og:updated_time" content="2016-11-14T09:32:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式（7）——适配器模式">
+<meta name="twitter:description" content="适配器模式（adaptor）用于将一个类的接口转换成客户所希望的另外一个接口。Adaptor模式使得原本由于接口不兼容而不能一起工作的类可以一起工作（《Design Patterns》）
+其实，C++标准已经提供了三种容器适配器，分别是stack、queue和priority_queue。在这里我们实现两个适配器————MyQueue和MyStack。Queue是FIFO的数据结构，而stack是">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/adaptor.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-adaptor" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/18/adaptor/" class="article-date">
+  <time datetime="2013-08-18T06:33:00.000Z" itemprop="datePublished">2013-08-18</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      设计模式（7）——适配器模式
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>适配器模式（adaptor）用于将一个类的接口转换成客户所希望的另外一个接口。Adaptor模式使得原本由于接口不兼容而不能一起工作的类可以一起工作（《Design Patterns》）</p>
+<p>其实，C++标准已经提供了三种容器适配器，分别是stack、queue和priority_queue。在这里我们实现两个适配器————MyQueue和MyStack。Queue是FIFO的数据结构，而stack是FILO类型数据结构。在这两个适配器中，我们利用标准容器中的deque（双端队列）来保存适配器的元素。<a id="more"></a>利用适配器类（adaptor）实现了两种适配器的最基本接口————push和pop。其类图如下：</p>
+<img src="http://asxalex.qiniudn.com/adaptor.png">
+<p>根据类图，利用C++提供的模板，写出如下代码：</p>
+<figure class="highlight c++"><figcaption><span>adaptor.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;deque&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line"><span class="keyword">class</span> adaptor&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(T value)</span> </span>= <span class="number">0</span>;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> T <span class="title">pop</span><span class="params">()</span> </span>= <span class="number">0</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T1&gt;</div><div class="line"><span class="keyword">class</span> MyStack : <span class="keyword">public</span> adaptor&lt;T1&gt;&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(T1 value)</span></span>&#123;</div><div class="line">            seq.push_front(value);</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> T1 <span class="title">pop</span><span class="params">()</span></span>&#123;</div><div class="line">            T1 val = seq.front();</div><div class="line">            seq.pop_front();</div><div class="line">            <span class="keyword">return</span> val;</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">deque</span>&lt;T1&gt; seq;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T2&gt;</div><div class="line"><span class="keyword">class</span> MyQueue : <span class="keyword">public</span> adaptor&lt;T2&gt;&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(T2 value)</span></span>&#123;</div><div class="line">            seq.push_back(value);</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> T2 <span class="title">pop</span><span class="params">()</span></span>&#123;</div><div class="line">            T2 val = seq.front();</div><div class="line">            seq.pop_front();</div><div class="line">            <span class="keyword">return</span> val;</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">deque</span>&lt;T2&gt; seq;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>使用方法为：</p>
+<figure class="highlight c++"><figcaption><span>adaptor.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"adaptor.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    MyStack&lt;<span class="keyword">int</span>&gt; mystack;</div><div class="line">    mystack.push(<span class="number">12</span>);</div><div class="line">    mystack.push(<span class="number">13</span>);</div><div class="line">    mystack.push(<span class="number">14</span>);</div><div class="line">    mystack.push(<span class="number">15</span>);</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; mystack.pop() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; mystack.pop() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; mystack.pop() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; mystack.pop() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>adaptor类还应该再加个empty()函数来判断空，这样就能用循环结构来对我们的适配器进行遍历操作了。</p>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2013/08/18/brideg/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          设计模式（8）——桥接模式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/17/you-qu-de-jing-li/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          一次有趣的经历
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-adaptor" data-title="设计模式（7）——适配器模式" data-url="http://yoursite.com/2013/08/18/adaptor/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

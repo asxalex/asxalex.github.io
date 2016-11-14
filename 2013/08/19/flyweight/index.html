@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设计模式（12）——享元模式 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="享元模式（Flyweight）可以有效运用共享技术支持大量细粒度的对象。这里我们考察一个document。在一个document中可以有许多许多的字。在表示的时候，我们可以将每个字表示为一个对象——当一个文本中被插入一个字，我们就新建一个对象，将这个对象插入到文本中。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式（12）——享元模式">
+<meta property="og:url" content="http://yoursite.com/2013/08/19/flyweight/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="享元模式（Flyweight）可以有效运用共享技术支持大量细粒度的对象。这里我们考察一个document。在一个document中可以有许多许多的字。在表示的时候，我们可以将每个字表示为一个对象——当一个文本中被插入一个字，我们就新建一个对象，将这个对象插入到文本中。">
+<meta property="og:image" content="http://asxalex.qiniudn.com/flyweight1.png">
+<meta property="og:image" content="http://asxalex.qiniudn.com/flyweight2.png">
+<meta property="og:updated_time" content="2016-11-14T09:32:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式（12）——享元模式">
+<meta name="twitter:description" content="享元模式（Flyweight）可以有效运用共享技术支持大量细粒度的对象。这里我们考察一个document。在一个document中可以有许多许多的字。在表示的时候，我们可以将每个字表示为一个对象——当一个文本中被插入一个字，我们就新建一个对象，将这个对象插入到文本中。">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/flyweight1.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-flyweight" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/19/flyweight/" class="article-date">
+  <time datetime="2013-08-19T07:05:00.000Z" itemprop="datePublished">2013-08-19</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      设计模式（12）——享元模式
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>享元模式（Flyweight）可以有效运用共享技术支持大量细粒度的对象。这里我们考察一个document。在一个document中可以有许多许多的字。在表示的时候，我们可以将每个字表示为一个对象——当一个文本中被插入一个字，我们就新建一个对象，将这个对象插入到文本中。<a id="more"></a>这种实现方法如下：</p>
+<img src="http://asxalex.qiniudn.com/flyweight1.png">
+<p>代码如下：</p>
+<figure class="highlight c++"><figcaption><span>flyweight1.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">enum</span> FONT&#123;FontA, FontB, FontC&#125;;</div><div class="line"><span class="keyword">enum</span> COLOR&#123;Green, Red, Blue&#125;;</div><div class="line"><span class="keyword">enum</span> CHARS&#123;A1,A2&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> Characters&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        Characters(<span class="keyword">char</span> a,FONT b,COLOR c):ch(a), font(b), color(c)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">        <span class="keyword">char</span> ch;</div><div class="line">        FONT font;</div><div class="line">        COLOR color;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line"><span class="keyword">class</span> char_A1 : <span class="keyword">public</span> Characters&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        char_A1():Characters(<span class="string">'a'</span>,FontA,Red)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Red char a with FontA"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> char_A2 : <span class="keyword">public</span> Characters&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        char_A2():Characters(<span class="string">'a'</span>,FontA,Green)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Green char a with FontA"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> document&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        document()&#123;&#125;</div><div class="line">        ~document()&#123;clear();&#125;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Characters*&gt;::iterator chit = content.begin();</div><div class="line">            <span class="keyword">while</span>(chit != content.end())&#123;</div><div class="line">                (*chit) -&gt; show();</div><div class="line">                ++chit;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(CHARS ch)</span></span>&#123;</div><div class="line">            Characters *temp;</div><div class="line">            <span class="keyword">switch</span>(ch)&#123;</div><div class="line">                <span class="keyword">case</span> A1:</div><div class="line">                    temp = <span class="keyword">new</span> char_A1;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> A2:</div><div class="line">                    temp = <span class="keyword">new</span> char_A2;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">default</span>:</div><div class="line">                    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"error!!!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                    <span class="comment">//error!!</span></div><div class="line">            &#125;</div><div class="line">            content.push_back(temp);</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Characters*&gt;::iterator it = content.begin();</div><div class="line">            <span class="keyword">while</span>(it != content.end())&#123;</div><div class="line">                <span class="keyword">delete</span> *it;</div><div class="line">                it++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Characters*&gt; content;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>flyweight1.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"flyweight1.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="function">document <span class="title">doc</span><span class="params">(<span class="keyword">new</span> char_A1, <span class="keyword">new</span> char_A2)</span></span>;</div><div class="line">    doc.add(A1);</div><div class="line">    doc.add(A2);</div><div class="line">    doc.add(A1);</div><div class="line">    doc.print();</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种方法实现的瓶颈在于：如果一个文本文件包含文字过多，这个应用就会创建过多的实例对象。空间消耗过大。如果我们注意到在一个文本对象中，每个字都有它内部属性，就可以在它的内部属性上作文章————我们可以让一个文本中的所有相同的文字共享一份内部属性。</p>
+<p>比如说，有个字符A，它的颜色为蓝色，大小为5pt，我们就可以在所有用到这个特定字符（the very character）的时候共用它的颜色、字号等内部属性，他们的不同仅仅在于他们出现的位置这个外部属性上。看下面的类图与代码：</p>
+<img src="http://asxalex.qiniudn.com/flyweight2.png">
+<figure class="highlight c++"><figcaption><span>flyweight2.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">enum</span> FONT&#123;FontA, FontB, FontC&#125;;</div><div class="line"><span class="keyword">enum</span> COLOR&#123;Green, Red, Blue&#125;;</div><div class="line"><span class="keyword">enum</span> CHARS&#123;A1,A2&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> Characters&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        Characters(<span class="keyword">char</span> a,FONT b,COLOR c):ch(a), font(b), color(c)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">        <span class="keyword">char</span> ch;</div><div class="line">        FONT font;</div><div class="line">        COLOR color;</div><div class="line">&#125;;</div><div class="line"> </div><div class="line"><span class="keyword">class</span> char_A1 : <span class="keyword">public</span> Characters&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        char_A1():Characters(<span class="string">'a'</span>,FontA,Red)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Red char a with FontA"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> char_A2 : <span class="keyword">public</span> Characters&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        char_A2():Characters(<span class="string">'a'</span>,FontA,Green)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Green char a with FontA"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> document&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        document(Characters *ka1, Characters *ka2):a1(ka1),a2(ka2)&#123;&#125;</div><div class="line">        ~document()&#123;&#125;<span class="comment">//clear();&#125;</span></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator chit = content.begin();</div><div class="line">            <span class="keyword">while</span>(chit != content.end())&#123;</div><div class="line">                <span class="keyword">switch</span>(*chit)&#123;</div><div class="line">                    <span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">                        a1 -&gt; show();</div><div class="line">                        <span class="keyword">break</span>;</div><div class="line">                    <span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">                        a2 -&gt; show();</div><div class="line">                        <span class="keyword">break</span>;</div><div class="line">                    <span class="keyword">default</span>:</div><div class="line">                        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"error"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">                        <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">                ++chit;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(CHARS ch)</span></span>&#123;</div><div class="line">            <span class="keyword">int</span> i;</div><div class="line">            <span class="keyword">switch</span>(ch)&#123;</div><div class="line">                <span class="keyword">case</span> A1:</div><div class="line">                    temp = <span class="number">1</span>;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">case</span> A2:</div><div class="line">                    temp = <span class="number">2</span>;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">default</span>:</div><div class="line">                    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"error!!!"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                    <span class="comment">//error!!</span></div><div class="line">            &#125;</div><div class="line">            content.push_back(temp);</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;Characters*&gt;::iterator it = content.begin();</div><div class="line">            <span class="keyword">while</span>(it != content.end())&#123;</div><div class="line">                <span class="keyword">delete</span> *it;</div><div class="line">                it++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; content;</div><div class="line">        Characters *a1;</div><div class="line">        Characters *a2;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>flyweight2.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"flyweight1.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    document doc;</div><div class="line">    doc.add(A1);</div><div class="line">    doc.add(A2);</div><div class="line">    doc.add(A1);</div><div class="line">    doc.print();</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里，我们示意性地只用了两种不同的字符，所有同样的字符均共用内部属性，而外部属性就在vector中的插入位置来确定，在插入时，我们将不同字符排在不同的位置上，在插入到document中时，我们只要插入一个整数值————指定那个字符————就可以了。这样在有成千上万字符而字体种类不多的情况下可以节省可观的资源。</p>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2013/08/19/proxy/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          设计模式（13）——代理模式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/19/facade/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          设计模式（11）——外观模式
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-flyweight" data-title="设计模式（12）——享元模式" data-url="http://yoursite.com/2013/08/19/flyweight/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

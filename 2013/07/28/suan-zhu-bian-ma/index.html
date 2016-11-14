@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>算术编码 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="今天在图书馆看书的时候，同学跟我讲了一个图像压缩算法——算术编码。刚开始也没怎么注意，直到他给我讲了编码原理，我才理会到这个编码算法的思想。
+从原理上来说，这个编码算法一点也不复杂">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算术编码">
+<meta property="og:url" content="http://yoursite.com/2013/07/28/suan-zhu-bian-ma/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="今天在图书馆看书的时候，同学跟我讲了一个图像压缩算法——算术编码。刚开始也没怎么注意，直到他给我讲了编码原理，我才理会到这个编码算法的思想。
+从原理上来说，这个编码算法一点也不复杂">
+<meta property="og:updated_time" content="2016-11-14T09:32:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算术编码">
+<meta name="twitter:description" content="今天在图书馆看书的时候，同学跟我讲了一个图像压缩算法——算术编码。刚开始也没怎么注意，直到他给我讲了编码原理，我才理会到这个编码算法的思想。
+从原理上来说，这个编码算法一点也不复杂">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-suan-zhu-bian-ma" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/07/28/suan-zhu-bian-ma/" class="article-date">
+  <time datetime="2013-07-27T16:26:00.000Z" itemprop="datePublished">2013-07-28</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      算术编码
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>今天在图书馆看书的时候，同学跟我讲了一个图像压缩算法——算术编码。刚开始也没怎么注意，直到他给我讲了编码原理，我才理会到这个编码算法的思想。</p>
+<p>从原理上来说，这个编码算法一点也不复杂<a id="more"></a>，用计算机语言实现也不是很困难，但我刚理解它的时候就惊叹于这个思想。整个思想是总的来说就是通过对0到1区间的不断细分直至结束，然后在所属区间中任意取一个数当作生成的编码。下面我就说说我实现的编码实现原理。</p>
+<p>首先，我们从头到尾扫描一遍需要压缩的文件，提取出里面的符号信息，统计出其中每个符号出现的频率等信息，接着通过每个符号所占的比例对每个符号进行编码，为了具体，我们就假设所需要压缩的文件内容为aabbc。在第一遍扫描下来之后，我们可以得到 a 的频率P 为<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">P(a) = <span class="number">2</span>/<span class="number">5</span>;</div><div class="line">P(b) = <span class="number">2</span>/<span class="number">5</span>;</div><div class="line">P(c) = <span class="number">1</span>/<span class="number">5</span>;</div></pre></td></tr></table></figure></p>
+<p>于是，我们将区间 [0.0 - 1.0] 平均划分成五个区间，其中a 和 b 各占两份，c占一份，并且将其按顺序进行排列。由此，我们可以得到 a、b、c 各自的区间分别为 [0.0 -0.4] 、[0.4 - 0.8] 和 [0.8 - 1.0] 。</p>
+<p>之后，我们就可以再次对该所需压缩文件进行扫描。这次扫描的主要目的是产生压缩后的文件——一个介于0到1的小数！具体产生方法如下：还是以上面的文件为例，我们首先设置两个变量——high 和 low，分别用于指示当前区间的上下界，当扫描到 a 时，由于a的区间为 [0.0 - 0.4]，我们将上下界重新赋值：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//*high与*low分别为上下界，在函数中用指针传递，fr为存放各个符号上下界信息的数组</span></div><div class="line">temp_high = *low + (*high - *low) * fr[i].high;</div><div class="line">*low = *low + (*high - *low) * fr[i].low;</div><div class="line">*high = temp_high;</div></pre></td></tr></table></figure></p>
+<p>通过以上公式，当扫描到b时，我们就对区间[0.0 - 0.2]按比例划分，并利用公式重新算出上下界，以此类推，我们就可以通过for循环对文件中的字符进行编码，最终我们会得到一个上下界——high与low，当循环完毕时，我们就可以用high与low的平均值当作编码结果。没错，这个编码结果就是一个小数（当然，还得有一个字符与上下界的对照表）！</p>
+<p>而在解码时，我们根据原文件中字符的个数、那个小数的值以及那个生成的字符对照表，就可以利用编码时类似的公式从区间里寻找对应的字符，从而对编码后的文件进行解码。</p>
+<p>开头就说过，这个算法原理比较简单，实现也不麻烦，但它的思想值得借鉴。它有一些逐步细分的意味，通过一级一级把区间缩小，有一种递归的美感（可能是函数式编程的尾递归看多了，:-)）。不仅如此，这个算法到后来压缩出来的结果是一个数！而不是通常的字符串。这着实让我感到很意外。甚至有点惊叹。</p>
+<p>当然，这个算法也不尽善尽美，由于计算机可表示的浮点数精度有限，当以这个算法进行压缩时，原文件不宜太大。对于这个缺陷，还有一些自适应算术编码等扩展的算法，有兴趣的可以查wiki 百科<a href="http://en.wikipedia.org/wiki/Arithmetic_coding" target="_blank" rel="external">Arithmetic Coding</a></p>
+
+    
+	</div>
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Problems/">Problems</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+	
+    
+<nav id="article-nav">
+  
+    <a href="/2013/07/28/hua-shan-xing/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          华山行
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/07/27/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">
+        
+          \r\n与\n
+        
+      </div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-suan-zhu-bian-ma" data-title="算术编码" data-url="http://yoursite.com/2013/07/28/suan-zhu-bian-ma/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:yoursite.com">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
