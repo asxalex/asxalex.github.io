@@ -7,7 +7,7 @@ tags: Fun
 
 原理上很简单，但真正实际做时还是碰到了一些困难。
 
-RPi有个ethernet接口，但校园网下想要用起来还是有点困难（虽然不是不可能）。于是索性搞了个无线网卡（[看这里](http://asxalex.tk/blog/2013/08/26/raspberrypi/)）,并ssh到RPi上，所以也没那么多线，就插了个usb无线网卡和一个usb摄像头，看起来清爽多了:-)<!--more-->首先看一下实物图：
+RPi有个ethernet接口，但校园网下想要用起来还是有点困难（虽然不是不可能）。于是索性搞了个无线网卡（[看这里](/2013/08/26/raspberrypi/)）,并ssh到RPi上，所以也没那么多线，就插了个usb无线网卡和一个usb摄像头，看起来清爽多了:-)<!--more-->首先看一下实物图：
 
 {% img http://asxalex.qiniudn.com/raspberry.png %}
 
