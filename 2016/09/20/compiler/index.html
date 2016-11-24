@@ -11,10 +11,12 @@
 <meta property="og:url" content="http://asxalex.pw/2016/09/20/compiler/index.html">
 <meta property="og:site_name" content="asxalex's blog">
 <meta property="og:description" content="解释器名字叫TTtL，TTtL从词法分析，语法分析到语义分析均用c完成，实现了一些基本的解释器的功能，包括函数定义，文件引用以及基本的控制流程。具体实现和例子可以看这里。TTtL还处于玩具级别。以下是用TTtL写的打印前10个斐波那契数的程序：">
-<meta property="og:updated_time" content="2016-11-24T03:47:43.000Z">
+<meta property="og:image" content="http://asxalex.qiniudn.com/vim-syntax.png">
+<meta property="og:updated_time" content="2016-11-24T05:58:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用c语言手写解释器">
 <meta name="twitter:description" content="解释器名字叫TTtL，TTtL从词法分析，语法分析到语义分析均用c完成，实现了一些基本的解释器的功能，包括函数定义，文件引用以及基本的控制流程。具体实现和例子可以看这里。TTtL还处于玩具级别。以下是用TTtL写的打印前10个斐波那契数的程序：">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/vim-syntax.png">
 <meta name="twitter:creator" content="@https://twitter.com/asxalex">
   
     <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
@@ -104,7 +106,8 @@
 <p>有了“环境”这个外在的支持，语义分析就可以进行了，当进入函数调用的时候，首先新建一个环境，并在新环境中将参数值插入里面，然后进行函数体的执行。当函数体定义一个变量时也插入到该环境中，当函数体需要某个变量的值的时候，就去环境里面找，若在当前环境里面找不到，就去外层环境找，若所有都找不到，则报错：使用未定义的变量</p>
 <p>语义分析的具体实现在<strong>eval.c</strong>中。</p>
 <h2 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h2><p>main函数主要工作是打开源文件，然后将源文件“喂”给以上几个组件，然后获取eval的输出，得到最终运行结果。</p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>为了更完善，<a href="https://github.com/asxalex/TTtL" target="_blank" rel="external">git项目</a>里面还有一个<strong>vim-syntax</strong>目录，用于vim的语法着色:)</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>为了更完善，<a href="https://github.com/asxalex/TTtL" target="_blank" rel="external">git项目</a>里面还有一个<strong>vim-syntax</strong>目录，用于vim的语法着色，效果如下:)</p>
+<p><img src="http://asxalex.qiniudn.com/vim-syntax.png" alt="img"></p>
 
     
 	</div>
