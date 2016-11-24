@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://asxalex.pw/"/>
-  <updated>2016-11-24T03:47:43.000Z</updated>
+  <updated>2016-11-24T05:58:26.000Z</updated>
   <id>http://asxalex.pw/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://asxalex.pw/2016/09/20/compiler/"/>
     <id>http://asxalex.pw/2016/09/20/compiler/</id>
     <published>2016-09-20T00:50:41.000Z</published>
-    <updated>2016-11-24T03:47:43.000Z</updated>
+    <updated>2016-11-24T05:58:26.000Z</updated>
     
     <content type="html"><![CDATA[<p>解释器名字叫TTtL，TTtL从词法分析，语法分析到语义分析均用c完成，实现了一些基本的解释器的功能，包括函数定义，文件引用以及基本的控制流程。具体实现和例子可以看<a href="https://github.com/asxalex/TTtL" target="_blank" rel="external">这里</a>。TTtL还处于玩具级别。以下是用TTtL写的打印前10个斐波那契数的程序：<a id="more"></a></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function">define <span class="title">fib</span><span class="params">(n)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (n == <span class="number">0</span> || n == <span class="number">1</span>) &#123;</div><div class="line">        <span class="number">1</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        fib(n<span class="number">-1</span>) + fib(n<span class="number">-2</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">i = <span class="number">0</span></div><div class="line"><span class="keyword">while</span> (i &lt;= <span class="number">10</span>) &#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, fib(i))</div><div class="line">    i = i + <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -52,7 +52,8 @@
 <p>有了“环境”这个外在的支持，语义分析就可以进行了，当进入函数调用的时候，首先新建一个环境，并在新环境中将参数值插入里面，然后进行函数体的执行。当函数体定义一个变量时也插入到该环境中，当函数体需要某个变量的值的时候，就去环境里面找，若在当前环境里面找不到，就去外层环境找，若所有都找不到，则报错：使用未定义的变量</p>
 <p>语义分析的具体实现在<strong>eval.c</strong>中。</p>
 <h2 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h2><p>main函数主要工作是打开源文件，然后将源文件“喂”给以上几个组件，然后获取eval的输出，得到最终运行结果。</p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>为了更完善，<a href="https://github.com/asxalex/TTtL" target="_blank" rel="external">git项目</a>里面还有一个<strong>vim-syntax</strong>目录，用于vim的语法着色:)</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>为了更完善，<a href="https://github.com/asxalex/TTtL" target="_blank" rel="external">git项目</a>里面还有一个<strong>vim-syntax</strong>目录，用于vim的语法着色，效果如下:)</p>
+<p><img src="http://asxalex.qiniudn.com/vim-syntax.png" alt="img"></p>
 ]]></content>
     
     <summary type="html">
