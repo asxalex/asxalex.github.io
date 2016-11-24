@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://asxalex.pw/2016/09/20/compiler/index.html">
 <meta property="og:site_name" content="asxalex's blog">
 <meta property="og:description" content="解释器名字叫TTtL，TTtL从词法分析，语法分析到语义分析均用c完成，实现了一些基本的解释器的功能，包括函数定义，文件引用以及基本的控制流程。具体实现和例子可以看这里。TTtL还处于玩具级别。以下是用TTtL写的打印前10个斐波那契数的程序：">
-<meta property="og:updated_time" content="2016-11-24T03:39:06.000Z">
+<meta property="og:updated_time" content="2016-11-24T03:47:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="用c语言手写解释器">
 <meta name="twitter:description" content="解释器名字叫TTtL，TTtL从词法分析，语法分析到语义分析均用c完成，实现了一些基本的解释器的功能，包括函数定义，文件引用以及基本的控制流程。具体实现和例子可以看这里。TTtL还处于玩具级别。以下是用TTtL写的打印前10个斐波那契数的程序：">
@@ -86,12 +86,13 @@
 <li>重复上面规则，直到源文件读取完毕。</li>
 </ol>
 <p>这里实现的方法比较简单，手工细分单词类型。另外会有基于状态机的词法分析方法，根据当前读取到的字符，配合状态转移表进行单词的读取。</p>
-<p>在TTtL中，词法分析在<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```c</div><div class="line">typedef struct __lex lex;</div><div class="line"></div><div class="line">struct __lex &#123;</div><div class="line">    char *value; // store the real value of the token</div><div class="line">    TOKEN token; // indicate the token type, i.e. IDENTIFIER, NUMBER, etc.</div><div class="line">    int line; // show where the token is scanned.</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>在TTtL中，词法分析在<strong>lexer.c</strong>中，读取到的单词被存放到一个保存结构体的列表里：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> __lex lex;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> __lex &#123;</div><div class="line">    <span class="keyword">char</span> *value; <span class="comment">// store the real value of the token</span></div><div class="line">    TOKEN token; <span class="comment">// indicate the token type, i.e. IDENTIFIER, NUMBER, etc.</span></div><div class="line">    <span class="keyword">int</span> line; <span class="comment">// show where the token is scanned.</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>在获取到这个列表之后就可以进行下一步操作了</p>
 <h2 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h2><p>在词法分析的基础上，语法分析接受词法分析结果，一个一个地读取词法分析的结果。具体在TTtL里面，使用<a href="https://en.wikipedia.org/wiki/Recursive_descent_parser" target="_blank" rel="external">递归下降</a>的解析方法构造AST。定义了以下的ast类型：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> __ast_type ast_type;</div><div class="line"></div><div class="line"><span class="keyword">enum</span> __ast_type &#123;</div><div class="line">    NUMBERAST,</div><div class="line">    VARIABLEAST,</div><div class="line">    BINARYAST,</div><div class="line">    CHARACTERAST,</div><div class="line">    STRINGAST,</div><div class="line">    IDENTIFIERAST,</div><div class="line">    CALLAST,</div><div class="line">    FUNCTIONAST,</div><div class="line">    IFAST,</div><div class="line">    WHILEAST,</div><div class="line">    BOOLEANAST,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>其中的BINARYAST用于包含二元运算符，用BINARYAST包含BINARYAST来表示二元运算符的优先级。解析完之后，输出一个包含ast的列表，供语义分析使用。</p>
-<p>具体实现文件为<code>parser.c</code>。</p>
+<p>具体实现文件为<strong>parser.c</strong>。</p>
 <h2 id="语义分析"><a href="#语义分析" class="headerlink" title="语义分析"></a>语义分析</h2><p>语义分析是在抽象语法树的基础上对该语法树求值，得到最后的结果。具体来讲，针对不同的ast，进行不同的求值:</p>
 <ul>
 <li>当ast为BINARYAST时，首先对左右分支递归求值，然后将运算符运用到左右分支上求值；</li>
@@ -99,11 +100,11 @@
 <li>当ast为控制结构(if, while等)，就按逻辑求值；</li>
 <li>…</li>
 </ul>
-<p>这里还有一个问题：在求值的时候会需要“上下文”，这个“上下文”主要保存一些变量的值，类似于c语言里面的栈帧，在进行函数调用的时候，这个上下文还得能够进行“切换”。TTtL在<code>environment.c</code>里面实现了这个环境，主要有新建环境(进入新的名字空间)，设置变量值，插入变量值等操作。</p>
+<p>这里还有一个问题：在求值的时候会需要“上下文”，这个“上下文”主要保存一些变量的值，类似于c语言里面的栈帧，在进行函数调用的时候，这个上下文还得能够进行“切换”。TTtL在<strong>environment.c</strong>里面实现了这个环境，主要有新建环境(进入新的名字空间)，设置变量值，插入变量值等操作。</p>
 <p>有了“环境”这个外在的支持，语义分析就可以进行了，当进入函数调用的时候，首先新建一个环境，并在新环境中将参数值插入里面，然后进行函数体的执行。当函数体定义一个变量时也插入到该环境中，当函数体需要某个变量的值的时候，就去环境里面找，若在当前环境里面找不到，就去外层环境找，若所有都找不到，则报错：使用未定义的变量</p>
-<p>语义分析的具体实现在<code>eval.c</code>中。</p>
+<p>语义分析的具体实现在<strong>eval.c</strong>中。</p>
 <h2 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h2><p>main函数主要工作是打开源文件，然后将源文件“喂”给以上几个组件，然后获取eval的输出，得到最终运行结果。</p>
-<h2 id="杂"><a href="#杂" class="headerlink" title="杂"></a>杂</h2><p>为了更完善，<a href="https://github.com/asxalex/TTtL" target="_blank" rel="external">git项目</a>里面还有一个<code>vim-syntax</code>目录，用于vim的语法着色:)</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>为了更完善，<a href="https://github.com/asxalex/TTtL" target="_blank" rel="external">git项目</a>里面还有一个<strong>vim-syntax</strong>目录，用于vim的语法着色:)</p>
 
     
 	</div>
