@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://asxalex.pw/"/>
-  <updated>2016-11-24T05:58:26.000Z</updated>
+  <updated>2016-11-27T12:52:09.000Z</updated>
   <id>http://asxalex.pw/</id>
   
   <author>
@@ -14,6 +14,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>“手工”分区调整</title>
+    <link href="http://asxalex.pw/2016/11/27/partition_resize/"/>
+    <id>http://asxalex.pw/2016/11/27/partition_resize/</id>
+    <published>2016-11-27T10:24:48.000Z</published>
+    <updated>2016-11-27T12:52:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近工作经常用到虚拟机里面的archlinux，当时虚拟机给分配的8G的硬盘空间，现硬盘容量告急，根分区使用了99%的容量，还剩不到100M，安装的时候也没有使用lvm管理，于是就想熟悉一下硬盘的结构，看看能不能手工修改某些参数，以扩大分区，满足日常使用。</p>
+<p>首先将虚拟机的硬盘从8G扩大到了20G，硬盘的分区表存储在主引导扇区(硬盘第一个扇区)，主引导扇区有512字节<a id="more"></a>，经过查阅资料，得到MBR的结构如下：</p>
+<p><img src="http://asxalex.qiniudn.com/mbr.png" alt="img"></p>
+<p>前446字节是bootloader，暂不分析，之后是4个16字节的分区表，共64字节，最后是0x55aa，这边的重点是16字节的分区表。</p>
+<p>此时，我的机器的硬盘情况如下：</p>
+<p><img src="http://asxalex.qiniudn.com/fdisk_output.png" alt="img"></p>
+<p>了解结构之后，使用如下结构体解析mbr，具体程序<a href="https://github.com/asxalex/mbr-parser" target="_blank" rel="external">在这里</a>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> SECTOR_SIZE 512</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> PROG_LENGTH 446</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MEGA_BYTES (1024*1024)</span></div><div class="line"></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _chs_s <span class="keyword">chs_t</span>;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _parted_s <span class="keyword">partition_t</span>;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _mbr_s <span class="keyword">mbr_t</span>;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> _chs_s &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> head;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span> sector:<span class="number">6</span>;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span> cylinder:<span class="number">10</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> _parted_s &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> active;</div><div class="line">    <span class="keyword">chs_t</span> start;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> type;</div><div class="line">    <span class="keyword">chs_t</span> end;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> start_sector;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> sector_num;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> _mbr_s &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> program[PROG_LENGTH];</div><div class="line">    <span class="keyword">partition_t</span> partition[<span class="number">4</span>];</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> end_flag[<span class="number">2</span>];</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>解析结果如下：</p>
+<p><img src="http://asxalex.qiniudn.com/chs_output.png" alt="img"></p>
+<p>此时打印了三个分区表，第四个分区表是全0，用<strong>fdisk</strong>命令新建分区，使用全部的剩余空间，结果如下：</p>
+<p><img src="http://asxalex.qiniudn.com/new_partition.png" alt="img"></p>
+<p>由于在结构中，分区信息(主分区)完全存储在MBR中，所以想到：如果直接改写MBR的分区表会有啥结果，如果没有其他地方有检查的话，应该就是直接将分区扩大了，于是继续写程序，将第三个分区的<strong>end_chs</strong>改成第四个分区的<strong>end_chs</strong>，第三个分区的<strong>sector_num</strong>改写成第三第四两个<strong>sector_num</strong>的和，同时将第四个分区所有位都置零，具体程序还是在<a href="https://github.com/asxalex/mbr-parser" target="_blank" rel="external">这里</a></p>
+<p>之后生成一个<strong>result</strong>文件，使用命令</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta"># dd <span class="meta-keyword">if</span>=result of=/dev/sda bs=512 count=1</span></div></pre></td></tr></table></figure>
+<p>写入之后，再fdisk查看磁盘信息：</p>
+<p><img src="http://asxalex.qiniudn.com/fdisk_output_new.png" alt="img"></p>
+<p>fdisk读取到的磁盘信息没问题了，再使用</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># resize2fs /dev/sda3</div><div class="line"><span class="meta"># dd <span class="meta-keyword">if</span>=/dev/zero of=abc bs=128M count=50</span></div></pre></td></tr></table></figure>
+<p>使<strong>sda3</strong>使用全部分区空间，同时测试一下，可以写成功，应该就没啥问题了。</p>
+<p>(以上)</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近工作经常用到虚拟机里面的archlinux，当时虚拟机给分配的8G的硬盘空间，现硬盘容量告急，根分区使用了99%的容量，还剩不到100M，安装的时候也没有使用lvm管理，于是就想熟悉一下硬盘的结构，看看能不能手工修改某些参数，以扩大分区，满足日常使用。&lt;/p&gt;
+&lt;p&gt;首先将虚拟机的硬盘从8G扩大到了20G，硬盘的分区表存储在主引导扇区(硬盘第一个扇区)，主引导扇区有512字节
+    
+    </summary>
+    
+    
+      <category term="Fun" scheme="http://asxalex.pw/tags/Fun/"/>
+    
+      <category term="Linux" scheme="http://asxalex.pw/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>用c语言手写解释器</title>
@@ -680,33 +724,6 @@ tagImg.onerror=function(){tagImg.src=backURL;}
     <summary type="html">
     
       &lt;p&gt;职责链模式（Chain Of Responsibility）是得多个对象有机会处理同一个请求，从而避免请求发送者与接收者之间的耦合关系。它将这些对象串成一条链，并沿着这条链传递该请求，直到有一个对象处理这个请求为止。设想我们学校的一个场景：假设两个同学之间发生了争吵。这时就发生一个请求————处理这两个同学之间的矛盾。起初，这个请求传递到&lt;strong&gt;同学&lt;/strong&gt;，若他有能力处理这个请求，就调用&lt;strong&gt;同学&lt;/strong&gt;的处理方法，并到此为止；若&lt;strong&gt;同学&lt;/strong&gt;处理不了，就将该请求传递至&lt;strong&gt;班长&lt;/strong&gt;，以此类推，最后传递到&lt;strong&gt;老师&lt;/strong&gt;（假设老师可以处理任何请求）。
-    
-    </summary>
-    
-    
-      <category term="DesignPatterns" scheme="http://asxalex.pw/tags/DesignPatterns/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式（13）——代理模式</title>
-    <link href="http://asxalex.pw/2013/08/19/proxy/"/>
-    <id>http://asxalex.pw/2013/08/19/proxy/</id>
-    <published>2013-08-19T12:51:00.000Z</published>
-    <updated>2016-11-14T09:32:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>代理模式（proxy）为其它对象提供一种代理以控制这个对象的访问。在我们要访问一个对象的时候，可能暂且并不需要这个对象的某个功能，这时我们就可以为这个对象创建一个代理，在不需要的时候不去对这个对象做操作，而在需要时，利用这个代理来完成我们想要在原对象身上的操作。我们现在来看一个打开大图片的栗子。<a id="more"></a></p>
-<p>我们有个Image类，BigImage派生自Image。有时候我们打开BigImage的时候打开时间比较长。为了提高加载速度，我们在BigImage类上建了个proxy类，通过proxy类来控制BigImage类的访问：我们打开时不需要显示这个图的内容，通过proxy来打开这个BigImage的“句柄”，当我们真正需要显示的时候再显示。下面为proxy模式栗子的类图：</p>
-<img src="http://asxalex.qiniudn.com/proxy.png">
-<p>实现代码：</p>
-<figure class="highlight c++"><figcaption><span>proxy.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"></div><div class="line"><span class="comment">//proxy can be used to postpone an operation, namely "lazy"</span></div><div class="line"></div><div class="line"><span class="keyword">class</span> Image&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        Image(<span class="built_in">std</span>::<span class="built_in">string</span> imgname): name(imgname)&#123;&#125;</div><div class="line">        <span class="keyword">virtual</span> ~Image()&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> name;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> BigImage : <span class="keyword">public</span> Image&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        BigImage(<span class="built_in">std</span>::<span class="built_in">string</span> imgname):Image(imgname)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"showing Very BIG Image "</span> &lt;&lt; name &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">        ~BigImage()&#123;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> proxy :<span class="keyword">public</span> Image&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        proxy(<span class="built_in">std</span>::<span class="built_in">string</span> name):Image(name),big_img(<span class="number">0</span>)&#123;&#125;;</div><div class="line">        ~proxy()&#123;<span class="keyword">delete</span> big_img;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="keyword">if</span>(big_img == <span class="number">0</span>)</div><div class="line">                big_img = <span class="keyword">new</span> BigImage(name);</div><div class="line">            big_img -&gt; show();</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        Image *big_img;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<figure class="highlight c++"><figcaption><span>proxy.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"proxy.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    Image *a = <span class="keyword">new</span> proxy(<span class="string">"big.jpeg"</span>);</div><div class="line">    a -&gt; show();</div><div class="line">    <span class="keyword">delete</span> a;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在proxy的“代理”下，当我们调用proxy的show()的时候才真正“显示”这张BigImage。而在初始化时只是“记录”了那张“大图片”的名字，并未做实际的动作。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;代理模式（proxy）为其它对象提供一种代理以控制这个对象的访问。在我们要访问一个对象的时候，可能暂且并不需要这个对象的某个功能，这时我们就可以为这个对象创建一个代理，在不需要的时候不去对这个对象做操作，而在需要时，利用这个代理来完成我们想要在原对象身上的操作。我们现在来看一个打开大图片的栗子。
     
     </summary>
     
