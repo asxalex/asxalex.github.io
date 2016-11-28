@@ -103,6 +103,12 @@ button::-moz-focus-inner {
   padding: 0;
 }
 @font-face {
+  font-family: DoodlePen_Limited;
+  font-style: normal;
+  font-weight: normal;
+  src: url("fonts/DoodlePen_Limited.ttf");
+}
+@font-face {
   font-family: FontAwesome;
   font-style: normal;
   font-weight: normal;
@@ -375,6 +381,7 @@ pre .deletion {
 .blog-title {
   float: left;
   display: inline-block;
+  font-family: DoodlePen_Limited;
   font-size: 120%;
   font-weight: bold;
   padding-bottom: 0.2em;
