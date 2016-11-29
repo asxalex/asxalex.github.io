@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设计模式（9）——组合模式 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="组合模式（Composite）用于将对象组合成树形结构以表示“部分——整体”的层次结构，它使得用户对单个对象和组合对象的使用具有一致性。
+我们组合模式的栗子是一个“Province——Country”的表示结构。在这个结构中，有一个Country，这个Country下允许有多个Province，为了使用户在操作这个组合对象时，能与操作单个对象具有一致性，我们给这个结构定义了一个基类————在栗子中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式（9）——组合模式">
+<meta property="og:url" content="http://asxalex.pw/2013/08/18/composite/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="组合模式（Composite）用于将对象组合成树形结构以表示“部分——整体”的层次结构，它使得用户对单个对象和组合对象的使用具有一致性。
+我们组合模式的栗子是一个“Province——Country”的表示结构。在这个结构中，有一个Country，这个Country下允许有多个Province，为了使用户在操作这个组合对象时，能与操作单个对象具有一致性，我们给这个结构定义了一个基类————在栗子中">
+<meta property="og:image" content="http://asxalex.qiniudn.com/composite.png">
+<meta property="og:updated_time" content="2016-11-14T09:32:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式（9）——组合模式">
+<meta name="twitter:description" content="组合模式（Composite）用于将对象组合成树形结构以表示“部分——整体”的层次结构，它使得用户对单个对象和组合对象的使用具有一致性。
+我们组合模式的栗子是一个“Province——Country”的表示结构。在这个结构中，有一个Country，这个Country下允许有多个Province，为了使用户在操作这个组合对象时，能与操作单个对象具有一致性，我们给这个结构定义了一个基类————在栗子中">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/composite.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://asxalex.pw"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-composite" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/18/composite/" class="article-date">
+  <time datetime="2013-08-18T15:39:00.000Z" itemprop="datePublished">2013-08-18</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      设计模式（9）——组合模式
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>组合模式（Composite）用于将对象组合成树形结构以表示“部分——整体”的<strong>层次结构</strong>，它使得用户对单个对象和组合对象的使用具有一致性。</p>
+<p>我们组合模式的栗子是一个“Province——Country”的表示结构。在这个结构中，有一个Country，这个Country下允许有多个Province，为了使用户在操作这个组合对象时，能与操作单个对象具有一致性，我们给这个结构定义了一个基类————在栗子中是composite类。在基类中定义好一系列无论是Country，还是Province会用到的操作接口。又定义派生类Country与Province继承composite。<a id="more"></a>这两个类分别挑选自己“感兴趣”的操作进行实现，具体看下面类图及示例代码：</p>
+<img src="http://asxalex.qiniudn.com/composite.png">
+<figure class="highlight c++"><figcaption><span>composite.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">class</span> composite&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        composite(<span class="built_in">std</span>::<span class="built_in">string</span> str) : name(str)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(<span class="keyword">int</span> depth)</span></span>&#123;&#125;</div><div class="line">        <span class="keyword">virtual</span> ~composite()&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(composite *cry)</span></span>&#123;&#125;</div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> name;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> Country : <span class="keyword">public</span> composite&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        Country(<span class="built_in">std</span>::<span class="built_in">string</span> str): composite(str)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(composite *)</span></span>;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(<span class="keyword">int</span>)</span></span>;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;composite*&gt; chain;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">void</span> Country::show(<span class="keyword">int</span> depth)&#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; depth; ++i)</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"-"</span>;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; name &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;composite*&gt;::iterator it = chain.begin();</div><div class="line">    <span class="keyword">for</span>(; it != chain.end(); ++it)</div><div class="line">        (*it) -&gt; show(depth + <span class="number">2</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">void</span> Country::add(composite *coun)&#123;</div><div class="line">    chain.push_back(coun);</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">class</span> province : <span class="keyword">public</span> composite&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        province(<span class="built_in">std</span>::<span class="built_in">string</span> str):composite(str)&#123;&#125;</div><div class="line">        ~province()&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(<span class="keyword">int</span> depth)</span></span>&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; depth; ++i)</div><div class="line">                <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"-"</span>;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; name &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>定义好上面类之后，下面为测试代码：</p>
+<figure class="highlight c++"><figcaption><span>composite.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"composite.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="function">Country <span class="title">countries</span><span class="params">(<span class="string">"Countries"</span>)</span></span>;</div><div class="line">    <span class="function">Country <span class="title">china</span><span class="params">(<span class="string">"China"</span>)</span></span>;</div><div class="line">    <span class="function">Country <span class="title">american</span><span class="params">(<span class="string">"America"</span>)</span></span>;</div><div class="line">    <span class="function">province <span class="title">state1</span><span class="params">(<span class="string">"state1"</span>)</span></span>;</div><div class="line">    <span class="function">province <span class="title">state2</span><span class="params">(<span class="string">"state2"</span>)</span></span>;</div><div class="line">    <span class="function">province <span class="title">JiangSu</span><span class="params">(<span class="string">"Jiangsu"</span>)</span></span>;</div><div class="line">    <span class="function">province <span class="title">ShannXi</span><span class="params">(<span class="string">"ShannXi"</span>)</span></span>;</div><div class="line">    china.add(&amp;JiangSu);</div><div class="line">    china.add(&amp;ShannXi);</div><div class="line">    american.add(&amp;state1);</div><div class="line">    american.add(&amp;state2);</div><div class="line">    countries.add(&amp;china);</div><div class="line">    countries.add(&amp;american);</div><div class="line">    countries.show(<span class="number">0</span>);</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如代码所示，在Country类中有个add操作，来添加在它之下的Province，而Province之下则没有其它部门（假设没有），所以它不需要add操作，只有自己需要完成的show()方法。show()方法只是一个抽象，其实可以在这个方法中完成实际需要完成的事，而非只是显示。实际中除了add操作，我们还可以定义remove等操作，使结构的<strong>安装</strong>和<strong>拆卸</strong>更具灵活性。</p>
+
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-composite" data-title="设计模式（9）——组合模式" data-url="http://asxalex.pw/2013/08/18/composite/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:asxalex.pw">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

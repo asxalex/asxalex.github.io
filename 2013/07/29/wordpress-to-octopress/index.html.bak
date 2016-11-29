@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>wordpress To octopress | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="我是两天前才开始接触octopress的。我写博客的时间不长，到现在大约有两个月吧。写博客只是想记录一下我平时所想所感，以及当我学习新东西时做一个笔记。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wordpress To octopress">
+<meta property="og:url" content="http://asxalex.pw/2013/07/29/wordpress-to-octopress/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="我是两天前才开始接触octopress的。我写博客的时间不长，到现在大约有两个月吧。写博客只是想记录一下我平时所想所感，以及当我学习新东西时做一个笔记。">
+<meta property="og:updated_time" content="2016-11-14T09:32:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="wordpress To octopress">
+<meta name="twitter:description" content="我是两天前才开始接触octopress的。我写博客的时间不长，到现在大约有两个月吧。写博客只是想记录一下我平时所想所感，以及当我学习新东西时做一个笔记。">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://asxalex.pw"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-wordpress-to-octopress" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/07/29/wordpress-to-octopress/" class="article-date">
+  <time datetime="2013-07-29T15:12:00.000Z" itemprop="datePublished">2013-07-29</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      wordpress To octopress
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>我是两天前才开始接触octopress的。我写博客的时间不长，到现在大约有两个月吧。写博客只是想记录一下我平时所想所感，以及当我学习新东西时做一个笔记。<a id="more"></a></p>
+<p>刚开始只是玩玩，就按照网上的教程，顺利用一个gmail帐号申请到了三蛋空间，又到tk申请了一个免费域名，再然后就选了wordpress，兴致勃勃地部署起自己的博客来了。</p>
+<p>虽然三蛋空间号称是比付费空间更好的免费空间，但由于免费空间在国外，于是访问速度自然就成了问题。不仅如此，有时候我所部署的博客还会无法访问:-( 这样使我稍微对它冷淡了一点。。。</p>
+<p>两天前，我在v2ex上看到了大家贴的stdyun提供免费octopress托管服务。以前就想试试传说中的octopress，号称可以像写代码一样写博客，现在还有免费的托管服务，那就一定要试一下喽～</p>
+<p>以前没接触过octopress，我按照网上的教程一步步将其部署完毕。以前ping值一般在304ms左右，还时有丢包，现在的ping值稳定于35～40ms。在这里感谢stdyun提供的octopress托管，给你们打个小广告:-) <a href="http://stdyun.com/octopress" target="_blank" rel="external">stdyun.com/octopress</a></p>
+<p>将操作系统与博客系统做类比，wordpress像是windows，而octopress更像是linux。wordpress感觉很“豪华”，各种插件，可视化一点，安装完毕，再一点，启用插件，就几乎可以运作起来；而octopress则需要一步一步编辑，各个环节都需要自己动手，最后“丰衣足食”时的成就感并非是再wordpress下靠点几下完成所可以比拟的。wordpress下虽然也可以编辑源码，也有vimpress等优秀插件可以使用markdown编辑文章，但好多事情是必须在浏览器里完成的，这样就有一种说不出的感觉，就像一根骨头卡在喉咙，吞不下去，又吐不出来；而在octopress下则可以在命令行下完成所有的事，最多需要在浏览器里预览所生成的博文。给人一种很清爽的感觉。另外，它对markdown的支持使大家可以更专注于博文内容，而非博文版式的安排。</p>
+<p>刚开始接触octopress时可能会一时摸不着头脑，不知道该怎么配置，怎么安装插件，怎么添加一个侧边栏，等等。但如果可以静下心来，按照网上一些配置示例实际动手操作一下，就会发现octopress的目录组织得很好，很容易举一反三。还有，在谷大歌的帮助下，octopress会成为写博客，记录生活的一个很好的帮手:)</p>
+
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CoolTool/">CoolTool</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-wordpress-to-octopress" data-title="wordpress To octopress" data-url="http://asxalex.pw/2013/07/29/wordpress-to-octopress/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:asxalex.pw">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设计模式（11）——外观模式 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="外观模式（facade）为子系统的一组接口提供一个一致的界面，它定义了一个高层接口，这个接口使得这个系统更加容易使用。
+就拿一个编译器系统来说吧，它可以分成许多步骤————词法分析，语法分析，语义分析，代码生成等。而我们在使用一个编译器的时候并不需要知道这些（比如在用gcc的时候，在最简单的情况下我们甚至只需要gcc filename 就行了，我们只要在这个编译器整体作用下生成我们所需要的目标代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式（11）——外观模式">
+<meta property="og:url" content="http://asxalex.pw/2013/08/19/facade/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="外观模式（facade）为子系统的一组接口提供一个一致的界面，它定义了一个高层接口，这个接口使得这个系统更加容易使用。
+就拿一个编译器系统来说吧，它可以分成许多步骤————词法分析，语法分析，语义分析，代码生成等。而我们在使用一个编译器的时候并不需要知道这些（比如在用gcc的时候，在最简单的情况下我们甚至只需要gcc filename 就行了，我们只要在这个编译器整体作用下生成我们所需要的目标代码">
+<meta property="og:image" content="http://asxalex.qiniudn.com/facade.png">
+<meta property="og:updated_time" content="2016-11-14T09:32:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式（11）——外观模式">
+<meta name="twitter:description" content="外观模式（facade）为子系统的一组接口提供一个一致的界面，它定义了一个高层接口，这个接口使得这个系统更加容易使用。
+就拿一个编译器系统来说吧，它可以分成许多步骤————词法分析，语法分析，语义分析，代码生成等。而我们在使用一个编译器的时候并不需要知道这些（比如在用gcc的时候，在最简单的情况下我们甚至只需要gcc filename 就行了，我们只要在这个编译器整体作用下生成我们所需要的目标代码">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/facade.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://asxalex.pw"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-facade" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/19/facade/" class="article-date">
+  <time datetime="2013-08-19T06:47:00.000Z" itemprop="datePublished">2013-08-19</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      设计模式（11）——外观模式
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>外观模式（facade）为子系统的一组接口提供一个一致的界面，它定义了一个高层接口，这个接口使得这个系统更加容易使用。</p>
+<p>就拿一个编译器系统来说吧，它可以分成许多步骤————词法分析，语法分析，语义分析，代码生成等。而我们在使用一个编译器的时候并不需要知道这些（比如在用gcc的时候，在最简单的情况下我们甚至只需要gcc filename 就行了，我们只要在这个编译器整体作用下生成我们所需要的目标代码即可）。否则，我们还得自己用gas、ld等工具，一步步生成中间代码。<a id="more"></a>外观模式就是在这些接口的基础上，向我们提供一个统一的界面（即不加参数，直接生成目标代码的gcc命令）。</p>
+<p>为了示意，我们先画出类图：</p>
+<img src="http://asxalex.qiniudn.com/facade.png">
+<p>这里要说明的是：我们并没有真正实现了一个编译器，这里的scanner、parser等类只是用于说明模式的栗子，里面就只有用于验证代码正确性的输出函数。实现代码如下：</p>
+<figure class="highlight c++"><figcaption><span>facade.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">class</span> scanner&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="comment">//scanner can do the scan, it can accept istream as arguments, and return results;</span></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">scan</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"scan"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> parser&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="comment">//can accept arguments from the scanner;</span></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">parse</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"parse"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> generate_code&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="comment">//can use the result from parser;</span></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">gen_code</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"generate code"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">class</span> compiler&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</div><div class="line">            scanner scan;</div><div class="line">            parser parse;</div><div class="line">            generate_code gen;</div><div class="line">            scan.scan();</div><div class="line">            parse.parse();</div><div class="line">            gen.gen_code();</div><div class="line">        &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>facade.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"facade.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    compiler comp;</div><div class="line">    comp.run();</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样，一个编译器就被包装成一个整体，在使用时我们就不必知道里面的细节，这给我们提供了一个好用的界面。</p>
+
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-facade" data-title="设计模式（11）——外观模式" data-url="http://asxalex.pw/2013/08/19/facade/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:asxalex.pw">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
