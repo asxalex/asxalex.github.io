@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>“手工”分区调整 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="最近工作经常用到虚拟机里面的archlinux，当时虚拟机给分配的8G的硬盘空间，现硬盘容量告急，根分区使用了99%的容量，还剩不到100M，安装的时候也没有使用lvm管理，于是就想熟悉一下硬盘的结构，看看能不能手工修改某些参数，以扩大分区，满足日常使用。
+首先将虚拟机的硬盘从8G扩大到了20G，硬盘的分区表存储在主引导扇区(硬盘第一个扇区)，主引导扇区有512字节">
+<meta property="og:type" content="article">
+<meta property="og:title" content="“手工”分区调整">
+<meta property="og:url" content="http://asxalex.pw/2016/11/27/partition_resize/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="最近工作经常用到虚拟机里面的archlinux，当时虚拟机给分配的8G的硬盘空间，现硬盘容量告急，根分区使用了99%的容量，还剩不到100M，安装的时候也没有使用lvm管理，于是就想熟悉一下硬盘的结构，看看能不能手工修改某些参数，以扩大分区，满足日常使用。
+首先将虚拟机的硬盘从8G扩大到了20G，硬盘的分区表存储在主引导扇区(硬盘第一个扇区)，主引导扇区有512字节">
+<meta property="og:image" content="http://asxalex.qiniudn.com/mbr.png">
+<meta property="og:image" content="http://asxalex.qiniudn.com/fdisk_output.png">
+<meta property="og:image" content="http://asxalex.qiniudn.com/chs_output.png">
+<meta property="og:image" content="http://asxalex.qiniudn.com/new_partition.png">
+<meta property="og:image" content="http://asxalex.qiniudn.com/fdisk_output_new.png">
+<meta property="og:updated_time" content="2016-11-29T05:09:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="“手工”分区调整">
+<meta name="twitter:description" content="最近工作经常用到虚拟机里面的archlinux，当时虚拟机给分配的8G的硬盘空间，现硬盘容量告急，根分区使用了99%的容量，还剩不到100M，安装的时候也没有使用lvm管理，于是就想熟悉一下硬盘的结构，看看能不能手工修改某些参数，以扩大分区，满足日常使用。
+首先将虚拟机的硬盘从8G扩大到了20G，硬盘的分区表存储在主引导扇区(硬盘第一个扇区)，主引导扇区有512字节">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/mbr.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://asxalex.pw"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-partition_resize" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2016/11/27/partition_resize/" class="article-date">
+  <time datetime="2016-11-27T10:24:48.000Z" itemprop="datePublished">2016-11-27</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      “手工”分区调整
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>最近工作经常用到虚拟机里面的archlinux，当时虚拟机给分配的8G的硬盘空间，现硬盘容量告急，根分区使用了99%的容量，还剩不到100M，安装的时候也没有使用lvm管理，于是就想熟悉一下硬盘的结构，看看能不能手工修改某些参数，以扩大分区，满足日常使用。</p>
+<p>首先将虚拟机的硬盘从8G扩大到了20G，硬盘的分区表存储在主引导扇区(硬盘第一个扇区)，主引导扇区有512字节<a id="more"></a>，经过查阅资料，得到MBR的结构如下：</p>
+<p><img src="http://asxalex.qiniudn.com/mbr.png" alt="img"></p>
+<p>前446字节是bootloader，暂不分析，之后是4个16字节的分区表，共64字节，最后是0x55aa，这边的重点是16字节的分区表。</p>
+<p>此时，我的机器的硬盘情况如下：</p>
+<p><img src="http://asxalex.qiniudn.com/fdisk_output.png" alt="img"></p>
+<p>了解结构之后，使用如下结构体解析mbr，具体程序<a href="https://github.com/asxalex/mbr-parser" target="_blank" rel="external">在这里</a>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&nbsp;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> SECTOR_SIZE 512</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> PROG_LENGTH 446</span></div><div class="line">&nbsp;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MEGA_BYTES (1024*1024)</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _chs_s <span class="keyword">chs_t</span>;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _parted_s <span class="keyword">partition_t</span>;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _mbr_s <span class="keyword">mbr_t</span>;</div><div class="line"><span class="keyword">struct</span> _chs_s &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> head;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span> sector:<span class="number">6</span>;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">short</span> cylinder:<span class="number">10</span>;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> _parted_s &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> active;</div><div class="line">    <span class="keyword">chs_t</span> start;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> type;</div><div class="line">    <span class="keyword">chs_t</span> end;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> start_sector;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> sector_num;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">struct</span> _mbr_s &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> program[PROG_LENGTH];</div><div class="line">    <span class="keyword">partition_t</span> partition[<span class="number">4</span>];</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> end_flag[<span class="number">2</span>];</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>解析结果如下：</p>
+<p><img src="http://asxalex.qiniudn.com/chs_output.png" alt="img"></p>
+<p>此时打印了三个分区表，第四个分区表是全0，用<strong>fdisk</strong>命令新建分区，使用全部的剩余空间，结果如下：</p>
+<p><img src="http://asxalex.qiniudn.com/new_partition.png" alt="img"></p>
+<p>由于在结构中，分区信息(主分区)完全存储在MBR中，所以想到：如果直接改写MBR的分区表会有啥结果，如果没有其他地方有检查的话，应该就是直接将分区扩大了，于是继续写程序，将第三个分区的<strong>end_chs</strong>改成第四个分区的<strong>end_chs</strong>，第三个分区的<strong>sector_num</strong>改写成第三第四两个<strong>sector_num</strong>的和，同时将第四个分区所有位都置零，具体程序还是在<a href="https://github.com/asxalex/mbr-parser" target="_blank" rel="external">这里</a></p>
+<p>之后生成一个<strong>result</strong>文件，使用命令</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta"># dd <span class="meta-keyword">if</span>=result of=/dev/sda bs=512 count=1</span></div></pre></td></tr></table></figure>
+<p>写入之后，再fdisk查看磁盘信息：</p>
+<p><img src="http://asxalex.qiniudn.com/fdisk_output_new.png" alt="img"></p>
+<p>fdisk读取到的磁盘信息没问题了，再使用</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># resize2fs /dev/sda3</div><div class="line"><span class="meta"># dd <span class="meta-keyword">if</span>=/dev/zero of=abc bs=128M count=50</span></div></pre></td></tr></table></figure>
+<p>使<strong>sda3</strong>使用全部分区空间，同时测试一下，可以写成功，应该就没啥问题了。</p>
+<p>(以上)</p>
+
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fun/">Fun</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-partition_resize" data-title="“手工”分区调整" data-url="http://asxalex.pw/2016/11/27/partition_resize/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:asxalex.pw">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

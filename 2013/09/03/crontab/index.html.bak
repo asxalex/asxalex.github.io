@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>crontab | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="在linux下面有许许多多有用的工具，能够极大解放生产力。crontab就是其中的一个工具软件。
+crontab用于在一定的时间间隔调度一些命令的执行（以一定的频率执行用户事先确定好的命令，脚本等）。系统有一个/etc/crontab文件，里面存放了系统的调度程序。除此之外，每个用户都可以建立自己的crontab。这些用户自己的crontab文件在/var/spool/cron/username目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="crontab">
+<meta property="og:url" content="http://asxalex.pw/2013/09/03/crontab/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="在linux下面有许许多多有用的工具，能够极大解放生产力。crontab就是其中的一个工具软件。
+crontab用于在一定的时间间隔调度一些命令的执行（以一定的频率执行用户事先确定好的命令，脚本等）。系统有一个/etc/crontab文件，里面存放了系统的调度程序。除此之外，每个用户都可以建立自己的crontab。这些用户自己的crontab文件在/var/spool/cron/username目">
+<meta property="og:image" content="http://asxalex.qiniudn.com/crontab.png">
+<meta property="og:updated_time" content="2016-11-14T09:32:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="crontab">
+<meta name="twitter:description" content="在linux下面有许许多多有用的工具，能够极大解放生产力。crontab就是其中的一个工具软件。
+crontab用于在一定的时间间隔调度一些命令的执行（以一定的频率执行用户事先确定好的命令，脚本等）。系统有一个/etc/crontab文件，里面存放了系统的调度程序。除此之外，每个用户都可以建立自己的crontab。这些用户自己的crontab文件在/var/spool/cron/username目">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/crontab.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://asxalex.pw"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-crontab" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/09/03/crontab/" class="article-date">
+  <time datetime="2013-09-03T05:15:00.000Z" itemprop="datePublished">2013-09-03</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      crontab
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>在linux下面有许许多多有用的工具，能够极大解放生产力。crontab就是其中的一个工具软件。</p>
+<p>crontab用于在一定的时间间隔调度一些命令的执行（以一定的频率执行用户事先确定好的命令，脚本等）。系统有一个/etc/crontab文件，里面存放了系统的调度程序。除此之外，每个用户都可以建立自己的crontab。这些用户自己的crontab文件在/var/spool/cron/username目录下。比如我的文件夹就是/var/spool/cron/alex。</p>
+<p>crontab命令的用法简单而功能强大：用户只要编辑一个文本文档，就可以让crontab在规定的时间间隔里执行相应的命令。编辑这个文件的格式如下图所示：</p>
+<img src="http://asxalex.qiniudn.com/crontab.png">
+<a id="more"></a>
+<p>如上图所示，crontab中共有6个字段，前5个字段用于确定command的执行频率（容易看出，命令执行之间的间隔时间最小是1分钟）。最后一个字段用于制定所需要完成的动作。在实际应用中，我们可以使用如下命令：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ crontab -l #查看用户此时的crontab中的内容</div><div class="line">$ crontab -e #调用编辑器，让用户自己编辑crontab中的内容</div></pre></td></tr></table></figure>
+<p>在自己编辑crontab中的内容时，前5个字段的每个字段都有相同的格式，说明如下：</p>
+<ul>
+<li><p>具体数字代表在那个时刻执行；</p>
+</li>
+<li><p>*是一个通配符，表示每个时间单位都要执行；</p>
+</li>
+<li><p>a-b表示在a-b个时间单位内都要执行，其他时间单位不执行；</p>
+</li>
+<li><p>*/n 表示每隔n个时间单位执行一次；</p>
+</li>
+<li><p>a,b,c 表示在a，b，c这三个时间单位点上要执行；</p>
+</li>
+</ul>
+<p>举个栗子：</p>
+<blockquote>
+<p>*/5 2-12 *2 1-3,6-12 * /home/alex/colorful-life.sh</p>
+</blockquote>
+<p>根据格式说明，以上一段的意思是：在一年中，除了4月和5月之外的其他月份，在每月的2号，12号，22号3天中，从凌晨2点到中午12点，每5分钟执行一次/home/alex/colorful-life.sh这个脚本。</p>
+<p>我第一次使用的测试例子如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* * * * * date | sed 's/\ \&#123;2,\&#125;/\ /g' | cut -d ' ' -f 4 | xargs echo &gt;&gt; myalex</div></pre></td></tr></table></figure>
+<p>执行到现在，myalex中的文本如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="number">13</span>:<span class="number">03</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">04</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">05</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">06</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">07</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">08</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">09</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">10</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">11</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">12</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">13</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">14</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">15</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">16</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">17</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">18</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">19</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">20</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">21</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">22</span>:<span class="number">01</span></div><div class="line"><span class="number">13</span>:<span class="number">23</span>:<span class="number">01</span></div></pre></td></tr></table></figure>
+<p>（EOF）</p>
+
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CoolTool/">CoolTool</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-crontab" data-title="crontab" data-url="http://asxalex.pw/2013/09/03/crontab/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:asxalex.pw">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

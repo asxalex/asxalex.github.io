@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>用c语言手写解释器 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="解释器名字叫TTtL:)，TTtL从词法分析，语法分析到语义分析均用c完成，实现了一些基本的解释器的功能，包括函数定义，文件引用以及基本的控制流程。具体实现和例子可以看这里。TTtL还处于玩具级别。以下是用TTtL写的打印前10个斐波那契数的程序：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用c语言手写解释器">
+<meta property="og:url" content="http://asxalex.pw/2016/09/20/compiler/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="解释器名字叫TTtL:)，TTtL从词法分析，语法分析到语义分析均用c完成，实现了一些基本的解释器的功能，包括函数定义，文件引用以及基本的控制流程。具体实现和例子可以看这里。TTtL还处于玩具级别。以下是用TTtL写的打印前10个斐波那契数的程序：">
+<meta property="og:image" content="http://asxalex.qiniudn.com/vim-syntax.png">
+<meta property="og:updated_time" content="2016-11-27T12:57:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用c语言手写解释器">
+<meta name="twitter:description" content="解释器名字叫TTtL:)，TTtL从词法分析，语法分析到语义分析均用c完成，实现了一些基本的解释器的功能，包括函数定义，文件引用以及基本的控制流程。具体实现和例子可以看这里。TTtL还处于玩具级别。以下是用TTtL写的打印前10个斐波那契数的程序：">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/vim-syntax.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://asxalex.pw"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-compiler" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2016/09/20/compiler/" class="article-date">
+  <time datetime="2016-09-20T00:50:41.000Z" itemprop="datePublished">2016-09-20</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      用c语言手写解释器
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>解释器名字叫TTtL:)，TTtL从词法分析，语法分析到语义分析均用c完成，实现了一些基本的解释器的功能，包括函数定义，文件引用以及基本的控制流程。具体实现和例子可以看<a href="https://github.com/asxalex/TTtL" target="_blank" rel="external">这里</a>。TTtL还处于玩具级别。以下是用TTtL写的打印前10个斐波那契数的程序：<a id="more"></a></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function">define <span class="title">fib</span><span class="params">(n)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (n == <span class="number">0</span> || n == <span class="number">1</span>) &#123;</div><div class="line">        <span class="number">1</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        fib(n<span class="number">-1</span>) + fib(n<span class="number">-2</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">i = <span class="number">0</span></div><div class="line"><span class="keyword">while</span> (i &lt;= <span class="number">10</span>) &#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, fib(i))</div><div class="line">    i = i + <span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从上面的例子可以看出语法跟c语言很类似，毕竟自己实现嘛，可以想怎样实现就怎样实现。</p>
+<h2 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h2><p>词法分析的主要工作是扫描整个源文件，根据我们事先定义好的规则(词法规则)，将源文件识别为一系列的单词(token)，简单来说，这个过程就是：</p>
+<ol>
+<li>词法分析程序读入文件，从左到右扫描每个字符；</li>
+<li>根据当前所读取的字符，初步判定该token的单词类型(可能会有不同的单词类型开头相同)；</li>
+<li>读取下一个字符，逐步细分该单词类型，直到最后确定一个单词类型；</li>
+<li>确定该单词类型之后，按照该单词类型的规则读取，直到某个字符不符合该单词类型的规则，此时一个单词读取完毕；</li>
+<li>重复上面规则，直到源文件读取完毕。</li>
+</ol>
+<p>这里实现的方法比较简单，手工细分单词类型。另外会有基于状态机的词法分析方法，根据当前读取到的字符，配合状态转移表进行单词的读取。</p>
+<p>在TTtL中，词法分析在<strong>lexer.c</strong>中，读取到的单词被存放到一个保存结构体的列表里：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> __lex lex;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> __lex &#123;</div><div class="line">    <span class="keyword">char</span> *value; <span class="comment">// store the real value of the token</span></div><div class="line">    TOKEN token; <span class="comment">// indicate the token type, i.e. IDENTIFIER, NUMBER, etc.</span></div><div class="line">    <span class="keyword">int</span> line; <span class="comment">// show where the token is scanned.</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>在获取到这个列表之后就可以进行下一步操作了</p>
+<h2 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h2><p>在词法分析的基础上，语法分析接受词法分析结果，一个一个地读取词法分析的结果。具体在TTtL里面，使用<a href="https://en.wikipedia.org/wiki/Recursive_descent_parser" target="_blank" rel="external">递归下降</a>的解析方法构造AST。定义了以下的ast类型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> __ast_type ast_type;</div><div class="line"></div><div class="line"><span class="keyword">enum</span> __ast_type &#123;</div><div class="line">    NUMBERAST,</div><div class="line">    VARIABLEAST,</div><div class="line">    BINARYAST,</div><div class="line">    CHARACTERAST,</div><div class="line">    STRINGAST,</div><div class="line">    IDENTIFIERAST,</div><div class="line">    CALLAST,</div><div class="line">    FUNCTIONAST,</div><div class="line">    IFAST,</div><div class="line">    WHILEAST,</div><div class="line">    BOOLEANAST,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>其中的BINARYAST用于包含二元运算符，用BINARYAST包含BINARYAST来表示二元运算符的优先级。解析完之后，输出一个包含ast的列表，供语义分析使用。</p>
+<p>具体实现文件为<strong>parser.c</strong>。</p>
+<h2 id="语义分析"><a href="#语义分析" class="headerlink" title="语义分析"></a>语义分析</h2><p>语义分析是在抽象语法树的基础上对该语法树求值，得到最后的结果。具体来讲，针对不同的ast，进行不同的求值:</p>
+<ul>
+<li>当ast为BINARYAST时，首先对左右分支递归求值，然后将运算符运用到左右分支上求值；</li>
+<li>当ast为自求值类型(字符串，数字，字符类型等)时不加处理，直接输出；</li>
+<li>当ast为控制结构(if, while等)，就按逻辑求值；</li>
+<li>…</li>
+</ul>
+<p>这里还有一个问题：在求值的时候会需要“上下文”，这个“上下文”主要保存一些变量的值，类似于c语言里面的栈帧，在进行函数调用的时候，这个上下文还得能够进行“切换”。TTtL在<strong>environment.c</strong>里面实现了这个环境，主要有新建环境(进入新的名字空间)，设置变量值，插入变量值等操作。</p>
+<p>有了“环境”这个外在的支持，语义分析就可以进行了，当进入函数调用的时候，首先新建一个环境，并在新环境中将参数值插入里面，然后进行函数体的执行。当函数体定义一个变量时也插入到该环境中，当函数体需要某个变量的值的时候，就去环境里面找，若在当前环境里面找不到，就去外层环境找，若所有都找不到，则报错：使用未定义的变量</p>
+<p>语义分析的具体实现在<strong>eval.c</strong>中。</p>
+<h2 id="main函数"><a href="#main函数" class="headerlink" title="main函数"></a>main函数</h2><p>main函数主要工作是打开源文件，然后将源文件“喂”给以上几个组件，然后获取eval的输出，得到最终运行结果。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>为了更完善，<a href="https://github.com/asxalex/TTtL" target="_blank" rel="external">git项目</a>里面还有一个<strong>vim-syntax</strong>目录，用于vim的语法着色，效果如下:)</p>
+<p><img src="http://asxalex.qiniudn.com/vim-syntax.png" alt="img"></p>
+
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fun/">Fun</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TTtL/">TTtL</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-compiler" data-title="用c语言手写解释器" data-url="http://asxalex.pw/2016/09/20/compiler/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:asxalex.pw">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

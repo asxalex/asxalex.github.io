@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="asxalex's blog">
+<meta property="og:url" content="http://asxalex.pw/page/3/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="asxalex's blog">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://asxalex.pw"></form>
+	</div>
+</header>
+
+    <div id="main">
+      
+  
+    <article id="post-proxy" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/19/proxy/" class="article-date">
+  <time datetime="2013-08-19T12:51:00.000Z" itemprop="datePublished">2013-08-19</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/19/proxy/">设计模式（13）——代理模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>代理模式（proxy）为其它对象提供一种代理以控制这个对象的访问。在我们要访问一个对象的时候，可能暂且并不需要这个对象的某个功能，这时我们就可以为这个对象创建一个代理，在不需要的时候不去对这个对象做操作，而在需要时，利用这个代理来完成我们想要在原对象身上的操作。我们现在来看一个打开大图片的栗子。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/19/proxy/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+    <article id="post-flyweight" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/19/flyweight/" class="article-date">
+  <time datetime="2013-08-19T07:05:00.000Z" itemprop="datePublished">2013-08-19</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/19/flyweight/">设计模式（12）——享元模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>享元模式（Flyweight）可以有效运用共享技术支持大量细粒度的对象。这里我们考察一个document。在一个document中可以有许多许多的字。在表示的时候，我们可以将每个字表示为一个对象——当一个文本中被插入一个字，我们就新建一个对象，将这个对象插入到文本中。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/19/flyweight/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+    <article id="post-facade" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/19/facade/" class="article-date">
+  <time datetime="2013-08-19T06:47:00.000Z" itemprop="datePublished">2013-08-19</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/19/facade/">设计模式（11）——外观模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>外观模式（facade）为子系统的一组接口提供一个一致的界面，它定义了一个高层接口，这个接口使得这个系统更加容易使用。</p>
+<p>就拿一个编译器系统来说吧，它可以分成许多步骤————词法分析，语法分析，语义分析，代码生成等。而我们在使用一个编译器的时候并不需要知道这些（比如在用gcc的时候，在最简单的情况下我们甚至只需要gcc filename 就行了，我们只要在这个编译器整体作用下生成我们所需要的目标代码即可）。否则，我们还得自己用gas、ld等工具，一步步生成中间代码。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/19/facade/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+    <article id="post-decorator" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/18/decorator/" class="article-date">
+  <time datetime="2013-08-18T15:51:00.000Z" itemprop="datePublished">2013-08-18</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/18/decorator/">设计模式（10）——装饰模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>装饰模式（Decorator）意在动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator模式比生成子类更加灵活。</p>
+<p>这里的栗子是一个窗口。在实际中，窗口种类丰富繁多。我们的栗子中作为示意，定义了从Window基类派生的两个类————分别为NormalWindow与SpecialWindow。而一个窗口要添加的组件也很多，在代码实例中有两种组件————ToolBar与Menu。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/18/decorator/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+    <article id="post-composite" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/18/composite/" class="article-date">
+  <time datetime="2013-08-18T15:39:00.000Z" itemprop="datePublished">2013-08-18</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/18/composite/">设计模式（9）——组合模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>组合模式（Composite）用于将对象组合成树形结构以表示“部分——整体”的<strong>层次结构</strong>，它使得用户对单个对象和组合对象的使用具有一致性。</p>
+<p>我们组合模式的栗子是一个“Province——Country”的表示结构。在这个结构中，有一个Country，这个Country下允许有多个Province，为了使用户在操作这个组合对象时，能与操作单个对象具有一致性，我们给这个结构定义了一个基类————在栗子中是composite类。在基类中定义好一系列无论是Country，还是Province会用到的操作接口。又定义派生类Country与Province继承composite。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/18/composite/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+    <article id="post-bridge" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/18/bridge/" class="article-date">
+  <time datetime="2013-08-18T07:34:00.000Z" itemprop="datePublished">2013-08-18</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/18/bridge/">设计模式（8）——桥接模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>桥接模式（bridge）将抽象部分与它的实现部分分离，使他们可以独立变化。这里我们用的栗子是我网上看到的：说我们家里有许多开关，又有许多电器。同一个开关可以接在不同的电器上，同一个电器也可以用不同的开关。而连接起他们的是电线。桥接模式就像这根电线一样可以将两边的物品分开：当一个开关坏了，可以拿另外一个换上，而不影响电器的使用；当一个电器需要更换，也没必要去换开关。两边都是独立的。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/18/bridge/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+    <article id="post-adaptor" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/18/adaptor/" class="article-date">
+  <time datetime="2013-08-18T06:33:00.000Z" itemprop="datePublished">2013-08-18</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/18/adaptor/">设计模式（7）——适配器模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>适配器模式（adaptor）用于将一个类的接口转换成客户所希望的另外一个接口。Adaptor模式使得原本由于接口不兼容而不能一起工作的类可以一起工作（《Design Patterns》）</p>
+<p>其实，C++标准已经提供了三种容器适配器，分别是stack、queue和priority_queue。在这里我们实现两个适配器————MyQueue和MyStack。Queue是FIFO的数据结构，而stack是FILO类型数据结构。在这两个适配器中，我们利用标准容器中的deque（双端队列）来保存适配器的元素。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/18/adaptor/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+    <article id="post-you-qu-de-jing-li" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/17/you-qu-de-jing-li/" class="article-date">
+  <time datetime="2013-08-17T12:03:00.000Z" itemprop="datePublished">2013-08-17</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/17/you-qu-de-jing-li/">一次有趣的经历</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>我搭建这个blog时什么资金都没出。域名用的免费的，用的<a href="https://stdyun.com/">Stdyun</a>的免费托管服务（速度相当快，推荐有兴趣的试试）。由于Stdyun上首次提供100M的空间，所以，如果将blog中的图片都上传的话会占用相当一部分空间。经google之后找到类解决方案：用<a href="http://www.qiniu.com/">七牛云存储</a>作为我blog的图床（也推荐一下，配合他们的工具，相当好用）。</p>
+<p>其实起初还是比较纠结的————因为有许多这样的服务，甚至到了眼花缭乱的地步。由于我是个vim迷，自打体会到它不用鼠标的高效之后，我就努力尝试用命令行解决尽可能多的事，追求简洁。后来无意间看到了七牛一个最吸引我眼球的特性：有命令行辅助工具。除了传统的网页上传，下载，他们还特地开发了命令行辅助工具，就是它了！
+			
+				<p class="article-more-link">
+					<a href="/2013/08/17/you-qu-de-jing-li/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/life/">life</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+    <article id="post-jie-duan-1" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/17/jie-duan-1/" class="article-date">
+  <time datetime="2013-08-17T08:59:00.000Z" itemprop="datePublished">2013-08-17</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/17/jie-duan-1/">创建型模式总结</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>以上几个模式（Simple Facroty、Factory Method、Abstract Factory、Builder、Prototype以及Singleton）组成了创建型模式。创建型模式抽象了类到对象的实例化过程。它们帮助一个系统独立于如何创建、组合和表示它的那些对象。（《Design patterns》）</p>
+<p>这几个对象抽象了类的实例化过程。在一定程度上隐藏了实例化时的内部细节。或通过传递一个参数指导生成所需要的实例；或通过把用于创建的类细分，使之负责各自的特定实例化过程；或从宏观上统一一个实例的创建；或从微观上克隆一个实例；或根本不允许一个实例的多次创建……变化多端，十分灵活。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/17/jie-duan-1/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+    <article id="post-singleton" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/17/singleton/" class="article-date">
+  <time datetime="2013-08-17T05:47:00.000Z" itemprop="datePublished">2013-08-17</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/17/singleton/">设计模式（6）——单例模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>单例模式（singleton）可保证一个类仅有一个实例，并提供一个访问它的全局控制点。还是举那个老生常谈的栗子：现在小熊梦工厂又推出了新服务，它提供VIP定制功能，即你可以特地通知他们生产一个全球唯一的小熊，当然价格不菲。工厂肯定不希望有任何人可以造出这个小熊。单例模式的需求在这里出现了。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/17/singleton/#more">Read More</a>
+				</p>
+      
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+    </nav>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:asxalex.pw">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
