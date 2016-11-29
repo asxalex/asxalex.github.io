@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设计模式（14）——职责链模式 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="职责链模式（Chain Of Responsibility）是得多个对象有机会处理同一个请求，从而避免请求发送者与接收者之间的耦合关系。它将这些对象串成一条链，并沿着这条链传递该请求，直到有一个对象处理这个请求为止。设想我们学校的一个场景：假设两个同学之间发生了争吵。这时就发生一个请求————处理这两个同学之间的矛盾。起初，这个请求传递到同学，若他有能力处理这个请求，就调用同学的处理方法，并到此为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式（14）——职责链模式">
+<meta property="og:url" content="http://asxalex.pw/2013/08/19/chainofresponsibility/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="职责链模式（Chain Of Responsibility）是得多个对象有机会处理同一个请求，从而避免请求发送者与接收者之间的耦合关系。它将这些对象串成一条链，并沿着这条链传递该请求，直到有一个对象处理这个请求为止。设想我们学校的一个场景：假设两个同学之间发生了争吵。这时就发生一个请求————处理这两个同学之间的矛盾。起初，这个请求传递到同学，若他有能力处理这个请求，就调用同学的处理方法，并到此为">
+<meta property="og:image" content="http://asxalex.qiniudn.com/chain_of_responsibility.png">
+<meta property="og:updated_time" content="2016-11-14T09:32:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式（14）——职责链模式">
+<meta name="twitter:description" content="职责链模式（Chain Of Responsibility）是得多个对象有机会处理同一个请求，从而避免请求发送者与接收者之间的耦合关系。它将这些对象串成一条链，并沿着这条链传递该请求，直到有一个对象处理这个请求为止。设想我们学校的一个场景：假设两个同学之间发生了争吵。这时就发生一个请求————处理这两个同学之间的矛盾。起初，这个请求传递到同学，若他有能力处理这个请求，就调用同学的处理方法，并到此为">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/chain_of_responsibility.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://asxalex.pw"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-chainofresponsibility" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/19/chainofresponsibility/" class="article-date">
+  <time datetime="2013-08-19T14:18:00.000Z" itemprop="datePublished">2013-08-19</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      设计模式（14）——职责链模式
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>职责链模式（Chain Of Responsibility）是得多个对象有机会处理同一个请求，从而避免请求发送者与接收者之间的耦合关系。它将这些对象串成一条链，并沿着这条链传递该请求，直到有一个对象处理这个请求为止。设想我们学校的一个场景：假设两个同学之间发生了争吵。这时就发生一个请求————处理这两个同学之间的矛盾。起初，这个请求传递到<strong>同学</strong>，若他有能力处理这个请求，就调用<strong>同学</strong>的处理方法，并到此为止；若<strong>同学</strong>处理不了，就将该请求传递至<strong>班长</strong>，以此类推，最后传递到<strong>老师</strong>（假设老师可以处理任何请求）。<a id="more"></a>类图如下：</p>
+<img src="http://asxalex.qiniudn.com/chain_of_responsibility.png">
+<figure class="highlight c++"><figcaption><span>chain_of_responsibility.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">class</span> Person&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        Person(Person *per, <span class="keyword">int</span> mmin, <span class="keyword">int</span> mmax):successor(per), min(mmin), max(mmax)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">DealWith</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> thing, <span class="keyword">int</span> priority)</span></span>&#123;&#125;</div><div class="line">        <span class="keyword">virtual</span> ~Person()&#123;&#125;</div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">        Person *successor;</div><div class="line">        <span class="keyword">int</span> min,max;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> classmate : <span class="keyword">public</span> Person&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        classmate(Person *per, <span class="keyword">int</span> min, <span class="keyword">int</span> max):Person(per,min,max)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">DealWith</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> thing, <span class="keyword">int</span> priority)</span></span>&#123;</div><div class="line">            <span class="keyword">if</span>(priority &gt;= min &amp;&amp; priority &lt;= max)&#123;</div><div class="line">                <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"classmate can deal with the thing: "</span> &lt;&lt; thing &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"classmate can not deal with it."</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">                successor -&gt; DealWith(thing, priority);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> monitor : <span class="keyword">public</span> Person&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        monitor(Person *per, <span class="keyword">int</span> min, <span class="keyword">int</span> max):Person(per,min,max)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">DealWith</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> thing, <span class="keyword">int</span> priority)</span></span>&#123;</div><div class="line">            <span class="keyword">if</span>(priority &gt;= min &amp;&amp; priority &lt;= max)</div><div class="line">                <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"monitor can deal with the thing: "</span> &lt;&lt; thing &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">            <span class="keyword">else</span>&#123;</div><div class="line">                <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"monitor can not deal with it."</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">                successor -&gt; DealWith(thing,priority);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> teacher : <span class="keyword">public</span> Person&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        teacher(<span class="keyword">int</span> min,<span class="keyword">int</span> max):Person(<span class="number">0</span>,min,max)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">DealWith</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> thing,<span class="keyword">int</span> priority)</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"teacher can deal with it."</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>chain_of_responsibility.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"chain_of_responsibility.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    Person *cteacher = <span class="keyword">new</span> teacher(<span class="number">0</span>,<span class="number">0</span>);</div><div class="line">    Person *cmonitor = <span class="keyword">new</span> monitor(cteacher,<span class="number">10</span>,<span class="number">20</span>);</div><div class="line">    Person *cmate = <span class="keyword">new</span> classmate(cmonitor,<span class="number">0</span>,<span class="number">10</span>);</div><div class="line">    cmate -&gt; DealWith(<span class="string">"thing1"</span>,<span class="number">5</span>);</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"==========================================================="</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">    cmate -&gt; DealWith(<span class="string">"thing2"</span>,<span class="number">15</span>);</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"==========================================================="</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">    cmate -&gt; DealWith(<span class="string">"thing3"</span>,<span class="number">100</span>);</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"==========================================================="</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">    <span class="keyword">delete</span> cmate;</div><div class="line">    <span class="keyword">delete</span> cmonitor;</div><div class="line">    <span class="keyword">delete</span> cteacher;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们在这条链的每个节点都有一个successor成员用于指示若自己不能处理这个请求，该将请求交给谁继续处理。另外，我们在每个节点上都定义了一个自己的处理范围，只有当一个请求的priority处于这个范围里时这个节点才能处理，否则会将请求上交。</p>
+
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-chainofresponsibility" data-title="设计模式（14）——职责链模式" data-url="http://asxalex.pw/2013/08/19/chainofresponsibility/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:asxalex.pw">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

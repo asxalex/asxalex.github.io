@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设计模式（16）——中介者模式 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="中介者模式（mediator）用一个中介来封装一系列的对象交互。它使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变他们之间的交互。这次的栗子是一个“雇佣者与被雇佣者”的模型。我们建立了一个雇佣中介。当一个雇佣者（employer）有雇佣消息时，他就通过“雇佣中介”来通知被雇佣者（employee）来散布消息；同理，当employee有要找工作时，可以通过这个“雇佣中介”来通知em">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式（16）——中介者模式">
+<meta property="og:url" content="http://asxalex.pw/2013/08/20/mediator/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="中介者模式（mediator）用一个中介来封装一系列的对象交互。它使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变他们之间的交互。这次的栗子是一个“雇佣者与被雇佣者”的模型。我们建立了一个雇佣中介。当一个雇佣者（employer）有雇佣消息时，他就通过“雇佣中介”来通知被雇佣者（employee）来散布消息；同理，当employee有要找工作时，可以通过这个“雇佣中介”来通知em">
+<meta property="og:image" content="http://asxalex.qiniudn.com/mediator.png">
+<meta property="og:updated_time" content="2016-11-14T09:32:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式（16）——中介者模式">
+<meta name="twitter:description" content="中介者模式（mediator）用一个中介来封装一系列的对象交互。它使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变他们之间的交互。这次的栗子是一个“雇佣者与被雇佣者”的模型。我们建立了一个雇佣中介。当一个雇佣者（employer）有雇佣消息时，他就通过“雇佣中介”来通知被雇佣者（employee）来散布消息；同理，当employee有要找工作时，可以通过这个“雇佣中介”来通知em">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/mediator.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://asxalex.pw"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-mediator" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/20/mediator/" class="article-date">
+  <time datetime="2013-08-20T07:05:00.000Z" itemprop="datePublished">2013-08-20</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      设计模式（16）——中介者模式
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>中介者模式（mediator）用一个中介来封装一系列的对象交互。它使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变他们之间的交互。这次的栗子是一个“雇佣者与被雇佣者”的模型。我们建立了一个雇佣中介。当一个雇佣者（employer）有雇佣消息时，他就通过“雇佣中介”来通知被雇佣者（employee）来散布消息；同理，当employee有要找工作时，可以通过这个“雇佣中介”来通知employer。<a id="more"></a>类图如下：</p>
+<img src="http://asxalex.qiniudn.com/mediator.png">
+<p>关于这个类图的实现代码如下：</p>
+<figure class="highlight c++"><figcaption><span>mediator.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">enum</span> SIDE&#123;sidea,sideb&#125;;</div><div class="line"><span class="keyword">class</span> mediator;</div><div class="line"><span class="keyword">class</span> Side&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">getMessage</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> message)</span></span>&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> message, SIDE to)</span></span>&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setMediator</span><span class="params">(mediator *smed)</span></span>&#123;&#125;</div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">        mediator *med;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> mediator&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setSideA</span><span class="params">(Side *side)</span></span>&#123;sideA = side;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setSideB</span><span class="params">(Side *side)</span></span>&#123;sideB = side;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">inform</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> message, SIDE side)</span></span>&#123;(side == sidea? sideA: sideB) -&gt; getMessage(message);&#125;</div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">        Side* sideA;</div><div class="line">        Side* sideB;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> EmployMediator : <span class="keyword">public</span> mediator&#123;&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> employer : <span class="keyword">public</span> Side&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">getMessage</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> message)</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"get message from employee: "</span> &lt;&lt; message &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> message, SIDE to)</span></span>&#123;med -&gt; inform(message, to);&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setMediator</span><span class="params">(mediator *smed)</span></span>&#123;med = smed;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> employee : <span class="keyword">public</span> Side&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">getMessage</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> message)</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"get message from employer: "</span> &lt;&lt; message &lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span> message, SIDE to)</span></span>&#123;med -&gt; inform(message, to);&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setMediator</span><span class="params">(mediator *smed)</span></span>&#123;med = smed;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>mediator.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"mediator.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="comment">//sidea or sideb is used to represent either of side.</span></div><div class="line">    mediator *med = <span class="keyword">new</span> EmployMediator;</div><div class="line">    Side *emper = <span class="keyword">new</span> employer;</div><div class="line">    Side *empee = <span class="keyword">new</span> employee;</div><div class="line">    emper -&gt; setMediator(med);</div><div class="line">    empee -&gt; setMediator(med);</div><div class="line">    med -&gt; setSideA(emper);</div><div class="line">    med -&gt; setSideB(empee);</div><div class="line">    emper -&gt; sendMessage(<span class="string">"I'd love to employ a person."</span>,sideb);</div><div class="line">    empee -&gt; sendMessage(<span class="string">"I'd love to be employed by a person."</span>,sidea);</div><div class="line">    <span class="keyword">delete</span> empee;</div><div class="line">    <span class="keyword">delete</span> emper;</div><div class="line">    <span class="keyword">delete</span> med;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>mediator模式对对象如何协作进行了抽象，使控制集中化。</p>
+
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-mediator" data-title="设计模式（16）——中介者模式" data-url="http://asxalex.pw/2013/08/20/mediator/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:asxalex.pw">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

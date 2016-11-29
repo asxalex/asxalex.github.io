@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>一次有趣的经历 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="我搭建这个blog时什么资金都没出。域名用的免费的，用的Stdyun的免费托管服务（速度相当快，推荐有兴趣的试试）。由于Stdyun上首次提供100M的空间，所以，如果将blog中的图片都上传的话会占用相当一部分空间。经google之后找到类解决方案：用七牛云存储作为我blog的图床（也推荐一下，配合他们的工具，相当好用）。
+其实起初还是比较纠结的————因为有许多这样的服务，甚至到了眼花缭乱的地">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一次有趣的经历">
+<meta property="og:url" content="http://asxalex.pw/2013/08/17/you-qu-de-jing-li/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="我搭建这个blog时什么资金都没出。域名用的免费的，用的Stdyun的免费托管服务（速度相当快，推荐有兴趣的试试）。由于Stdyun上首次提供100M的空间，所以，如果将blog中的图片都上传的话会占用相当一部分空间。经google之后找到类解决方案：用七牛云存储作为我blog的图床（也推荐一下，配合他们的工具，相当好用）。
+其实起初还是比较纠结的————因为有许多这样的服务，甚至到了眼花缭乱的地">
+<meta property="og:updated_time" content="2016-11-21T02:36:09.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一次有趣的经历">
+<meta name="twitter:description" content="我搭建这个blog时什么资金都没出。域名用的免费的，用的Stdyun的免费托管服务（速度相当快，推荐有兴趣的试试）。由于Stdyun上首次提供100M的空间，所以，如果将blog中的图片都上传的话会占用相当一部分空间。经google之后找到类解决方案：用七牛云存储作为我blog的图床（也推荐一下，配合他们的工具，相当好用）。
+其实起初还是比较纠结的————因为有许多这样的服务，甚至到了眼花缭乱的地">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://asxalex.pw"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-you-qu-de-jing-li" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/17/you-qu-de-jing-li/" class="article-date">
+  <time datetime="2013-08-17T12:03:00.000Z" itemprop="datePublished">2013-08-17</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      一次有趣的经历
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>我搭建这个blog时什么资金都没出。域名用的免费的，用的<a href="https://stdyun.com/" target="_blank" rel="external">Stdyun</a>的免费托管服务（速度相当快，推荐有兴趣的试试）。由于Stdyun上首次提供100M的空间，所以，如果将blog中的图片都上传的话会占用相当一部分空间。经google之后找到类解决方案：用<a href="http://www.qiniu.com/" target="_blank" rel="external">七牛云存储</a>作为我blog的图床（也推荐一下，配合他们的工具，相当好用）。</p>
+<p>其实起初还是比较纠结的————因为有许多这样的服务，甚至到了眼花缭乱的地步。由于我是个vim迷，自打体会到它不用鼠标的高效之后，我就努力尝试用命令行解决尽可能多的事，追求简洁。后来无意间看到了七牛一个最吸引我眼球的特性：有命令行辅助工具。除了传统的网页上传，下载，他们还特地开发了命令行辅助工具，就是它了！<a id="more"></a></p>
+<p>七牛的体验还是比较好的。要上传什么图片（由于用作图床，所以我几乎只上传图片）直接一条命令搞定。爽快！</p>
+<p>可今天下午，我照例执行了那条命令：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./qrsync conf.json</div></pre></td></tr></table></figure>
+<p>等了很长时间，只等到了一个错误消息。我以为这只是服务器一时抽风，隔了几分钟又试了下，还是一样的错误。我又尝试了七牛的网页版上传，还是失败。于是联系了七牛的客服。</p>
+<p>之后，就与客服聊qq，起初我还担心客服同学会不耐烦，会跟我说忍忍就好了————毕竟我这个是个案，而非服务器原因。但他一直很耐心地跟我聊，以排除错误————从一步步追踪代码，到下载最新客户端，到交叉编译适合我PC架构的客户端，再到ssh到我电脑重现问题，他都耐心地操作着。期间他还教会我路由器的端口转发配置（以前在学校ssh到同学电脑的时候都在局域网里，不存在NAT端口转发的问题，也就没配置过这个，另外如果不是自己折腾的话，也没路由器让你来配置）。十分感谢（虽然还没问过你的名字）。</p>
+
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/life/">life</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-you-qu-de-jing-li" data-title="一次有趣的经历" data-url="http://asxalex.pw/2013/08/17/you-qu-de-jing-li/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:asxalex.pw">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

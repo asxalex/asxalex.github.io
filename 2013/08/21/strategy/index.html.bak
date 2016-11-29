@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设计模式（20）——策略模式 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="策略模式（Strategy）定义一系列算法，把他们一个个封装起来，并且使他们可以相互替换。此模式可以使得算法可独立于使用他们的客户的变化而变化。
+比如说我们现在要去某个风景名胜旅游。于是你在网上查好了路线。有许多策略：你可以选择A——B——C——D，或者A——E——F——D，或者A——G——D。你可以不关心具体路线，只要到达目的就行。于是这些路线就成了算法，他们应该独立于我们客户——即我们可以随时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式（20）——策略模式">
+<meta property="og:url" content="http://asxalex.pw/2013/08/21/strategy/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="策略模式（Strategy）定义一系列算法，把他们一个个封装起来，并且使他们可以相互替换。此模式可以使得算法可独立于使用他们的客户的变化而变化。
+比如说我们现在要去某个风景名胜旅游。于是你在网上查好了路线。有许多策略：你可以选择A——B——C——D，或者A——E——F——D，或者A——G——D。你可以不关心具体路线，只要到达目的就行。于是这些路线就成了算法，他们应该独立于我们客户——即我们可以随时">
+<meta property="og:image" content="http://asxalex.qiniudn.com/stategy.png">
+<meta property="og:updated_time" content="2016-11-14T09:32:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式（20）——策略模式">
+<meta name="twitter:description" content="策略模式（Strategy）定义一系列算法，把他们一个个封装起来，并且使他们可以相互替换。此模式可以使得算法可独立于使用他们的客户的变化而变化。
+比如说我们现在要去某个风景名胜旅游。于是你在网上查好了路线。有许多策略：你可以选择A——B——C——D，或者A——E——F——D，或者A——G——D。你可以不关心具体路线，只要到达目的就行。于是这些路线就成了算法，他们应该独立于我们客户——即我们可以随时">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/stategy.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://asxalex.pw"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-strategy" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/21/strategy/" class="article-date">
+  <time datetime="2013-08-21T05:04:00.000Z" itemprop="datePublished">2013-08-21</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      设计模式（20）——策略模式
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>策略模式（Strategy）定义一系列算法，把他们一个个封装起来，并且使他们可以相互替换。此模式可以使得算法可独立于使用他们的客户的变化而变化。</p>
+<p>比如说我们现在要去某个风景名胜旅游。于是你在网上查好了路线。有许多策略：你可以选择A——B——C——D，或者A——E——F——D，或者A——G——D。你可以不关心具体路线，只要到达目的就行。于是这些路线就成了算法，他们应该独立于我们客户——即我们可以随时更换这些策略。<a id="more"></a>为了简化，看下面的类图：</p>
+<img src="http://asxalex.qiniudn.com/stategy.png">
+<p>这是最简单的类之间的继承关系，实现代码如下：</p>
+<figure class="highlight c++"><figcaption><span>strategy.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">enum</span> APPROACH&#123;AP1, AP2&#125;;</div><div class="line"><span class="keyword">class</span> approach&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">means</span><span class="params">()</span> </span>= <span class="number">0</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> approach1 : <span class="keyword">public</span> approach&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">means</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"this is approach one"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> approach2 : <span class="keyword">public</span> approach&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">means</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"this is approach two"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> select_approach&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        select_approach(APPROACH);</div><div class="line">        ~select_approach()&#123;<span class="keyword">delete</span> _app;&#125;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">show_approach</span><span class="params">()</span> <span class="keyword">const</span></span>;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        approach *_app;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">select_approach::select_approach(APPROACH app)&#123;</div><div class="line">    <span class="keyword">switch</span>(app)&#123;</div><div class="line">        <span class="keyword">case</span> AP1:</div><div class="line">            _app = <span class="keyword">new</span> approach1;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> AP2:</div><div class="line">            _app = <span class="keyword">new</span> approach2;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            _app = <span class="literal">NULL</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">void</span> select_approach::show_approach() <span class="keyword">const</span>&#123;</div><div class="line">    _app -&gt; means();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>strategy.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"strategy.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="function">select_approach <span class="title">sele_app1</span><span class="params">(AP1)</span></span>;</div><div class="line">    sele_app1.show_approach();</div><div class="line">    <span class="function">select_approach <span class="title">sele_app2</span><span class="params">(AP2)</span></span>;</div><div class="line">    sele_app2.show_approach();</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这个栗子中，我们通过向select_approach传递参数来选择具体的策略。</p>
+
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-strategy" data-title="设计模式（20）——策略模式" data-url="http://asxalex.pw/2013/08/21/strategy/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:asxalex.pw">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
