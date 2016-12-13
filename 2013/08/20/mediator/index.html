@@ -39,7 +39,7 @@
 	</h1>
 	<nav class="nav">
 		<ul>
-			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li>
 			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
 			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
 			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
@@ -84,6 +84,7 @@
 <figure class="highlight c++"><figcaption><span>mediator.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"mediator.h"</span></span></div><div class="line">&nbsp;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="comment">//sidea or sideb is used to represent either of side.</span></div><div class="line">    mediator *med = <span class="keyword">new</span> EmployMediator;</div><div class="line">    Side *emper = <span class="keyword">new</span> employer;</div><div class="line">    Side *empee = <span class="keyword">new</span> employee;</div><div class="line">    emper -&gt; setMediator(med);</div><div class="line">    empee -&gt; setMediator(med);</div><div class="line">    med -&gt; setSideA(emper);</div><div class="line">    med -&gt; setSideB(empee);</div><div class="line">    emper -&gt; sendMessage(<span class="string">"I'd love to employ a person."</span>,sideb);</div><div class="line">    empee -&gt; sendMessage(<span class="string">"I'd love to be employed by a person."</span>,sidea);</div><div class="line">    <span class="keyword">delete</span> empee;</div><div class="line">    <span class="keyword">delete</span> emper;</div><div class="line">    <span class="keyword">delete</span> med;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>mediator模式对对象如何协作进行了抽象，使控制集中化。</p>
 
+    
     
 	</div>
 

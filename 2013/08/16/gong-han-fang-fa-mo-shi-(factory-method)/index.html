@@ -43,7 +43,7 @@
 	</h1>
 	<nav class="nav">
 		<ul>
-			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li>
 			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
 			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
 			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
@@ -94,6 +94,7 @@
 <figure class="highlight c++"><figcaption><span>factory_method.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"factory_method.h"</span></span></div><div class="line">&nbsp;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    factory *teddyfactory = <span class="keyword">new</span> TeddyFactory();</div><div class="line">    teddyfactory -&gt; create_Bear() -&gt; show();</div><div class="line">    <span class="keyword">delete</span> teddyfactory;</div><div class="line">    factory *polarfactory = <span class="keyword">new</span> PolarFactory();</div><div class="line">    polarfactory -&gt; create_Bear() -&gt; show();</div><div class="line">    <span class="keyword">delete</span> polarfactory;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>如上，在现在各个车间负责生产各自的产品，用起来比较“清爽”。当然，这样做也有明显的不足：就是当我们产品种类繁多时，就会有许多车间，会产生一种叫类爆炸的效应。</p>
 
+    
     
 	</div>
 
