@@ -40,7 +40,7 @@
 	</h1>
 	<nav class="nav">
 		<ul>
-			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li>
 			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
 			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
 			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
@@ -90,6 +90,7 @@
 <figure class="highlight c++"><figcaption><span>flyweight2.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"flyweight1.h"</span></span></div><div class="line">&nbsp;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    document doc;</div><div class="line">    doc.add(A1);</div><div class="line">    doc.add(A2);</div><div class="line">    doc.add(A1);</div><div class="line">    doc.print();</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在这里，我们示意性地只用了两种不同的字符，所有同样的字符均共用内部属性，而外部属性就在vector中的插入位置来确定，在插入时，我们将不同字符排在不同的位置上，在插入到document中时，我们只要插入一个整数值————指定那个字符————就可以了。这样在有成千上万字符而字体种类不多的情况下可以节省可观的资源。</p>
 
+    
     
 	</div>
 

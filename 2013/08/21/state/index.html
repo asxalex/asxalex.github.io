@@ -42,7 +42,7 @@
 	</h1>
 	<nav class="nav">
 		<ul>
-			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li>
 			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
 			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
 			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
@@ -88,6 +88,7 @@
 <figure class="highlight c++"><figcaption><span>state.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"state.h"</span></span></div><div class="line">&nbsp;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    Human *alex = <span class="keyword">new</span> Human(<span class="string">"alex"</span>,<span class="keyword">new</span> Child);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">19</span>; ++i)&#123;</div><div class="line">        alex -&gt; setAge(i);</div><div class="line">        alex -&gt; getPeriod();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>实现代码中，我们为了在终端打印出相对较少的信息而又可以达到测试的目的，所以特地将各年龄段的年龄设置得比较小。另外，我们的Human类随着时间的退役只能<strong>变老</strong>，比如说在青年时，他不能变成少年，即越活越年轻。假如某天科技发达到可以使人类<strong>返老还童</strong>，那我们就需要修改各个年龄阶段中的判断条件。暂不在考虑范围内。</p>
 
+    
     
 	</div>
 

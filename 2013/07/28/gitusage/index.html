@@ -39,7 +39,7 @@
 	</h1>
 	<nav class="nav">
 		<ul>
-			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li>
 			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
 			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
 			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
@@ -84,6 +84,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">git checkout -- file.txt 用暂存区中的file.txt覆盖工作区中的文件</div><div class="line">git reset HEAD 用HEAD指向的分支覆盖暂存区，对工作区无影响</div><div class="line">git checkout HEAD filename 将HEAD指向分支覆盖工作区和暂存区</div><div class="line">git reset --hard HEAD^ 用HEAD指针之前一次提交覆盖工作区，暂存区，HEAD也后退一次</div><div class="line">git reset --soft HEAD^ 工作区，暂存区不变，HEAD指针回退一次</div><div class="line">git reset -- filename 用HEAD指针指向内容覆盖暂存区，工作区不变</div><div class="line">git stash 保存当前工作进度（文件必须被git add之后才能被保存）</div><div class="line">git stash pop 恢复最新保存的工作进度</div><div class="line">git stash drop stash@&#123;<span class="number">1</span>&#125; 删除stash中的第一条</div><div class="line">git clone &lt;repository&gt; &lt;directory&gt;</div><div class="line">git push/pull [&lt;remote-repos&gt; [&lt;refspec&gt;]] i.e. git push origin master</div><div class="line">git push 前先 git pull 一下，一面非快进式推送</div><div class="line">git pull = git fetch + git merge</div><div class="line">git merge &lt;commit&gt; 将对应commit分支合并至当前分支</div><div class="line">git tag &lt;tag-name&gt; [&lt;commit&gt;]</div><div class="line">git branch 列出所有分支</div><div class="line">git branch &lt;branch-name&gt; 创建分支</div><div class="line">git checkout &lt;branch-name&gt; 切换分支</div></pre></td></tr></table></figure>
 <p>这里先将一些常用的列在这里，以后用到其它的再进行添加:-)</p>
 
+    
     
 	</div>
 

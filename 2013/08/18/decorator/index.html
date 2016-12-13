@@ -42,7 +42,7 @@
 	</h1>
 	<nav class="nav">
 		<ul>
-			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li>
 			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
 			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
 			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
@@ -89,6 +89,7 @@
 <figure class="highlight c++"><figcaption><span>decorator.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"decorator.h"</span></span></div><div class="line">&nbsp;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    Window *wina = <span class="keyword">new</span> NormalWindow(<span class="string">"alex"</span>);</div><div class="line">    <span class="function">MenuDecorator <span class="title">deco1</span><span class="params">(wina)</span></span>;</div><div class="line">    deco1.apply();</div><div class="line">    <span class="keyword">delete</span> wina;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在代码中，各种Decorator将具体的Window“装饰”起来了，在需要用到<strong>装饰品</strong>的地方，可以调用它的apply方法。apply方法中实现具体的装饰过程————可以像这里一样是个简单的打印，也可以是真正的复杂的<strong>装饰</strong>操作。</p>
 
+    
     
 	</div>
 

@@ -39,7 +39,7 @@
 	</h1>
 	<nav class="nav">
 		<ul>
-			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li>
 			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
 			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
 			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
@@ -87,6 +87,7 @@
 <figure class="highlight c++"><figcaption><span>singleton.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"singleton.h"</span></span></div><div class="line">&nbsp;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    singleton *a = singleton::instance(TYPEA);</div><div class="line">    a -&gt; show();</div><div class="line">    <span class="keyword">delete</span> a;</div><div class="line">    singleton *b = singleton::instance(TYPEB);</div><div class="line">    b -&gt; show();</div><div class="line">    <span class="keyword">delete</span> b;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在这里我们注意一下那个singleton类，在它的析构函数中，它将_singleton释放掉，并且将其重置为0，而在静态函数中我们又可以发现：当_singleton为0时又可以重新分配空间。所以我们可以“重复利用”一个singleton（好像违背了它的本意），在将它delete之后重新生成。另外，为了能在基类singleton中访问它的派生类singletonA与singletonB，我们在将基类声明为派生类的友元（将基类声明为派生类的友元的情况似乎十分少见）。</p>
 
+    
     
 	</div>
 

@@ -42,7 +42,7 @@
 	</h1>
 	<nav class="nav">
 		<ul>
-			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li>
 			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
 			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
 			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
@@ -90,6 +90,7 @@
 <figure class="highlight c++"><figcaption><span>simple_factory.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"simple_factory.h"</span></span></div><div class="line">&nbsp;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    factory fac;</div><div class="line">    Bear *bear = fac.create_Bear(TEDDY);</div><div class="line">    call_show(bear);</div><div class="line">    <span class="keyword">delete</span> bear;</div><div class="line">    bear = fac.create_Bear(POLAR);</div><div class="line">    call_show(bear);</div><div class="line">    <span class="keyword">delete</span> bear;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>如上，在生产的时候，我们向工厂提出要求（想要生产什么样的熊），并且，我们只知道工厂送过来的是一只熊————我们甚至不需要知道那个究竟是什么熊————就可以使用它了（多亏了多态性）。</p>
 
+    
     
 	</div>
 

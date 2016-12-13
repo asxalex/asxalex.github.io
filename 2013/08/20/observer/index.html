@@ -39,7 +39,7 @@
 	</h1>
 	<nav class="nav">
 		<ul>
-			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li>
 			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
 			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
 			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
@@ -84,6 +84,7 @@
 <figure class="highlight c++"><figcaption><span>observer.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"observer.h"</span></span></div><div class="line">&nbsp;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    observer *obs = <span class="keyword">new</span> MapObserver;</div><div class="line">    <span class="built_in">map</span> *mp1 = <span class="keyword">new</span> map1;</div><div class="line">    <span class="built_in">map</span> *mp2 = <span class="keyword">new</span> map2;</div><div class="line">    mp1 -&gt; add(obs);</div><div class="line">    mp2 -&gt; add(obs);</div><div class="line">    obs -&gt; add(mp1);</div><div class="line">    obs -&gt; add(mp2);</div><div class="line">    mp1 -&gt; setStatus(<span class="string">"ok"</span>);</div><div class="line">    mp2 -&gt; setStatus(<span class="string">"bad"</span>);</div><div class="line">    mp1 -&gt; notify();</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"================================================="</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">    mp2 -&gt; notify();</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在栗子中，每个map都有一个notify()方法，具体是它<strong>通知</strong>observer采取相应措施来应对map的变化。若我们需要在map<strong>一有动静</strong>就让observer采取措施，就可以在map的add()方法中调用notify()，而不是“手动”调用。另外，MapObserver对象的mMap成员使<strong>一对多关系</strong>扩展为<strong>多对多关系</strong>。</p>
 
+    
     
 	</div>
 
