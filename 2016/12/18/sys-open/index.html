@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>设备驱动程序的操作调用 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="在编写设备驱动程序的时候，我们会编写一系列针对设备文件的操作方法，常见的有open, release, llseek, read, write等，这些操作都通过一个file_operations这个结构体被装载到特定的设备上。之后，这些函数都在等待特定事件的发生，在事件发生时会被调用，比如，当我们打开字符设备文件/dev/mychardev时，之前定义的open函数会被调用，之后对该文件的读写会相">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设备驱动程序的操作调用">
+<meta property="og:url" content="http://asxalex.pw/2016/12/18/sys-open/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="在编写设备驱动程序的时候，我们会编写一系列针对设备文件的操作方法，常见的有open, release, llseek, read, write等，这些操作都通过一个file_operations这个结构体被装载到特定的设备上。之后，这些函数都在等待特定事件的发生，在事件发生时会被调用，比如，当我们打开字符设备文件/dev/mychardev时，之前定义的open函数会被调用，之后对该文件的读写会相">
+<meta property="og:updated_time" content="2016-12-18T09:17:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设备驱动程序的操作调用">
+<meta name="twitter:description" content="在编写设备驱动程序的时候，我们会编写一系列针对设备文件的操作方法，常见的有open, release, llseek, read, write等，这些操作都通过一个file_operations这个结构体被装载到特定的设备上。之后，这些函数都在等待特定事件的发生，在事件发生时会被调用，比如，当我们打开字符设备文件/dev/mychardev时，之前定义的open函数会被调用，之后对该文件的读写会相">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+			
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://asxalex.pw"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-sys-open" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2016/12/18/sys-open/" class="article-date">
+  <time datetime="2016-12-18T08:03:51.000Z" itemprop="datePublished">2016-12-18</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      设备驱动程序的操作调用
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>在编写设备驱动程序的时候，我们会编写一系列针对设备文件的操作方法，常见的有<code>open</code>, <code>release</code>, <code>llseek</code>, <code>read</code>, <code>write</code>等，这些操作都通过一个<code>file_operations</code>这个结构体被装载到特定的设备上。之后，这些函数都在等待特定事件的发生，在事件发生时会被调用，比如，当我们打开字符设备文件<code>/dev/mychardev</code>时，之前定义的<code>open</code>函数会被调用，之后对该文件的读写会相应地调用<code>read</code>和<code>write</code>。<a id="more"></a></p>
+<h2 id="预备"><a href="#预备" class="headerlink" title="预备"></a>预备</h2><p>范例使用的内核版本为<code>2.6.39</code>，其中相关的内核数据结构有<code>struct inode</code>，<code>struct dentry</code>，<code>struct file</code>和<code>struct file_operations</code>，他们的关系如下：</p>
+<ul>
+<li><code>inode</code>：是内核中对一个文件的表示；</li>
+<li><code>file</code>：是内核中对一个打开的文件的表示，当一个文件被打开多次时，这个文件对应一个<code>inode</code>，而一般情况下会对应多个<code>file</code>结构；</li>
+<li><code>dentry</code>：当同一个文件有不同文件名时，该文件会对应一个<code>inode</code>结构，而会对应多个<code>dentry</code>结构，该结构维护着目录项（路径）和<code>inode</code>的关系，即可以通过不同的<code>dentry</code>结构（不同路径下的同一个文件）找到同一个表示文件的<code>inode</code>；</li>
+<li><code>file_operations</code>：是定义在文件身上的一些操作，当对文件进行操作时，这些操作被映射到<code>file_operations</code>结构中定义的函数上。</li>
+</ul>
+<h2 id="字符设备"><a href="#字符设备" class="headerlink" title="字符设备"></a>字符设备</h2><p>字符设备在内核中以<code>struct cdev</code>表示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> cdev &#123;</div><div class="line">    <span class="keyword">struct</span> kobject kobj;</div><div class="line">    <span class="keyword">struct</span> <span class="keyword">module</span> *owner;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">struct</span> file_operations *ops;</div><div class="line">    <span class="keyword">struct</span> list_head <span class="built_in">list</span>;</div><div class="line">    <span class="keyword">dev_t</span> dev;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> count;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>字符设备中包括了一组针对该设备文件的操作方法（<code>ops</code>成员），在编写字符设备驱动的时候使用<code>cdev_init</code>将实际用户定义的操作方法与字符设备绑定。</p>
+<p>同时，在向系统注册字符设备的时候，系统会给新定义的字符设备分配（或者我们静态指定）设备号，该设备号用于系统中唯一标识我们的设备（以下用<code>devno</code>表示分配到的设备号）。</p>
+<h2 id="创建字符设备文件"><a href="#创建字符设备文件" class="headerlink" title="创建字符设备文件"></a>创建字符设备文件</h2><p>创建字符设备文件是通过<code>mknod</code>命令实现的，该命令用于创建字符设备或块设备的特殊文件，它实际调用了<code>sys_mknod</code>的系统调用，而<code>sys_mknod</code>会根据所在文件系统的不同调用实际文件系统的<code>mknod</code>方法，比如<code>ext4</code>文件系统的方法名为<code>ext4_mknod</code>：</p>
+<figure class="highlight c"><figcaption><span>fs/ext4/namei.c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">ext4_mknod</span><span class="params">(<span class="keyword">struct</span> inode *dir, <span class="keyword">struct</span> dentry *dentry,</span></span></div><div class="line">              <span class="keyword">int</span> mode, <span class="keyword">dev_t</span> rdev)</div><div class="line">&#123;</div><div class="line">    ...</div><div class="line">    <span class="keyword">struct</span> inode *inode;</div><div class="line">    <span class="keyword">int</span> err;</div><div class="line">    ...</div><div class="line">&nbsp;</div><div class="line">    inode = ext4_new_inode(handle, dir, mode, &amp;dentry-&gt;d_name, <span class="number">0</span>);</div><div class="line">    err = PTR_ERR(inode);</div><div class="line">    <span class="keyword">if</span> (!IS_ERR(inode)) &#123;</div><div class="line">        init_special_inode(inode, inode-&gt;i_mode, rdev);</div><div class="line">        ...</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">    <span class="keyword">return</span> err;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该函数会调用<code>init_special_inode</code>函数：</p>
+<figure class="highlight c"><figcaption><span>fs/inode.c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_special_inode</span><span class="params">(<span class="keyword">struct</span> inode *inode, <span class="keyword">umode_t</span> mode, <span class="keyword">dev_t</span> rdev)</span></span></div><div class="line">&#123;</div><div class="line">	inode-&gt;i_mode = mode;</div><div class="line">	<span class="keyword">if</span> (S_ISCHR(mode)) &#123;</div><div class="line">		inode-&gt;i_fop = &amp;def_chr_fops;</div><div class="line">		inode-&gt;i_rdev = rdev;</div><div class="line">	&#125; </div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该函数中判断，如果是字符设备，就将<code>inode</code>的<code>i_fop</code>和表示字符设备的<code>i_rdev</code>赋值：</p>
+<figure class="highlight c"><figcaption><span>fs/char_dev.c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="keyword">struct</span> file_operations def_chr_fops = &#123;</div><div class="line">	.open = chrdev_open,</div><div class="line">	.llseek = noop_llseek,</div><div class="line">&#125;;</div><div class="line">&nbsp;</div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">chrdev_open</span><span class="params">(<span class="keyword">struct</span> inode *inode, <span class="keyword">struct</span> file *filp)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">struct</span> cdev *p;</div><div class="line">	<span class="keyword">struct</span> cdev *<span class="keyword">new</span> = <span class="literal">NULL</span>;</div><div class="line">	<span class="keyword">int</span> ret = <span class="number">0</span>;</div><div class="line">&nbsp;</div><div class="line">	spin_lock(&amp;cdev_lock);</div><div class="line">	p = inode-&gt;i_cdev;</div><div class="line">&nbsp;</div><div class="line">	ret = -ENXIO;</div><div class="line">	filp-&gt;f_op = fops_get(p-&gt;ops);</div><div class="line">	<span class="keyword">if</span> (!filp-&gt;f_op)</div><div class="line">		<span class="keyword">goto</span> out_cdev_put;</div><div class="line">&nbsp;</div><div class="line">	<span class="keyword">if</span> (filp-&gt;f_op-&gt;open) &#123;</div><div class="line">		ret = filp-&gt;f_op-&gt;open(inode,filp);</div><div class="line">		<span class="keyword">if</span> (ret)</div><div class="line">			<span class="keyword">goto</span> out_cdev_put;</div><div class="line">	&#125;</div><div class="line">&nbsp;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在字符设备默认的<code>chrdev_open</code>操作中将<code>inode</code>的字符设备的<code>ops</code>赋值给<code>file</code>结构的<code>f_ops</code>，所以，在第一次打开这个设备文件的时候，<code>chrdev_open</code>被调用，然后它用用户定义的<code>open</code>函数代理进行实际的打开操作，并且，将该<code>file</code>结构的<code>f_op</code>设置成用户定义的文件操作集，所以以后针对文件的操作都会使用用户定义的函数。</p>
+<p>通过设置<code>filp</code>的值以及联合文件描述符<code>fd</code>，在之后的程序中，内核就可以通过<code>current</code>宏、<code>fdtable</code>文件描述符表得到之前设置的<code>file</code>结构，从而完成操作函数的自定义。</p>
+<h2 id="打开设备文件"><a href="#打开设备文件" class="headerlink" title="打开设备文件"></a>打开设备文件</h2><p>当用户在用户空间调用<code>open</code>系统调用时，内核空间会调用<code>do_sys_open</code>函数，该函数的大致流程为：</p>
+<ol>
+<li>根据用户传输的打开模式，从系统中分配一个未被使用的文件描述符<code>fd</code>；</li>
+<li>调用<code>do_filp_open</code>，从系统中新分配一个<code>file</code>结构；</li>
+<li>调用<code>fd_install</code>将<code>fd</code>和<code>file</code>结构绑定；</li>
+</ol>
+<p>在<code>do_filp_open</code>函数中，顺着调用链走下去依次是：<code>path_openat</code> -&gt; <code>do_last</code> -&gt; <code>nameidata_to_filp</code> -&gt; <code>__dentry_open</code>，在<code>__dentry_open</code>中实际调用了<code>inode</code>中的<code>i_fop</code>（在<code>fs/inode.c</code>中首先被初始化为<code>&amp;def_chr_fops</code>）:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">struct</span> file *__dentry_open(<span class="keyword">struct</span> dentry *dentry, </div><div class="line">                    <span class="keyword">struct</span> vfsmount *mnt,</div><div class="line">					<span class="keyword">struct</span> file *f,</div><div class="line">					<span class="keyword">int</span> (*open)(<span class="keyword">struct</span> inode *, <span class="keyword">struct</span> file *),</div><div class="line">					<span class="keyword">const</span> <span class="keyword">struct</span> cred *cred)</div><div class="line">&#123;</div><div class="line">	<span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">struct</span> file_operations empty_fops = &#123;&#125;;</div><div class="line">	<span class="keyword">struct</span> inode *inode;</div><div class="line">	<span class="keyword">int</span> error;</div><div class="line">    ...</div><div class="line">	f-&gt;f_op = fops_get(inode-&gt;i_fop);</div><div class="line">    ...</div><div class="line">	<span class="keyword">if</span> (!open &amp;&amp; f-&gt;f_op)</div><div class="line">		open = f-&gt;f_op-&gt;open;</div><div class="line">	<span class="keyword">if</span> (open) &#123;</div><div class="line">		error = open(inode, f);</div><div class="line">		<span class="keyword">if</span> (error)</div><div class="line">			<span class="keyword">goto</span> cleanup_all;</div><div class="line">	&#125;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>到此，用户在设备驱动程序中定义的各种操作方法就能够被内核调用了:)</p>
+<p>（以上）</p>
+
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fun/">Fun</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kernel/">Kernel</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-sys-open" data-title="设备驱动程序的操作调用" data-url="http://asxalex.pw/2016/12/18/sys-open/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:asxalex.pw">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2016 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
