@@ -49,6 +49,61 @@
     <div id="main">
       
   
+    <article id="post-sys-open" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2016/12/18/sys-open/" class="article-date">
+  <time datetime="2016-12-18T08:03:51.000Z" itemprop="datePublished">2016-12-18</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2016/12/18/sys-open/">设备驱动程序的操作调用</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>在编写设备驱动程序的时候，我们会编写一系列针对设备文件的操作方法，常见的有<code>open</code>, <code>release</code>, <code>llseek</code>, <code>read</code>, <code>write</code>等，这些操作都通过一个<code>file_operations</code>这个结构体被装载到特定的设备上。之后，这些函数都在等待特定事件的发生，在事件发生时会被调用，比如，当我们打开字符设备文件<code>/dev/mychardev</code>时，之前定义的<code>open</code>函数会被调用，之后对该文件的读写会相应地调用<code>read</code>和<code>write</code>。
+			
+				<p class="article-more-link">
+					<a href="/2016/12/18/sys-open/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fun/">Fun</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kernel/">Kernel</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
     <article id="post-partition_resize" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -525,61 +580,6 @@
 			
 				<p class="article-more-link">
 					<a href="/2013/08/29/traits/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/">cpp</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-polymorphism" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/08/27/polymorphism/" class="article-date">
-  <time datetime="2013-08-27T11:27:00.000Z" itemprop="datePublished">2013-08-27</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/08/27/polymorphism/">继承与多态浅析</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>面向对象程序设计中两个重要的概念是继承性与多态性。通俗地讲，继承性是指派生类从基类中获得基类的成员变量及成员函数；而多态性是指在运行时根据对象实际类型确定实际调用的操作，实现“一个接口，多种实现”。在c++中，多态性是通过virtual函数实现的。在子类中通过重写父类中的virtual函数完成，而c++亦允许在子类中对父类的非virtual函数进行重写，一下就来剖析一下这两者的不同。
-			
-				<p class="article-more-link">
-					<a href="/2013/08/27/polymorphism/#more">Read More</a>
 				</p>
       
     

@@ -49,6 +49,61 @@
     <div id="main">
       
   
+    <article id="post-polymorphism" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/27/polymorphism/" class="article-date">
+  <time datetime="2013-08-27T11:27:00.000Z" itemprop="datePublished">2013-08-27</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/27/polymorphism/">继承与多态浅析</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>面向对象程序设计中两个重要的概念是继承性与多态性。通俗地讲，继承性是指派生类从基类中获得基类的成员变量及成员函数；而多态性是指在运行时根据对象实际类型确定实际调用的操作，实现“一个接口，多种实现”。在c++中，多态性是通过virtual函数实现的。在子类中通过重写父类中的virtual函数完成，而c++亦允许在子类中对父类的非virtual函数进行重写，一下就来剖析一下这两者的不同。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/27/polymorphism/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/">cpp</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
     <article id="post-raspberrypi" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -522,61 +577,6 @@
 			
 				<p class="article-more-link">
 					<a href="/2013/08/20/command/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-chainofresponsibility" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/08/19/chainofresponsibility/" class="article-date">
-  <time datetime="2013-08-19T14:18:00.000Z" itemprop="datePublished">2013-08-19</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/08/19/chainofresponsibility/">设计模式（14）——职责链模式</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>职责链模式（Chain Of Responsibility）是得多个对象有机会处理同一个请求，从而避免请求发送者与接收者之间的耦合关系。它将这些对象串成一条链，并沿着这条链传递该请求，直到有一个对象处理这个请求为止。设想我们学校的一个场景：假设两个同学之间发生了争吵。这时就发生一个请求————处理这两个同学之间的矛盾。起初，这个请求传递到<strong>同学</strong>，若他有能力处理这个请求，就调用<strong>同学</strong>的处理方法，并到此为止；若<strong>同学</strong>处理不了，就将该请求传递至<strong>班长</strong>，以此类推，最后传递到<strong>老师</strong>（假设老师可以处理任何请求）。
-			
-				<p class="article-more-link">
-					<a href="/2013/08/19/chainofresponsibility/#more">Read More</a>
 				</p>
       
     
