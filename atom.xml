@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://asxalex.pw/"/>
-  <updated>2017-01-11T10:21:03.000Z</updated>
+  <updated>2017-01-11T10:21:50.000Z</updated>
   <id>http://asxalex.pw/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://asxalex.pw/2017/01/11/ptrace/"/>
     <id>http://asxalex.pw/2017/01/11/ptrace/</id>
     <published>2017-01-11T10:10:58.000Z</published>
-    <updated>2017-01-11T10:21:03.000Z</updated>
+    <updated>2017-01-11T10:21:50.000Z</updated>
     
     <content type="html"><![CDATA[<p>ptrace提供了一种让一个程序（tracer）控制另一个程序（tracee）执行流程，甚至时修改被控制程序内存或者寄存器的方法，ptrace的man手册这样描述：</p>
 <blockquote>
@@ -61,7 +61,9 @@
     </summary>
     
     
-      <category term="Kernel Linux" scheme="http://asxalex.pw/tags/Kernel-Linux/"/>
+      <category term="Linux" scheme="http://asxalex.pw/tags/Linux/"/>
+    
+      <category term="Kernel" scheme="http://asxalex.pw/tags/Kernel/"/>
     
   </entry>
   
