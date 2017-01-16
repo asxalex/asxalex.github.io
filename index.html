@@ -49,6 +49,63 @@
     <div id="main">
       
   
+    <article id="post-kprobe" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2017/01/16/kprobe/" class="article-date">
+  <time datetime="2017-01-16T05:38:55.000Z" itemprop="datePublished">2017-01-16</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2017/01/16/kprobe/">kprobe内核机制</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>kprobe可以动态向内核注册一个调试点，用户定义好钩子函数，当该点被内核执行到时，就调用钩子函数。kprobe可以被方便地用来调试内核，也可以用来实现一些内核设施的统计等（当然，会有额外开销）</p>
+<p>kprobes的使用可以参考内核的<code>samples/kprobes</code>目录下的文件，这些文件可以编译为内核模块，在加载到内核之后就可以使用。</p>
+<p>kprobe有不同的种类，分别为<code>kprobes</code>，<code>jprobes</code>和<code>kretprobes</code>，这里只讨论其中的<code>kprobes</code>。
+			
+				<p class="article-more-link">
+					<a href="/2017/01/16/kprobe/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kernel/">Kernel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
     <article id="post-ptrace" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -529,61 +586,6 @@
 			
 				<p class="article-more-link">
 					<a href="/2013/09/03/crontab/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CoolTool/">CoolTool</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-tmux" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/08/31/tmux/" class="article-date">
-  <time datetime="2013-08-31T12:12:00.000Z" itemprop="datePublished">2013-08-31</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/08/31/tmux/">使用tmux</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>tmux是一个终端复用软件。最早接触这个软件是在大概一年之前吧。那时候用的还是ubuntu 10.04 gnome桌面，用gnome桌面最大的缺点就是：在桌面上开了多个终端之后，终端之间的切换比较麻烦。那时候我通过google结识了终端复用软件——tmux。网络上说tmux是一款比screen还好用的终端复用软件（具体screen怎样，我也没用过，也不好下论断。）对于tmux，它的最大优点之一为：即使不正常断线，它还是可以保证当前任务运行完成。先前我也没有大量要使用ssh、telnet等远程服务，所以也体会不到它这个优点。但是，在我那会使用tmux时感觉确实挺好用——虽然没有进行大量的自己配置，但搭配快捷键后比在gnome下Ctrl-Tab键高效了许多。
-			
-				<p class="article-more-link">
-					<a href="/2013/08/31/tmux/#more">Read More</a>
 				</p>
       
     
