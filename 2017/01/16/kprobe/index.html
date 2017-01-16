@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>kprobe内核机制 | asxalex&#39;s blog</title>
+  <title>kprobe浅析 | asxalex&#39;s blog</title>
   <meta name="viewport" content="width=device-width">
   <meta name="description" content="kprobe可以动态向内核注册一个调试点，用户定义好钩子函数，当该点被内核执行到时，就调用钩子函数。kprobe可以被方便地用来调试内核，也可以用来实现一些内核设施的统计等（当然，会有额外开销）
 kprobes的使用可以参考内核的samples/kprobes目录下的文件，这些文件可以编译为内核模块，在加载到内核之后就可以使用。
 kprobe有不同的种类，分别为kprobes，jprobes和kr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="kprobe内核机制">
+<meta property="og:title" content="kprobe浅析">
 <meta property="og:url" content="http://asxalex.pw/2017/01/16/kprobe/index.html">
 <meta property="og:site_name" content="asxalex's blog">
 <meta property="og:description" content="kprobe可以动态向内核注册一个调试点，用户定义好钩子函数，当该点被内核执行到时，就调用钩子函数。kprobe可以被方便地用来调试内核，也可以用来实现一些内核设施的统计等（当然，会有额外开销）
 kprobes的使用可以参考内核的samples/kprobes目录下的文件，这些文件可以编译为内核模块，在加载到内核之后就可以使用。
 kprobe有不同的种类，分别为kprobes，jprobes和kr">
-<meta property="og:updated_time" content="2017-01-16T11:29:13.000Z">
+<meta property="og:updated_time" content="2017-01-16T11:31:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="kprobe内核机制">
+<meta name="twitter:title" content="kprobe浅析">
 <meta name="twitter:description" content="kprobe可以动态向内核注册一个调试点，用户定义好钩子函数，当该点被内核执行到时，就调用钩子函数。kprobe可以被方便地用来调试内核，也可以用来实现一些内核设施的统计等（当然，会有额外开销）
 kprobes的使用可以参考内核的samples/kprobes目录下的文件，这些文件可以编译为内核模块，在加载到内核之后就可以使用。
 kprobe有不同的种类，分别为kprobes，jprobes和kr">
@@ -74,7 +74,7 @@ kprobe有不同的种类，分别为kprobes，jprobes和kr">
 		
   
     <h1 class="article-title entry-title" itemprop="name">
-      kprobe内核机制
+      kprobe浅析
     </h1>
   
 
@@ -127,7 +127,7 @@ kprobe有不同的种类，分别为kprobes，jprobes和kr">
   
   <section id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="post-kprobe" data-title="kprobe内核机制" data-url="http://asxalex.pw/2017/01/16/kprobe/"></div>
+    <div class="ds-thread" data-thread-key="post-kprobe" data-title="kprobe浅析" data-url="http://asxalex.pw/2017/01/16/kprobe/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
