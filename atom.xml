@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://asxalex.pw/"/>
-  <updated>2017-01-16T11:29:13.000Z</updated>
+  <updated>2017-01-16T11:31:34.000Z</updated>
   <id>http://asxalex.pw/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>kprobe内核机制</title>
+    <title>kprobe浅析</title>
     <link href="http://asxalex.pw/2017/01/16/kprobe/"/>
     <id>http://asxalex.pw/2017/01/16/kprobe/</id>
     <published>2017-01-16T05:38:55.000Z</published>
-    <updated>2017-01-16T11:29:13.000Z</updated>
+    <updated>2017-01-16T11:31:34.000Z</updated>
     
     <content type="html"><![CDATA[<p>kprobe可以动态向内核注册一个调试点，用户定义好钩子函数，当该点被内核执行到时，就调用钩子函数。kprobe可以被方便地用来调试内核，也可以用来实现一些内核设施的统计等（当然，会有额外开销）</p>
 <p>kprobes的使用可以参考内核的<code>samples/kprobes</code>目录下的文件，这些文件可以编译为内核模块，在加载到内核之后就可以使用。</p>
