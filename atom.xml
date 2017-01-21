@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://asxalex.pw/"/>
-  <updated>2017-01-16T11:31:34.000Z</updated>
+  <updated>2017-01-21T04:28:27.000Z</updated>
   <id>http://asxalex.pw/</id>
   
   <author>
@@ -14,6 +14,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kprobes使用</title>
+    <link href="http://asxalex.pw/2017/01/21/kprobesexample/"/>
+    <id>http://asxalex.pw/2017/01/21/kprobesexample/</id>
+    <published>2017-01-21T03:42:02.000Z</published>
+    <updated>2017-01-21T04:28:27.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="问题起源"><a href="#问题起源" class="headerlink" title="问题起源"></a>问题起源</h2><p>室友是做安全的，有一天他发现有个本地的进程一直在尝试用弱口令连接他的<code>mysql</code>，所以想把这个进程找出来。所以我们一起研究了一下<code>kprobes</code>，通过<code>kprobes</code>可以在内核的<code>connect</code>上植入一个钩子，当任何进程要进行网络连接时，就可以对该进程进行记录。<a id="more"></a></p>
+<h2 id="jprobes"><a href="#jprobes" class="headerlink" title="jprobes"></a>jprobes</h2><p>我们最先想到的是<code>jprobes</code>，我们可以定义一个原型与内核中<code>sys_connect</code>一样的函数，然后通过<code>jprobes</code>植入我们的函数钩子，在真正的<code>sys_connect</code>被执行之前，内核会复制一份环境和参数给我们定义的钩子函数，在函数执行完之后，才会返回去执行内核的<code>sys_connect</code>。</p>
+<p>但在看内核代码之后，我们发现：当一个进程使用<code>connect</code>进行socket的连接时，在没有调用<code>bind</code>进行地址绑定时（一般客户端进程不会调用<code>bind</code>进行地址绑定，而是让内核去指定一个随机的端口进行连接传输），内核是在<code>sys_connect</code>函数执行时才会分配地址，所以，我们的钩子函数此时根本无法得到本地进程进行连接时所使用的端口。</p>
+<h2 id="kretporbes"><a href="#kretporbes" class="headerlink" title="kretporbes"></a>kretporbes</h2><p>后来我们又转到了<code>kretporbes</code>，同它的名字一样，它是在被探测函数执行返回后执行的探测点，同时，它也允许我们在被探测函数执行前执行我们定义的另外一个辅助函数，我们使用该特性来保存进入<code>sys_connect</code>时候的参数，然后在它执行退出之后，就可以得到里面被填充的信息，得到源目地址和源目端口了。</p>
+<p>在加载模块之后，我们执行<code>curl www.baidu.com</code>，可以得到下面的信息：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[  <span class="number">103.151319</span>] sys_connect[<span class="number">0</span>]: task[curl] pid[<span class="number">31979</span>] fd[<span class="number">4</span>] from localport[<span class="number">172.16</span><span class="number">.38</span><span class="number">.129</span>:<span class="number">56265</span>] -&gt; dest[<span class="number">172.16</span><span class="number">.38</span><span class="number">.2</span>:<span class="number">53</span>]</div><div class="line">[  <span class="number">103.161065</span>] sys_connect[<span class="number">0</span>]: task[curl] pid[<span class="number">31979</span>] fd[<span class="number">3</span>] from localport[<span class="number">172.16</span><span class="number">.38</span><span class="number">.129</span>:<span class="number">34474</span>] -&gt; dest[<span class="number">111.13</span><span class="number">.100</span><span class="number">.91</span>:<span class="number">80</span>]</div><div class="line">[  <span class="number">103.161069</span>] sys_connect[<span class="number">0</span>]: task[curl] pid[<span class="number">31979</span>] fd[<span class="number">3</span>] from localport[<span class="number">172.16</span><span class="number">.38</span><span class="number">.129</span>:<span class="number">43288</span>] -&gt; dest[<span class="number">111.13</span><span class="number">.100</span><span class="number">.92</span>:<span class="number">80</span>]</div><div class="line">[  <span class="number">103.162693</span>] sys_connect[<span class="number">-115</span>]: task[curl] pid[<span class="number">31978</span>] fd[<span class="number">3</span>] from localport[<span class="number">172.16</span><span class="number">.38</span><span class="number">.129</span>:<span class="number">56294</span>] -&gt; dest[<span class="number">111.13</span><span class="number">.100</span><span class="number">.91</span>:<span class="number">80</span>]</div></pre></td></tr></table></figure>
+<p>可以看到<code>curl</code>首先进行了一次DNS查询，之后才去连接对应的ip地址。</p>
+<p><a href="https://github.com/asxalex/connect-hook" target="_blank" rel="external">happy hacking code</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;问题起源&quot;&gt;&lt;a href=&quot;#问题起源&quot; class=&quot;headerlink&quot; title=&quot;问题起源&quot;&gt;&lt;/a&gt;问题起源&lt;/h2&gt;&lt;p&gt;室友是做安全的，有一天他发现有个本地的进程一直在尝试用弱口令连接他的&lt;code&gt;mysql&lt;/code&gt;，所以想把这个进程找出来。所以我们一起研究了一下&lt;code&gt;kprobes&lt;/code&gt;，通过&lt;code&gt;kprobes&lt;/code&gt;可以在内核的&lt;code&gt;connect&lt;/code&gt;上植入一个钩子，当任何进程要进行网络连接时，就可以对该进程进行记录。
+    
+    </summary>
+    
+    
+      <category term="Fun" scheme="http://asxalex.pw/tags/Fun/"/>
+    
+      <category term="Kernel" scheme="http://asxalex.pw/tags/Kernel/"/>
+    
+      <category term="Linux" scheme="http://asxalex.pw/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>kprobe浅析</title>
@@ -55,9 +87,9 @@
     </summary>
     
     
-      <category term="Linux" scheme="http://asxalex.pw/tags/Linux/"/>
-    
       <category term="Kernel" scheme="http://asxalex.pw/tags/Kernel/"/>
+    
+      <category term="Linux" scheme="http://asxalex.pw/tags/Linux/"/>
     
   </entry>
   
@@ -107,9 +139,9 @@
     </summary>
     
     
-      <category term="Linux" scheme="http://asxalex.pw/tags/Linux/"/>
-    
       <category term="Kernel" scheme="http://asxalex.pw/tags/Kernel/"/>
+    
+      <category term="Linux" scheme="http://asxalex.pw/tags/Linux/"/>
     
   </entry>
   
@@ -772,31 +804,6 @@ tagImg.onerror=function(){tagImg.src=backURL;}
     <summary type="html">
     
       &lt;p&gt;观察者模式（Observer）定义对象的一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。比如有一个监测系统，它可以监测好几个网站。一旦有一个网站挂了，就会触发这个监测系统中的observer，这个observer会对当前发生的问题作出反应。在我们实现的栗子中，一个observer可以监测几个map，而一个map也可以被多个observer监测，是一个一对多的关系。
-    
-    </summary>
-    
-    
-      <category term="DesignPatterns" scheme="http://asxalex.pw/tags/DesignPatterns/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式（17）——备忘录模式</title>
-    <link href="http://asxalex.pw/2013/08/20/momento/"/>
-    <id>http://asxalex.pw/2013/08/20/momento/</id>
-    <published>2013-08-20T07:28:00.000Z</published>
-    <updated>2016-11-14T09:32:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>备忘录模式（momento）意欲在不破坏封装性的情况下，捕获一个对象的内部状态，并在该对象在外保存这个状态。并可以在随后利用这里保存的状态恢复这个对象以前的状态。备忘录模式使用最典型的是在游戏存档和读取存档。以前我和我的小伙伴在玩游戏玩累了以后，在游戏中就可以去某个特定的存档地点进行存档。而在下一次玩游戏开局时可以读取存档来恢复游戏进度。<a id="more"></a>看下面的类图：</p>
-<img src="http://asxalex.qiniudn.com/momento.png">
-<p>在我们的栗子里，为了简化，我们只用momento来保存一个用户的个人信息————姓名，年龄，性别。当我们要保存一个人的个人信息时，可以调用他的save()方法。这个方法返回一个momento对象，而一个library对象则可以接受这个对象为参数并保存。类似的可以进行从library对象到PersonInfo对象的加载。实现代码如下：</p>
-<figure class="highlight c++"><figcaption><span>momento.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">class</span> momento&#123;</div><div class="line">    <span class="keyword">friend</span> <span class="keyword">class</span> PersonInfo;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        momento(<span class="built_in">std</span>::<span class="built_in">string</span> sname, <span class="keyword">int</span> sage, <span class="keyword">int</span> sgenda):name(sname), age(sage), genda(sgenda)&#123;&#125;</div><div class="line">        momento&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> momento &amp; momen)&#123;</div><div class="line">            name = momen.name;</div><div class="line">            age = momen.age;</div><div class="line">            genda = momen.genda;</div><div class="line">            <span class="keyword">return</span> *<span class="keyword">this</span>;</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> name;</div><div class="line">        <span class="keyword">int</span> age;</div><div class="line">        <span class="keyword">int</span> genda;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> PersonInfo&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        PersonInfo(<span class="built_in">std</span>::<span class="built_in">string</span> sname, <span class="keyword">int</span> sage, <span class="keyword">int</span> sgenda):name(sname),age(sage),genda(sgenda)&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">grow</span><span class="params">()</span></span>&#123;</div><div class="line">            age += <span class="number">1</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="function">momento <span class="title">save</span><span class="params">()</span></span>&#123;</div><div class="line">            momento temp = momento(name,age,genda);</div><div class="line">            <span class="keyword">return</span> temp;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">load</span><span class="params">(<span class="keyword">const</span> momento &amp;mo)</span></span>&#123;</div><div class="line">            name = mo.name;</div><div class="line">            age = mo.age;</div><div class="line">            genda = mo.genda;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"name: "</span> &lt;&lt; name &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"age: "</span> &lt;&lt; age &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"genda: "</span> &lt;&lt; ((genda == <span class="number">1</span>)? <span class="string">"male"</span>:<span class="string">"female"</span>) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> name;</div><div class="line">        <span class="keyword">int</span> age;</div><div class="line">        <span class="keyword">int</span> genda;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> library&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        library()&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">save</span><span class="params">(momento mo)</span></span>&#123;</div><div class="line">            lib.push_back(mo);</div><div class="line">        &#125;</div><div class="line">        <span class="function">momento <span class="title">load</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</div><div class="line">            <span class="keyword">return</span> lib[n];</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;momento&gt; lib;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<figure class="highlight c++"><figcaption><span>momento.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"momento.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="function">PersonInfo <span class="title">me</span><span class="params">(<span class="string">"asxalex"</span>,<span class="number">21</span>,<span class="number">1</span>)</span></span>;</div><div class="line">    library lib;</div><div class="line">    me.show();</div><div class="line">    me.grow();</div><div class="line">    lib.save(me.save());</div><div class="line">    me.grow();</div><div class="line">    me.show();</div><div class="line">    me.load(lib.load(<span class="number">0</span>));</div><div class="line">    me.show();</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;备忘录模式（momento）意欲在不破坏封装性的情况下，捕获一个对象的内部状态，并在该对象在外保存这个状态。并可以在随后利用这里保存的状态恢复这个对象以前的状态。备忘录模式使用最典型的是在游戏存档和读取存档。以前我和我的小伙伴在玩游戏玩累了以后，在游戏中就可以去某个特定的存档地点进行存档。而在下一次玩游戏开局时可以读取存档来恢复游戏进度。
     
     </summary>
     
