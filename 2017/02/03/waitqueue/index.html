@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>waitqueue | asxalex&#39;s blog</title>
+  <title>linux等待队列 | asxalex&#39;s blog</title>
   <meta name="viewport" content="width=device-width">
   <meta name="description" content="等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：
 include/linux/wait.h12345678910111213141516struct __wait_queue_head &amp;#123;    spinlock_t lock;    struct list_head task_list;&amp;#125;;typedef">
 <meta property="og:type" content="article">
-<meta property="og:title" content="waitqueue">
+<meta property="og:title" content="linux等待队列">
 <meta property="og:url" content="http://asxalex.pw/2017/02/03/waitqueue/index.html">
 <meta property="og:site_name" content="asxalex's blog">
 <meta property="og:description" content="等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：
 include/linux/wait.h12345678910111213141516struct __wait_queue_head &amp;#123;    spinlock_t lock;    struct list_head task_list;&amp;#125;;typedef">
 <meta property="og:image" content="http://asxalex.qiniudn.com/wait_queue.png">
-<meta property="og:updated_time" content="2017-02-03T06:15:00.236Z">
+<meta property="og:updated_time" content="2017-02-03T06:30:11.029Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="waitqueue">
+<meta name="twitter:title" content="linux等待队列">
 <meta name="twitter:description" content="等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：
 include/linux/wait.h12345678910111213141516struct __wait_queue_head &amp;#123;    spinlock_t lock;    struct list_head task_list;&amp;#125;;typedef">
 <meta name="twitter:image" content="http://asxalex.qiniudn.com/wait_queue.png">
@@ -73,7 +73,7 @@ include/linux/wait.h12345678910111213141516struct __wait_queue_head &amp;#123;  
 		
   
     <h1 class="article-title entry-title" itemprop="name">
-      waitqueue
+      linux等待队列
     </h1>
   
 
@@ -132,7 +132,7 @@ include/linux/wait.h12345678910111213141516struct __wait_queue_head &amp;#123;  
   
   <section id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="post-waitqueue" data-title="waitqueue" data-url="http://asxalex.pw/2017/02/03/waitqueue/"></div>
+    <div class="ds-thread" data-thread-key="post-waitqueue" data-title="linux等待队列" data-url="http://asxalex.pw/2017/02/03/waitqueue/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
