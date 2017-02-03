@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://asxalex.pw/2017/02/03/waitqueue/</loc>
+    <loc>http://asxalex.pw/2016/12/18/sys-open/</loc>
     
-    <lastmod>2017-02-03T06:30:11.029Z</lastmod>
+    <lastmod>2017-02-03T07:02:32.243Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://asxalex.pw/NOTEBOOK/index.html</loc>
     
-    <lastmod>2017-01-21T04:41:21.000Z</lastmod>
+    <lastmod>2017-02-03T06:33:13.506Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2017/02/03/waitqueue/</loc>
+    
+    <lastmod>2017-02-03T06:30:11.029Z</lastmod>
     
   </url>
   
@@ -33,13 +40,6 @@
     <loc>http://asxalex.pw/2017/01/11/ptrace/</loc>
     
     <lastmod>2017-01-11T10:21:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://asxalex.pw/2016/12/18/sys-open/</loc>
-    
-    <lastmod>2016-12-18T09:20:04.000Z</lastmod>
     
   </url>
   
