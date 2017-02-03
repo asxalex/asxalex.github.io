@@ -33,7 +33,7 @@
 	</h1>
 	<nav class="nav">
 		<ul>
-			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li><li><a href="/NOTEBOOK">NoteBook</a></li>
 			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
 			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
 			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
@@ -48,6 +48,61 @@
 
     <div id="main">
       
+  
+    <article id="post-observer" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/20/observer/" class="article-date">
+  <time datetime="2013-08-20T07:47:00.000Z" itemprop="datePublished">2013-08-20</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/20/observer/">设计模式（18）——观察者模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>观察者模式（Observer）定义对象的一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。比如有一个监测系统，它可以监测好几个网站。一旦有一个网站挂了，就会触发这个监测系统中的observer，这个observer会对当前发生的问题作出反应。在我们实现的栗子中，一个observer可以监测几个map，而一个map也可以被多个observer监测，是一个一对多的关系。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/20/observer/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
   
     <article id="post-momento" class="post">
 	<footer class="entry-meta-header">
@@ -520,61 +575,6 @@
 			
 				<p class="article-more-link">
 					<a href="/2013/08/18/composite/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-bridge" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/08/18/bridge/" class="article-date">
-  <time datetime="2013-08-18T07:34:00.000Z" itemprop="datePublished">2013-08-18</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/08/18/bridge/">设计模式（8）——桥接模式</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>桥接模式（bridge）将抽象部分与它的实现部分分离，使他们可以独立变化。这里我们用的栗子是我网上看到的：说我们家里有许多开关，又有许多电器。同一个开关可以接在不同的电器上，同一个电器也可以用不同的开关。而连接起他们的是电线。桥接模式就像这根电线一样可以将两边的物品分开：当一个开关坏了，可以拿另外一个换上，而不影响电器的使用；当一个电器需要更换，也没必要去换开关。两边都是独立的。
-			
-				<p class="article-more-link">
-					<a href="/2013/08/18/bridge/#more">Read More</a>
 				</p>
       
     

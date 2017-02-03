@@ -33,7 +33,7 @@
 	</h1>
 	<nav class="nav">
 		<ul>
-			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li><li><a href="/NOTEBOOK">NoteBook</a></li>
 			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
 			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
 			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
@@ -48,6 +48,63 @@
 
     <div id="main">
       
+  
+    <article id="post-rpijian-kong" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/09/05/rpijian-kong/" class="article-date">
+  <time datetime="2013-09-05T15:33:00.000Z" itemprop="datePublished">2013-09-05</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/09/05/rpijian-kong/">RPi图片抓拍</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>用这个名字是因为我也不知道该怎么叫它。说白了，就是利用一个RPi，以一定频率拍个照，然后上传到七牛云存储空间，利用它的外链功能来使这个博客里引用的图片<strong>假实时</strong>刷新，就是这样，喵～</p>
+<p>原理上很简单，但真正实际做时还是碰到了一些困难。</p>
+<p>RPi有个ethernet接口，但校园网下想要用起来还是有点困难（虽然不是不可能）。于是索性搞了个无线网卡（<a href="/2013/08/26/raspberrypi/">看这里</a>）,并ssh到RPi上，所以也没那么多线，就插了个usb无线网卡和一个usb摄像头，看起来清爽多了:-)
+			
+				<p class="article-more-link">
+					<a href="/2013/09/05/rpijian-kong/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fun/">Fun</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
   
     <article id="post-crontab" class="post">
 	<footer class="entry-meta-header">
@@ -525,61 +582,6 @@
 			
 				<p class="article-more-link">
 					<a href="/2013/08/21/state/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-observer" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/08/20/observer/" class="article-date">
-  <time datetime="2013-08-20T07:47:00.000Z" itemprop="datePublished">2013-08-20</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/08/20/observer/">设计模式（18）——观察者模式</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>观察者模式（Observer）定义对象的一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。比如有一个监测系统，它可以监测好几个网站。一旦有一个网站挂了，就会触发这个监测系统中的observer，这个observer会对当前发生的问题作出反应。在我们实现的栗子中，一个observer可以监测几个map，而一个map也可以被多个observer监测，是一个一对多的关系。
-			
-				<p class="article-more-link">
-					<a href="/2013/08/20/observer/#more">Read More</a>
 				</p>
       
     

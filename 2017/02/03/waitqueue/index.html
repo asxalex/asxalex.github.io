@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>waitqueue | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：
+include/linux/wait.h12345678910111213141516struct __wait_queue_head &amp;#123;    spinlock_t lock;    struct list_head task_list;&amp;#125;;typedef">
+<meta property="og:type" content="article">
+<meta property="og:title" content="waitqueue">
+<meta property="og:url" content="http://asxalex.pw/2017/02/03/waitqueue/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：
+include/linux/wait.h12345678910111213141516struct __wait_queue_head &amp;#123;    spinlock_t lock;    struct list_head task_list;&amp;#125;;typedef">
+<meta property="og:image" content="http://asxalex.qiniudn.com/wait_queue.png">
+<meta property="og:updated_time" content="2017-02-03T06:15:00.236Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="waitqueue">
+<meta name="twitter:description" content="等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：
+include/linux/wait.h12345678910111213141516struct __wait_queue_head &amp;#123;    spinlock_t lock;    struct list_head task_list;&amp;#125;;typedef">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/wait_queue.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li><li><a href="/NOTEBOOK">NoteBook</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+			
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://asxalex.pw"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-waitqueue" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2017/02/03/waitqueue/" class="article-date">
+  <time datetime="2017-02-03T02:21:50.000Z" itemprop="datePublished">2017-02-03</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      waitqueue
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：</p>
+<figure class="highlight c"><figcaption><span>include/linux/wait.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> __wait_queue_head &#123;</div><div class="line">    <span class="keyword">spinlock_t</span> lock;</div><div class="line">    <span class="keyword">struct</span> list_head task_list;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> __wait_queue_head <span class="keyword">wait_queue_head_t</span>;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> __wait_queue &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> flags;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> WQ_FLAG_EXCLUSIVE 0x01</span></div><div class="line">    <span class="keyword">void</span> *<span class="keyword">private</span>;</div><div class="line">    <span class="keyword">wait_queue_func_t</span> func;</div><div class="line">    <span class="keyword">struct</span> list_head task_list;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> __wait_queue <span class="keyword">wait_queue_t</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span><span class="params">(*<span class="keyword">wait_queue_func_t</span>)</span><span class="params">(<span class="keyword">wait_queue_t</span> *wait, <span class="keyword">unsigned</span> mode, <span class="keyword">int</span> flags, <span class="keyword">void</span> *key)</span></span>;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>队列头和元素之间通过<code>struct list_head</code>构成一个循环双向链表，结构如下图所示：</p>
+<p><img src="http://asxalex.qiniudn.com/wait_queue.png" alt="wait_queue"></p>
+<p>等待队列通过队列头和队列节点，将<code>private</code>串联起来（实际使用中，通常是将进程描述符存放于此，形成进程的等待队列，以便于进程的管理）。<code>wait_queue_head_t</code>的<code>lock</code>用于对该等待队列的加锁操作，以防止竟态。</p>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>等待队列头的初始化：</p>
+<figure class="highlight c"><figcaption><span>include/linux/wait.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> __WAIT_QUEUE_HEAD_INITIALIZER(name) &#123; \</span></div><div class="line">    .lock = __SPIN_LOCK_UNLOCKED(name.lock), \</div><div class="line">    .task_list = &#123; &amp;(name).task_list, &amp;(name).task_list&#125; &#125;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> DECLARE_WAIT_QUEUE_HEAD(name) \</span></div><div class="line">    wait_queue_head_t name = __WAIT_QUEUE_HEAD_INITIALIZER(name)</div></pre></td></tr></table></figure>
+<p>等待队列头的初始化主要是声明一个队列头对象，然后将<code>lock</code>置于未上锁的状态，而<code>task_list</code>初始化为一个空的队列，<code>next</code>与<code>prev</code>均指向自己。</p>
+<p>等待队列元素的初始化</p>
+<figure class="highlight c"><figcaption><span>include/linux/wait.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> __WAITQUEUE_INITIALIZER(name, tsk) &#123; \</span></div><div class="line">    .private = tsk, \</div><div class="line">    .func = default_wake_function, \</div><div class="line">    .task_list = &#123;NULL, NULL&#125; &#125;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> DECALRE_WAITQUEUE(name, tsk) \</span></div><div class="line">    wait_queue_t name = __WAITQUEUE_INITIALIZER(name, tsk)</div></pre></td></tr></table></figure>
+<p>类似的，<code>wait_queue_t</code>的各个成员被初始化为相应的值。注意到这里的<code>func</code>成员被初始化为<code>default_wake_function</code>，该函数调用<code>try_to_wake_up()</code>，执行一个默认的唤醒进程的操作，具体代码在<code>kernel/sched/core.c</code>中。</p>
+<h2 id="等待队列元素的添加和移除"><a href="#等待队列元素的添加和移除" class="headerlink" title="等待队列元素的添加和移除"></a>等待队列元素的添加和移除</h2><p><code>add_wait_queue</code>负责向一个等待队列中添加新的元素：</p>
+<figure class="highlight c"><figcaption><span>kernel/wait.c</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">add_wait_queue</span><span class="params">(<span class="keyword">wait_queue_head_t</span> *q, <span class="keyword">wait_queue_t</span> *wait)</span> </span>&#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> flags;</div><div class="line"></div><div class="line">    wait-&gt;flags &amp;= ~WQ_FLAG_EXCLUSIVE;</div><div class="line">    spin_lock_irqsave(&amp;q-&gt;lock, flags);</div><div class="line">    __add_wait_queue(q, wait);</div><div class="line">    spin_unlock_irqrestore(&amp;q-&gt;lock, flags);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> __add_wait_queue(<span class="keyword">wait_queue_head_t</span> *head, <span class="keyword">wait_queue_t</span> *<span class="keyword">new</span>) &#123;</div><div class="line">    list_add(&amp;<span class="keyword">new</span>-&gt;task_list, &amp;head-&gt;task_list);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该函数需要处理元素的排他属性以及操作队列的互斥问题，之后实际的操作只是将该元素插入到等待队列头的位置。另外有个类似的<code>add_wait_queue_exclusive()</code>，该函数完成工作类似，只是设置了元素的排他属性。</p>
+<p><code>remove_wait_queue</code>则处理元素的离队操作，依次调用<code>__remove_wait_queue() -&gt; list_del()</code>。</p>
+<h2 id="等待事件的处理"><a href="#等待事件的处理" class="headerlink" title="等待事件的处理"></a>等待事件的处理</h2><p>等待队列的用途就是让进程等待特定事件的发生，在事件发生之后唤醒相应的进程。</p>
+<h3 id="等待"><a href="#等待" class="headerlink" title="等待"></a>等待</h3><p>由<code>wait_event*</code>族函数完成，这些函数将进程置于不同的状态让其休眠，等到特定事件发生时，由<code>wake_up*</code>族函数唤醒休眠的进程：</p>
+<figure class="highlight c"><figcaption><span>include/linux/wait.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> __wait_event(wq, condition) \</span></div><div class="line">do &#123; \</div><div class="line">    DEFINE_WAIT(__wait); \</div><div class="line">    for (;;) &#123; \</div><div class="line">        prepare_to_wait(&amp;wq, &amp;__wait, TASK_UNINTERRUPTIBLE); \</div><div class="line">        <span class="meta-keyword">if</span> (condition) \</div><div class="line">            break; \</div><div class="line">        schedule(); \</div><div class="line">    &#125; \</div><div class="line">    finish_wait(&amp;wq, &amp;__wait); \</div><div class="line">&#125; while(0)</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> wait_event(wq, condition) \</span></div><div class="line">do &#123; \</div><div class="line">    <span class="meta-keyword">if</span> (condition) \</div><div class="line">        break; \</div><div class="line">    __wait_event(wq, condition); \</div><div class="line">while(0)</div></pre></td></tr></table></figure>
+<p>在<code>wait</code>之前，会先检查一下该条件是否为真，若为真，则不用休眠，继续执行，否则，将当前进程的状态设置为<code>TASK_UNIERRUPTIBLE</code>，并加入队列，准备进行休眠，在休眠之前，会再次检查<code>condition</code>是否为真（为了防止条件在该进程被调度之前就为真，此时就可能丢失了唯一一次唤醒的机会，导致该进程永久休眠），如果条件确实还没为真，则调用调度器让出CPU，自己进入休眠状态。</p>
+<h3 id="唤醒"><a href="#唤醒" class="headerlink" title="唤醒"></a>唤醒</h3><p>唤醒由<code>wake_up*</code>族函数完成</p>
+<figure class="highlight c"><figcaption><span>include/linux/wait.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">define</span> wake_up(x) __wake_up(x, TASK_NORMEL, 1, NULL);</span></div><div class="line"></div><div class="line"><span class="keyword">void</span> __wake_up(<span class="keyword">wait_queue_head_t</span> *q, <span class="keyword">unsigned</span> <span class="keyword">int</span> mode, <span class="keyword">int</span> nr_execlusive, <span class="keyword">void</span> *key) &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> flags;</div><div class="line">    spin_lock_irqsave(&amp;q-&gt;lock, flags);</div><div class="line">    __wake_up_common(q, mode, nr_execlusive, <span class="number">0</span>, key);</div><div class="line">    spin_unlock_irqrestore(&amp;q-&gt;lock, flags);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> __wake_up_common(<span class="keyword">wait_queue_head_t</span> *q, <span class="keyword">unsigned</span> <span class="keyword">int</span> mode,</div><div class="line">        <span class="keyword">int</span> nr_execlusive, <span class="keyword">int</span> wake_flags, <span class="keyword">void</span> *key) &#123;</div><div class="line">    <span class="keyword">wait_queue_t</span> *curr, *next;</div><div class="line">    list_for_each_entry_safe(curr, next, &amp;q-&gt;task_list, task_list) &#123;</div><div class="line">        <span class="keyword">unsigned</span> flags  = curr-&gt;flags;</div><div class="line">        <span class="keyword">if</span> (curr-&gt;func(curr, mode, wake_flags, key) &amp;&amp;</div><div class="line">                (flags &amp; WQ_FLAG_EXCLUSIVE) &amp;&amp; !--nr_execlusive)</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>核心函数是<code>__wake_up_common</code>，它遍历等待队列上的所有元素，并调用对应的<code>func</code>函数指针，在这里，如果某一元素的<code>func()</code>执行完之后返回0，则退出，不唤醒剩余的进程。</p>
+<p>其中的<code>nr_execlusive</code>成员指示可以唤醒队列中多少个标识了<code>WQ_FLAG_EXCLUSIVE</code>的元素。</p>
+<p>被唤醒之后，该进程从睡眠时的<code>schedule()</code>处继续执行，此时会再次判断条件是否为真，如为真，则退出休眠，继续执行<code>wait_event</code>之后的逻辑代码，否则继续休眠。</p>
+<p><code>wait_event*</code>与<code>wake_up*</code>分别负责等待和唤醒某个等待队列上的进程。</p>
+<p>（以上）</p>
+<p>注： 这里使用的内核代码为3.8版本。</p>
+
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kernel/">Kernel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-waitqueue" data-title="waitqueue" data-url="http://asxalex.pw/2017/02/03/waitqueue/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:asxalex.pw">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2017 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
