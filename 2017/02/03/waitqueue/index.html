@@ -5,20 +5,17 @@
   
   <title>linux等待队列 | asxalex&#39;s blog</title>
   <meta name="viewport" content="width=device-width">
-  <meta name="description" content="等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：
-include/linux/wait.h12345678910111213141516struct __wait_queue_head &amp;#123;    spinlock_t lock;    struct list_head task_list;&amp;#125;;typedef">
+  <meta name="description" content="等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux等待队列">
 <meta property="og:url" content="http://asxalex.pw/2017/02/03/waitqueue/index.html">
 <meta property="og:site_name" content="asxalex's blog">
-<meta property="og:description" content="等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：
-include/linux/wait.h12345678910111213141516struct __wait_queue_head &amp;#123;    spinlock_t lock;    struct list_head task_list;&amp;#125;;typedef">
+<meta property="og:description" content="等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：">
 <meta property="og:image" content="http://asxalex.qiniudn.com/wait_queue.png">
-<meta property="og:updated_time" content="2017-02-03T06:30:11.029Z">
+<meta property="og:updated_time" content="2017-02-03T07:35:48.459Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux等待队列">
-<meta name="twitter:description" content="等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：
-include/linux/wait.h12345678910111213141516struct __wait_queue_head &amp;#123;    spinlock_t lock;    struct list_head task_list;&amp;#125;;typedef">
+<meta name="twitter:description" content="等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：">
 <meta name="twitter:image" content="http://asxalex.qiniudn.com/wait_queue.png">
 <meta name="twitter:creator" content="@https://twitter.com/asxalex">
   
@@ -81,8 +78,8 @@ include/linux/wait.h12345678910111213141516struct __wait_queue_head &amp;#123;  
 	<div class="entry-content">
 		
     	<p>等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：</p>
-<figure class="highlight c"><figcaption><span>include/linux/wait.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> __wait_queue_head &#123;</div><div class="line">    <span class="keyword">spinlock_t</span> lock;</div><div class="line">    <span class="keyword">struct</span> list_head task_list;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> __wait_queue_head <span class="keyword">wait_queue_head_t</span>;</div><div class="line">&nbsp;</div><div class="line"><span class="keyword">struct</span> __wait_queue &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> flags;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> WQ_FLAG_EXCLUSIVE 0x01</span></div><div class="line">    <span class="keyword">void</span> *<span class="keyword">private</span>;</div><div class="line">    <span class="keyword">wait_queue_func_t</span> func;</div><div class="line">    <span class="keyword">struct</span> list_head task_list;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> __wait_queue <span class="keyword">wait_queue_t</span>;</div><div class="line">&nbsp;</div><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span><span class="params">(*<span class="keyword">wait_queue_func_t</span>)</span><span class="params">(<span class="keyword">wait_queue_t</span> *wait, <span class="keyword">unsigned</span> mode, <span class="keyword">int</span> flags, <span class="keyword">void</span> *key)</span></span>;</div></pre></td></tr></table></figure>
 <a id="more"></a>
+<figure class="highlight c"><figcaption><span>include/linux/wait.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> __wait_queue_head &#123;</div><div class="line">    <span class="keyword">spinlock_t</span> lock;</div><div class="line">    <span class="keyword">struct</span> list_head task_list;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> __wait_queue_head <span class="keyword">wait_queue_head_t</span>;</div><div class="line">&nbsp;</div><div class="line"><span class="keyword">struct</span> __wait_queue &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> flags;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> WQ_FLAG_EXCLUSIVE 0x01</span></div><div class="line">    <span class="keyword">void</span> *<span class="keyword">private</span>;</div><div class="line">    <span class="keyword">wait_queue_func_t</span> func;</div><div class="line">    <span class="keyword">struct</span> list_head task_list;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> __wait_queue <span class="keyword">wait_queue_t</span>;</div><div class="line">&nbsp;</div><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span><span class="params">(*<span class="keyword">wait_queue_func_t</span>)</span><span class="params">(<span class="keyword">wait_queue_t</span> *wait, <span class="keyword">unsigned</span> mode, <span class="keyword">int</span> flags, <span class="keyword">void</span> *key)</span></span>;</div></pre></td></tr></table></figure>
 <p>队列头和元素之间通过<code>struct list_head</code>构成一个循环双向链表，结构如下图所示：</p>
 <p><img src="http://asxalex.qiniudn.com/wait_queue.png" alt="wait_queue"></p>
 <p>等待队列通过队列头和队列节点，将<code>private</code>串联起来（实际使用中，通常是将进程描述符存放于此，形成进程的等待队列，以便于进程的管理）。<code>wait_queue_head_t</code>的<code>lock</code>用于对该等待队列的加锁操作，以防止竟态。</p>
