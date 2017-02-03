@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://asxalex.pw/2017/02/03/waitqueue/</loc>
+    
+    <lastmod>2017-02-03T06:15:00.236Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/NOTEBOOK/index.html</loc>
+    
+    <lastmod>2017-01-21T04:41:21.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://asxalex.pw/2017/01/21/kprobesexample/</loc>
     
     <lastmod>2017-01-21T04:28:27.000Z</lastmod>
@@ -114,14 +128,7 @@
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/16/jian-dan-gong-han-mo-shi-(simple-factory)/</loc>
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://asxalex.pw/2013/08/18/adaptor/</loc>
+    <loc>http://asxalex.pw/2013/08/19/chainofresponsibility/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
@@ -135,13 +142,6 @@
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/06/c-plus-plus-rong-qi/</loc>
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://asxalex.pw/2013/07/28/keep-going/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
@@ -149,14 +149,14 @@
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/16/jian-zao-zhe-mo-shi/</loc>
+    <loc>http://asxalex.pw/2013/08/18/decorator/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/19/chainofresponsibility/</loc>
+    <loc>http://asxalex.pw/2013/08/20/command/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
@@ -184,14 +184,14 @@
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/16/abstract-method/</loc>
+    <loc>http://asxalex.pw/2013/08/20/observer/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/20/command/</loc>
+    <loc>http://asxalex.pw/2013/08/18/adaptor/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
@@ -219,7 +219,7 @@
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/18/composite/</loc>
+    <loc>http://asxalex.pw/2013/09/03/crontab/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
@@ -247,6 +247,13 @@
   </url>
   
   <url>
+    <loc>http://asxalex.pw/2013/08/19/facade/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://asxalex.pw/2013/07/28/san-jiao-shu/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
@@ -254,7 +261,7 @@
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/09/03/crontab/</loc>
+    <loc>http://asxalex.pw/2013/08/19/flyweight/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
@@ -268,7 +275,7 @@
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/18/decorator/</loc>
+    <loc>http://asxalex.pw/2013/08/21/state/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
@@ -282,13 +289,6 @@
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/21/state/</loc>
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://asxalex.pw/2013/07/28/suan-zhu-bian-ma/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
@@ -296,7 +296,7 @@
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/19/facade/</loc>
+    <loc>http://asxalex.pw/2013/08/06/c-plus-plus-rong-qi/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
@@ -317,28 +317,7 @@
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/18/bridge/</loc>
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://asxalex.pw/2013/07/28/gitusage/</loc>
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://asxalex.pw/2013/07/29/wordpress-to-octopress/</loc>
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://asxalex.pw/2013/08/19/flyweight/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
@@ -359,7 +338,42 @@
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/20/observer/</loc>
+    <loc>http://asxalex.pw/2013/08/16/jian-dan-gong-han-mo-shi-(simple-factory)/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/07/29/wordpress-to-octopress/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/16/jian-zao-zhe-mo-shi/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/18/composite/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/18/bridge/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/16/abstract-method/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     

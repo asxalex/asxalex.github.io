@@ -33,7 +33,7 @@
 	</h1>
 	<nav class="nav">
 		<ul>
-			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li><li><a href="/NOTEBOOK">NoteBook</a></li>
 			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
 			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
 			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
@@ -48,6 +48,62 @@
 
     <div id="main">
       
+  
+    <article id="post-waitqueue" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2017/02/03/waitqueue/" class="article-date">
+  <time datetime="2017-02-03T02:21:50.000Z" itemprop="datePublished">2017-02-03</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2017/02/03/waitqueue/">waitqueue</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>等待队列允许进程在某个特定的事件上等待，在事件发生时唤醒进程继续执行。Linux内核中等待队列由队列头和队列元素构成：</p>
+<figure class="highlight c"><figcaption><span>include/linux/wait.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> __wait_queue_head &#123;</div><div class="line">    <span class="keyword">spinlock_t</span> lock;</div><div class="line">    <span class="keyword">struct</span> list_head task_list;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> __wait_queue_head <span class="keyword">wait_queue_head_t</span>;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> __wait_queue &#123;</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> flags;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> WQ_FLAG_EXCLUSIVE 0x01</span></div><div class="line">    <span class="keyword">void</span> *<span class="keyword">private</span>;</div><div class="line">    <span class="keyword">wait_queue_func_t</span> func;</div><div class="line">    <span class="keyword">struct</span> list_head task_list;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> __wait_queue <span class="keyword">wait_queue_t</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span><span class="params">(*<span class="keyword">wait_queue_func_t</span>)</span><span class="params">(<span class="keyword">wait_queue_t</span> *wait, <span class="keyword">unsigned</span> mode, <span class="keyword">int</span> flags, <span class="keyword">void</span> *key)</span></span>;</div></pre></td></tr></table></figure>
+			
+				<p class="article-more-link">
+					<a href="/2017/02/03/waitqueue/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kernel/">Kernel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
   
     <article id="post-kprobesexample" class="post">
 	<footer class="entry-meta-header">
@@ -526,63 +582,6 @@
 			
 				<p class="article-more-link">
 					<a href="/2013/09/08/jiao-cha-bian-yi-vim7-dot-4/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fun/">Fun</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-rpijian-kong" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/09/05/rpijian-kong/" class="article-date">
-  <time datetime="2013-09-05T15:33:00.000Z" itemprop="datePublished">2013-09-05</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/09/05/rpijian-kong/">RPi图片抓拍</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>用这个名字是因为我也不知道该怎么叫它。说白了，就是利用一个RPi，以一定频率拍个照，然后上传到七牛云存储空间，利用它的外链功能来使这个博客里引用的图片<strong>假实时</strong>刷新，就是这样，喵～</p>
-<p>原理上很简单，但真正实际做时还是碰到了一些困难。</p>
-<p>RPi有个ethernet接口，但校园网下想要用起来还是有点困难（虽然不是不可能）。于是索性搞了个无线网卡（<a href="/2013/08/26/raspberrypi/">看这里</a>）,并ssh到RPi上，所以也没那么多线，就插了个usb无线网卡和一个usb摄像头，看起来清爽多了:-)
-			
-				<p class="article-more-link">
-					<a href="/2013/09/05/rpijian-kong/#more">Read More</a>
 				</p>
       
     
