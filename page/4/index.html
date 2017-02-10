@@ -49,6 +49,62 @@
     <div id="main">
       
   
+    <article id="post-composite" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/18/composite/" class="article-date">
+  <time datetime="2013-08-18T15:39:00.000Z" itemprop="datePublished">2013-08-18</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/18/composite/">设计模式（9）——组合模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>组合模式（Composite）用于将对象组合成树形结构以表示“部分——整体”的<strong>层次结构</strong>，它使得用户对单个对象和组合对象的使用具有一致性。</p>
+<p>我们组合模式的栗子是一个“Province——Country”的表示结构。在这个结构中，有一个Country，这个Country下允许有多个Province，为了使用户在操作这个组合对象时，能与操作单个对象具有一致性，我们给这个结构定义了一个基类————在栗子中是composite类。在基类中定义好一系列无论是Country，还是Province会用到的操作接口。又定义派生类Country与Province继承composite。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/18/composite/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
     <article id="post-bridge" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -523,62 +579,6 @@
 			
 				<p class="article-more-link">
 					<a href="/2013/08/16/gong-han-fang-fa-mo-shi-(factory-method)/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-jian-dan-gong-han-mo-shi-(simple-factory)" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/08/16/jian-dan-gong-han-mo-shi-(simple-factory)/" class="article-date">
-  <time datetime="2013-08-15T16:45:00.000Z" itemprop="datePublished">2013-08-16</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/08/16/jian-dan-gong-han-mo-shi-(simple-factory)/">设计模式（1）——简单工厂模式</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>根据这几天对设计模式的学习和理解，总体来说，它主要利用了继承、抽象、封装和多态来实现代码最大程度的复用。</p>
-<p>简单工厂模式（Simple Factory）将所要生产的产品类型放在工厂类中进行判断，使其在一定程度上对用户透明。比如说我们想要制造一个teddy bear和polar bear玩具熊，通过对bear这个概念的抽象，并辅以工厂类factory。在实际“生产”的时候，我们通过向工厂传递一个参数来告诉工厂现在应该生产什么产品。这好比在实际生活中，我们想要某样产品，我们只需向生产该产品的工厂打个电话，告诉他们我们的需求，接下来的事就不关我们的事了————生产过程对我们完全透明。
-			
-				<p class="article-more-link">
-					<a href="/2013/08/16/jian-dan-gong-han-mo-shi-(simple-factory)/#more">Read More</a>
 				</p>
       
     
