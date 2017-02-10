@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://asxalex.pw/"/>
-  <updated>2017-02-10T02:07:03.979Z</updated>
+  <updated>2017-02-10T02:09:15.515Z</updated>
   <id>http://asxalex.pw/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://asxalex.pw/2017/02/09/vfs/"/>
     <id>http://asxalex.pw/2017/02/09/vfs/</id>
     <published>2017-02-09T07:57:33.000Z</published>
-    <updated>2017-02-10T02:07:03.979Z</updated>
+    <updated>2017-02-10T02:09:15.515Z</updated>
     
     <content type="html"><![CDATA[<p>vfs（virtual file system）为各种不同的文件系统提供了一个统一的接口，将不同的linux支持的文件系统类型的细节隐藏起来。vfs的设计利用的面向对象的概念，从而使实际文件系统的开发更便捷，成本更低。</p>
 <p>linux通过vfs引入了一个通用文件模型，实际文件系统的开发只需将实际文件系统的组织结构转换为vfs的通用文件模型。<a id="more"></a></p>
@@ -61,6 +61,10 @@
     
     </summary>
     
+    
+      <category term="Kernel" scheme="http://asxalex.pw/tags/Kernel/"/>
+    
+      <category term="Linux" scheme="http://asxalex.pw/tags/Linux/"/>
     
   </entry>
   
