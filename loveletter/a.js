@@ -62,8 +62,8 @@ function wrapTime(d, dan) {
     if(d < 10) {
         d = "0" + d;
     }
-    var a = "<font size=20px>" + d + "</font>";
-    var b = "<font size=5px>" + dan + "</font>";
+    var a = "<font size=2rem>" + d + "</font>";
+    var b = "<font size=0.5rem>" + dan + "</font>";
     return a + b;
 }
 
