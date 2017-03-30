@@ -31,7 +31,7 @@ str1.push("i.takeCarefullyCareOf(love);")
 str1.push("^800<span class='comment'>// However time goes, u are my precious,")
 str1.push("// and i will cherish and love u all the time.</span>")
 str1.push("<span class='keyword'>boolean</span> forever = <span class='keyword'>true</span>;")
-str1.push("<span class='keyword'>Time</span> time = \"Whatever\";")
+str1.push("<span class='keyword'>Time</span> time = \"whatever\";")
 str1.push("<span class='keyword'>while </span> (forever || time) {")
 str1.push("&nbsp; &nbsp; i.cherish(u);")
 str1.push("&nbsp; &nbsp; i.love(u);")
@@ -62,8 +62,8 @@ function wrapTime(d, dan) {
     if(d < 10) {
         d = "0" + d;
     }
-    var a = "<font size=2rem>" + d + "</font>";
-    var b = "<font size=0.5rem>" + dan + "</font>";
+    var a = "<font size=20px>" + d + "</font>";
+    var b = "<font size=5px>" + dan + "</font>";
     return a + b;
 }
 
