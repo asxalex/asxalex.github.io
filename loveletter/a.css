@@ -1,3 +1,5 @@
+html{font-size:62.5%;}
+
 body {
     font-family: Monaco, Consolas, "Lucida Console", monospace;
     /*
@@ -10,7 +12,7 @@ body {
 
 .comment {
     color: #b0e0e6;
-    font-size: 13px;
+    font-size: 1.3rem;
     /*
      * line-height: "90%";
      */
@@ -21,7 +23,7 @@ body {
     /*
      * TODO: change the margin-left of the code segment
      */
-    margin-left: 15px;
+    margin-left: 1.5rem;
 }
 
 .keyword {
@@ -33,28 +35,34 @@ body {
 }
 
 .time{ 
-    height:30px; 
+    height:3rem; 
     color: #f5f5dc;
-    margin-right: 150px;
-    width: 450px;
+    margin-right: 15rem;
+    width: 45rem;
 }
 
 .date {
-    margin-left: 25px;
+    margin-left: 2.5rem;
 }
 
 .text1 {
-    font-size: 18px;
+    font-size: 1.8rem;
     font-weight: bold;
 }
 
 .text2 {
-    font-size: 18px;
+    font-size: 1.8rem;
     font-weight: bold;
-    margin-left: 75px;
+    margin-left: 7.5rem;
 }
 
 .text3 {
-    margin-left: 200px;
+    margin-left: 200rem;
     font-style: italic;
 }
+
+.placeholder{
+    width:50rem;
+    height:30rem;
+    border:1px solid #F00;
+} 

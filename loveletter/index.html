@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8" />
+        <meta name="viewport" content="width=1366, initial-scale=1.0, user-scalable=yes" charset="utf-8" />
+        <!-- <meta charset="utf-8" /> -->
         <title>Love letter for TT</title>
         <link  rel="stylesheet" type="text/css" href="a.css"/>
         <script type="text/javascript" src="jquery.js"></script>
@@ -9,24 +10,46 @@
         <embed src="./bg.mp3" height="0" width="0" hidden="true" autostart="true" loop="true">
     </head>
     <body background='bg.jpg' style='background-size:cover; background-repeat:no-repeat;'>
-        <div class='left' style='margin-top: 50px; margin-left: 100px; float: left'>
+        <div class='left' style='margin-top: 5rem; margin-left: 10rem; float: left;'>
             <div class='element0 code'></div>
         </div>
-        <div class="right" style='margin-top: 100px;float:right;'>
+        <div class="right" style='margin-top: 10rem;float:right; height:5rem'>
 
             <div class="time" id='fade'>
                 <p class='text1'>
                     TT, I have fallen in love with you for
                 </p>
-                <span id="t_d" class='date'><font size='20px'>00</font>D</span>
-                <span id="t_h" class='date'><font size='20px'>00</font>H</span>
-                <span id="t_m" class='date'><font size='20px'>00</font>M</span>
-                <span id="t_s" class='date'><font size='20px'>00</font>S</span>
+                <span id="t_d" class='date'><font size='2rem'>00</font>D</span>
+                <span id="t_h" class='date'><font size='2rem'>00</font>H</span>
+                <span id="t_m" class='date'><font size='2rem'>00</font>M</span>
+                <span id="t_s" class='date'><font size='2rem'>00</font>S</span>
                 <!-- <span> since Mar 12th</span> -->
                 <p class="text2">Love u forever and ever.</p>
                 <p class="text3">-- from asxalex</p>
             </div>
         </div>
+        <!-- <div class="placeholder" style='margin-top: 100px'></div> -->
         <script type="text/javascript" src="a.js"></script>
+        <!--
+        <script>
+            var phoneWidth = parseInt(window.screen.width);
+            var phoneHeight = parseInt(window.screen.height);
+            var phoneScale = phoneWidth/750;//除以的值按手机的物理分辨率
+            var ua = navigator.userAgent;
+            if (/Android (\d+\.\d+)/.test(ua)) {
+                var version = parseFloat(RegExp.$1);
+                // andriod 2.3
+                if (version > 2.3) {
+                    document.write('<meta name="viewport" content="width=device-width,initial-scale='+phoneScale+',minimum-scale='+phoneScale+',maximum-scale='+phoneScale+',user-scalable=no">');
+                    // andriod 2.3以上
+                } else {
+                    document.write('<meta name="viewport" content="width=device-width,user-scalable=no">');
+                }
+                // 其他系统
+            } else {
+                document.write('<meta name="viewport" content="width=device-width, initial-scale='+phoneScale+',minimum-scale='+phoneScale+',maximum-scale ='+phoneScale +',user-scalable=no,">');
+            }
+        </script>
+        -->
     </body>
 </html>
