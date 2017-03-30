@@ -1,0 +1,60 @@
+body {
+    font-family: Monaco, Consolas, "Lucida Console", monospace;
+    /*
+    background-color: #f5f5dc;
+     */
+    background-color: black;
+
+    color: #1EFF00;
+}
+
+.comment {
+    color: #b0e0e6;
+    font-size: 13px;
+    /*
+     * line-height: "90%";
+     */
+}
+
+.code {
+    color: #f5f5dc;
+    /*
+     * TODO: change the margin-left of the code segment
+     */
+    margin-left: 15px;
+}
+
+.keyword {
+    color: #cc8888;
+}
+
+#fade {
+    opacity: 5;
+}
+
+.time{ 
+    height:30px; 
+    color: #f5f5dc;
+    margin-right: 150px;
+    width: 450px;
+}
+
+.date {
+    margin-left: 25px;
+}
+
+.text1 {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.text2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 75px;
+}
+
+.text3 {
+    margin-left: 200px;
+    font-style: italic;
+}
