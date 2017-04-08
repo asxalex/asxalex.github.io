@@ -474,9 +474,6 @@ pre .deletion {
 #nav-search-btn:before {
   content: "\f002";
 }
-#nav-stack-link:before {
-  content: "\f16c";
-}
 #search-form-wrap {
   display: none;
   position: absolute;
