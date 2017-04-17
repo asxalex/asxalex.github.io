@@ -49,6 +49,173 @@
     <div id="main">
       
   
+    <article id="post-c-plus-plus-dui-xiang-nei-cun-bu-ju" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/09/19/c-plus-plus-dui-xiang-nei-cun-bu-ju/" class="article-date">
+  <time datetime="2013-09-19T04:44:00.000Z" itemprop="datePublished">2013-09-19</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/09/19/c-plus-plus-dui-xiang-nei-cun-bu-ju/">C++对象在内存中的布局</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>最近在看c++对象模型，要理解c++对象模型，必须得了解c++对象在计算机内存中的布局情况。虚函数是c++中多态的基础，而多态是通过虚函数表来实现的。在每个拥有虚函数的对象中，都有一个vptr指向这个对象的虚函数表vtable。下面，我们就单继承与多继承两种情况来对c++对象在内存中的布局进行实验，用直观的方式来“打印”类对象在内存中的位置。需要说明的是：类对象在内存中的布局与操作系统以及编译器都有关系，所以在不同编译环境下打印结果可能不同。这个实验旨在让我更清晰地了解类对象在内存中的布局。</p>
+			
+				<p class="article-more-link">
+					<a href="/2013/09/19/c-plus-plus-dui-xiang-nei-cun-bu-ju/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/">cpp</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+    <article id="post-raiiyu-zi-yuan-guan-li" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/09/11/raiiyu-zi-yuan-guan-li/" class="article-date">
+  <time datetime="2013-09-11T12:50:00.000Z" itemprop="datePublished">2013-09-11</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/09/11/raiiyu-zi-yuan-guan-li/">RAII与资源管理</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>RAII（Resource Acquirsition Is Initialization），资源获得即初始化，是一种管理资源的极好的方法。这个术语的意思：在对象的初始化中包含它所要管理的资源的获取操作，而在该对象被析构时，被管理资源的释放动作会被执行（RRID，Resource Release Is Destruction）。</p>
+<p>这里的资源是一个广义的概念：它可以是动态分配的堆空间，或是一个文件的句柄，抑或是一个经过抽象的打印机……这些资源的一个共同点是：当我们不再需要这个资源时，得对它进行释放操作。一旦客户忘记释放操作（我们可能会在不知不觉中忘记这个操作，比如说，在if语句中，我们调用了delete将动态分配的空间进行了释放，但在else中忘了释放……）将会导致资源泄漏，这对于一个运行几百毫秒的程序可能没什么大的影响，但对于一个要常年运行的服务器来说却是不可忍受的，一个小小的有资源泄漏的代码块执行成千上万次，所泄漏的资源就不能忽略不计了。
+			
+				<p class="article-more-link">
+					<a href="/2013/09/11/raiiyu-zi-yuan-guan-li/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/">cpp</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+    <article id="post-jiao-cha-bian-yi-vim7-dot-4" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/09/08/jiao-cha-bian-yi-vim7-dot-4/" class="article-date">
+  <time datetime="2013-09-08T10:09:00.000Z" itemprop="datePublished">2013-09-08</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/09/08/jiao-cha-bian-yi-vim7-dot-4/">交叉编译vim7.4</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>vim，作为编辑器之神，相信每一个接触过linux的人都很熟悉（至少听说过）。大概一个月前，vim发布了最新版vim7.4。作为vim的忠实用户，当然要下载下来体验一下喽。正好这几天正在玩RPi，所以，趁着这个机会，顺便学习一下交叉编译软件，以下是我在ubuntu12.04下交叉编译vim7.4的过程。</p>
+<p>准备工作：安装之前的准备工作没什么好说的，至少要得到源代码吧？在下载完vim7.4之后（随便google一下就能搜到下载源代码的方法），由于vim还依赖libncurses.so这个动态链接库，所以也要下载ncurses-5.9.tar.gz（ftp下载：ftp.keystealth.org , 在pub/gnu/ncurses目录下）。
+			
+				<p class="article-more-link">
+					<a href="/2013/09/08/jiao-cha-bian-yi-vim7-dot-4/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fun/">Fun</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
     <article id="post-rpijian-kong" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -428,174 +595,6 @@
 			<span class="tags">
 				
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-template-method" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/08/21/template-method/" class="article-date">
-  <time datetime="2013-08-21T05:23:00.000Z" itemprop="datePublished">2013-08-21</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/08/21/template-method/">设计模式（21）——模板方法模式</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>模板方法模式（Template Method）定义操作中一个算法的架构而将一些步骤延迟到子类中。它使得一个子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
-<p>考虑一个我们应聘时填写表格的步骤：我们需要填写个人信息、教育背景以及项目经验。每个应聘者都需要填写这些内容。所以我们可以从这些填写步骤中抽象出一些算法的<strong>骨架</strong>。虽然每个人具体要填写的内容不同，但填写的步骤一样。当从定义好骨架的基类派生出子类时，我们可以根据个人情况重定义填写内容，而与算法架构无关。
-			
-				<p class="article-more-link">
-					<a href="/2013/08/21/template-method/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-strategy" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/08/21/strategy/" class="article-date">
-  <time datetime="2013-08-21T05:04:00.000Z" itemprop="datePublished">2013-08-21</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/08/21/strategy/">设计模式（20）——策略模式</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>策略模式（Strategy）定义一系列算法，把他们一个个封装起来，并且使他们可以相互替换。此模式可以使得算法可独立于使用他们的客户的变化而变化。</p>
-<p>比如说我们现在要去某个风景名胜旅游。于是你在网上查好了路线。有许多策略：你可以选择A——B——C——D，或者A——E——F——D，或者A——G——D。你可以不关心具体路线，只要到达目的就行。于是这些路线就成了算法，他们应该独立于我们客户——即我们可以随时更换这些策略。
-			
-				<p class="article-more-link">
-					<a href="/2013/08/21/strategy/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-state" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/08/21/state/" class="article-date">
-  <time datetime="2013-08-21T04:47:00.000Z" itemprop="datePublished">2013-08-21</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/08/21/state/">设计模式（19）——状态对象模式</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>状态对象模式（State）允许一个对象在其内部状态改变时改变它的行为，使对象看起来似乎修改了它的类。</p>
-<p>我们来考虑一个<strong>人</strong>。人有许多年龄阶段：童年，少年，青年，中年，老年等。我们这个栗子中定义了一个<strong>Human</strong>类，当我们设置年龄时，这个类就会根据当时的年龄来选择自己相应的阶段。仿佛这个类会随着年龄的增长而自己变化一样。
-			
-				<p class="article-more-link">
-					<a href="/2013/08/21/state/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
 
 			</span>
 		</div>
