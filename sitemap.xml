@@ -3,7 +3,6 @@
   
   <url>
     <loc>http://asxalex.pw/2017/04/08/proc/</loc>
-<<<<<<< HEAD
     
     <lastmod>2017-04-17T07:09:21.927Z</lastmod>
     
@@ -25,17 +24,22 @@
   
   <url>
     <loc>http://asxalex.pw/2017/02/09/vfs/</loc>
-=======
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
     
-    <lastmod>2017-04-08T11:44:01.000Z</lastmod>
+    <lastmod>2017-02-10T02:13:12.995Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://asxalex.pw/NOTEBOOK/index.html</loc>
+    <loc>http://asxalex.pw/2017/02/03/waitqueue/</loc>
     
-    <lastmod>2017-01-21T04:41:21.000Z</lastmod>
+    <lastmod>2017-02-03T07:35:48.459Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2016/12/18/sys-open/</loc>
+    
+    <lastmod>2017-02-03T07:02:32.243Z</lastmod>
     
   </url>
   
@@ -57,13 +61,6 @@
     <loc>http://asxalex.pw/2017/01/11/ptrace/</loc>
     
     <lastmod>2017-01-11T10:21:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://asxalex.pw/2016/12/18/sys-open/</loc>
-    
-    <lastmod>2016-12-18T09:20:04.000Z</lastmod>
     
   </url>
   
@@ -152,145 +149,70 @@
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/16/jian-zao-zhe-mo-shi/</loc>
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/09/03/crontab/</loc>
-=======
-    <loc>http://asxalex.pw/2013/08/17/jie-duan-1/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/08/05/linuxxia-vimsan-jian-tao/</loc>
-=======
-    <loc>http://asxalex.pw/2013/08/06/c-plus-plus-rong-qi/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/08/20/mediator/</loc>
-=======
-    <loc>http://asxalex.pw/2013/08/16/abstract-method/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/08/20/momento/</loc>
-=======
-    <loc>http://asxalex.pw/2013/08/20/mediator/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/08/18/composite/</loc>
-=======
-    <loc>http://asxalex.pw/2013/08/19/chainofresponsibility/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/08/20/observer/</loc>
-=======
-    <loc>http://asxalex.pw/2013/08/05/linuxxia-vimsan-jian-tao/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/08/18/adaptor/</loc>
-=======
-    <loc>http://asxalex.pw/2013/08/20/command/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/08/27/polymorphism/</loc>
-=======
-    <loc>http://asxalex.pw/2013/08/20/momento/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/07/28/gitusage/</loc>
-=======
-    <loc>http://asxalex.pw/2013/08/18/adaptor/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://asxalex.pw/2013/08/18/bridge/</loc>
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://asxalex.pw/2013/08/19/proxy/</loc>
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://asxalex.pw/2013/08/27/polymorphism/</loc>
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/08/19/flyweight/</loc>
-=======
-    <loc>http://asxalex.pw/2013/09/03/crontab/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://asxalex.pw/2013/08/24/qing-xing-si-kao-de-yi-zhu/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/09/03/crontab/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/05/linuxxia-vimsan-jian-tao/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/20/mediator/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/20/momento/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/18/composite/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/20/observer/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/18/adaptor/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/27/polymorphism/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/07/28/gitusage/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
@@ -304,11 +226,28 @@
   </url>
   
   <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/08/16/gong-han-fang-fa-mo-shi-(factory-method)/</loc>
-=======
+    <loc>http://asxalex.pw/2013/08/19/proxy/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/20/command/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/19/flyweight/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://asxalex.pw/2013/09/11/raiiyu-zi-yuan-guan-li/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
@@ -322,32 +261,21 @@
   </url>
   
   <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/07/27/hello-world/</loc>
-=======
+    <loc>http://asxalex.pw/2013/08/16/gong-han-fang-fa-mo-shi-(factory-method)/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://asxalex.pw/2013/07/28/san-jiao-shu/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/18/composite/</loc>
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://asxalex.pw/2013/08/18/decorator/</loc>
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://asxalex.pw/2013/08/21/state/</loc>
+    <loc>http://asxalex.pw/2013/07/27/hello-world/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
@@ -355,6 +283,13 @@
   
   <url>
     <loc>http://asxalex.pw/2013/08/17/singleton/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/21/state/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
@@ -375,6 +310,13 @@
   </url>
   
   <url>
+    <loc>http://asxalex.pw/2013/08/19/chainofresponsibility/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://asxalex.pw/2013/08/21/template-method/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
@@ -382,80 +324,49 @@
   </url>
   
   <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/08/16/jian-dan-gong-han-mo-shi-(simple-factory)/</loc>
-=======
-    <loc>http://asxalex.pw/2013/08/19/facade/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/08/16/jian-zao-zhe-mo-shi/</loc>
-=======
     <loc>http://asxalex.pw/2013/08/31/tmux/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/19/flyweight/</loc>
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/08/19/facade/</loc>
-=======
-    <loc>http://asxalex.pw/2013/07/28/gitusage/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/08/17/jie-duan-1/</loc>
-=======
-    <loc>http://asxalex.pw/2013/07/29/wordpress-to-octopress/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://asxalex.pw/2013/08/16/gong-han-fang-fa-mo-shi-(factory-method)/</loc>
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/07/28/keep-going/</loc>
-=======
-    <loc>http://asxalex.pw/2013/07/27/hello-world/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
-    
-    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-<<<<<<< HEAD
-    <loc>http://asxalex.pw/2013/08/18/decorator/</loc>
-=======
     <loc>http://asxalex.pw/2013/08/16/jian-dan-gong-han-mo-shi-(simple-factory)/</loc>
->>>>>>> a06c57c6d45b4a3ca91ee7c07b0348f5e1031c06
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/16/jian-zao-zhe-mo-shi/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/06/c-plus-plus-rong-qi/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/19/facade/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/17/jie-duan-1/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/07/29/wordpress-to-octopress/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
@@ -469,7 +380,21 @@
   </url>
   
   <url>
-    <loc>http://asxalex.pw/2013/08/20/observer/</loc>
+    <loc>http://asxalex.pw/2013/08/18/decorator/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/18/bridge/</loc>
+    
+    <lastmod>2016-11-14T09:32:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://asxalex.pw/2013/08/16/abstract-method/</loc>
     
     <lastmod>2016-11-14T09:32:58.000Z</lastmod>
     
