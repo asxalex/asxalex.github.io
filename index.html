@@ -49,6 +49,123 @@
     <div id="main">
       
   
+    <article id="post-netfilter" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2017/04/17/netfilter/" class="article-date">
+  <time datetime="2017-04-17T03:18:12.000Z" itemprop="datePublished">2017-04-17</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2017/04/17/netfilter/">linux内核netfilter框架</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>linux中的netfilter是一个网络子系统，它的名字表示：</p>
+<ul>
+<li>它是一个filter，用于过滤网络中传输的包（还可以修改包的内容，正是因为这个可修改的原因，它可以用来实现更加复杂的功能，比如NAT等）。</li>
+<li>它属于网络层</li>
+</ul>
+<p>下面是在网络层处理分组的一个简单示意图：</p>
+<p><img src="http://asxalex.qiniudn.com/netfilter.png" alt="img"></p>
+			
+				<p class="article-more-link">
+					<a href="/2017/04/17/netfilter/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kernel/">Kernel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+    <article id="post-proc" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2017/04/08/proc/" class="article-date">
+  <time datetime="2017-04-08T06:56:15.000Z" itemprop="datePublished">2017-04-08</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2017/04/08/proc/">proc文件系统</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>proc是linux下的一个虚拟的文件系统，用于动态向内核获取信息，或者通过文件接口向内核发送指令，从而影响系统的行为。该文件系统符合linux下虚拟文件系统的抽象规范。</p>
+<h2 id="proc的注册"><a href="#proc的注册" class="headerlink" title="proc的注册"></a>proc的注册</h2><p>跟所有的文件系统一样，<code>/proc</code>文件系统
+			
+				<p class="article-more-link">
+					<a href="/2017/04/08/proc/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kernel/">Kernel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
     <article id="post-vfs" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -484,117 +601,6 @@
 			<span class="tags">
 				
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fun/">Fun</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TTtL/">TTtL</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-c-plus-plus-dui-xiang-nei-cun-bu-ju" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/09/19/c-plus-plus-dui-xiang-nei-cun-bu-ju/" class="article-date">
-  <time datetime="2013-09-19T04:44:00.000Z" itemprop="datePublished">2013-09-19</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/09/19/c-plus-plus-dui-xiang-nei-cun-bu-ju/">C++对象在内存中的布局</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>最近在看c++对象模型，要理解c++对象模型，必须得了解c++对象在计算机内存中的布局情况。虚函数是c++中多态的基础，而多态是通过虚函数表来实现的。在每个拥有虚函数的对象中，都有一个vptr指向这个对象的虚函数表vtable。下面，我们就单继承与多继承两种情况来对c++对象在内存中的布局进行实验，用直观的方式来“打印”类对象在内存中的位置。需要说明的是：类对象在内存中的布局与操作系统以及编译器都有关系，所以在不同编译环境下打印结果可能不同。这个实验旨在让我更清晰地了解类对象在内存中的布局。</p>
-			
-				<p class="article-more-link">
-					<a href="/2013/09/19/c-plus-plus-dui-xiang-nei-cun-bu-ju/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/">cpp</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-raiiyu-zi-yuan-guan-li" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/09/11/raiiyu-zi-yuan-guan-li/" class="article-date">
-  <time datetime="2013-09-11T12:50:00.000Z" itemprop="datePublished">2013-09-11</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/09/11/raiiyu-zi-yuan-guan-li/">RAII与资源管理</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>RAII（Resource Acquirsition Is Initialization），资源获得即初始化，是一种管理资源的极好的方法。这个术语的意思：在对象的初始化中包含它所要管理的资源的获取操作，而在该对象被析构时，被管理资源的释放动作会被执行（RRID，Resource Release Is Destruction）。</p>
-<p>这里的资源是一个广义的概念：它可以是动态分配的堆空间，或是一个文件的句柄，抑或是一个经过抽象的打印机……这些资源的一个共同点是：当我们不再需要这个资源时，得对它进行释放操作。一旦客户忘记释放操作（我们可能会在不知不觉中忘记这个操作，比如说，在if语句中，我们调用了delete将动态分配的空间进行了释放，但在else中忘了释放……）将会导致资源泄漏，这对于一个运行几百毫秒的程序可能没什么大的影响，但对于一个要常年运行的服务器来说却是不可忍受的，一个小小的有资源泄漏的代码块执行成千上万次，所泄漏的资源就不能忽略不计了。
-			
-				<p class="article-more-link">
-					<a href="/2013/09/11/raiiyu-zi-yuan-guan-li/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/">cpp</a></li></ul>
 
 			</span>
 		</div>

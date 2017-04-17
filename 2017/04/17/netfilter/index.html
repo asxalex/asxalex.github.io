@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>linux内核netfilter框架 | asxalex&#39;s blog</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="linux中的netfilter是一个网络子系统，它的名字表示：
+
+它是一个filter，用于过滤网络中传输的包（还可以修改包的内容，正是因为这个可修改的原因，它可以用来实现更加复杂的功能，比如NAT等）。
+它属于网络层
+
+下面是在网络层处理分组的一个简单示意图：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux内核netfilter框架">
+<meta property="og:url" content="http://asxalex.pw/2017/04/17/netfilter/index.html">
+<meta property="og:site_name" content="asxalex's blog">
+<meta property="og:description" content="linux中的netfilter是一个网络子系统，它的名字表示：
+
+它是一个filter，用于过滤网络中传输的包（还可以修改包的内容，正是因为这个可修改的原因，它可以用来实现更加复杂的功能，比如NAT等）。
+它属于网络层
+
+下面是在网络层处理分组的一个简单示意图：">
+<meta property="og:image" content="http://asxalex.qiniudn.com/netfilter.png">
+<meta property="og:updated_time" content="2017-04-17T06:39:00.356Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux内核netfilter框架">
+<meta name="twitter:description" content="linux中的netfilter是一个网络子系统，它的名字表示：
+
+它是一个filter，用于过滤网络中传输的包（还可以修改包的内容，正是因为这个可修改的原因，它可以用来实现更加复杂的功能，比如NAT等）。
+它属于网络层
+
+下面是在网络层处理分组的一个简单示意图：">
+<meta name="twitter:image" content="http://asxalex.qiniudn.com/netfilter.png">
+<meta name="twitter:creator" content="@https://twitter.com/asxalex">
+  
+    <link rel="alternative" href="/atom.xml" title="asxalex&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div class="mobile-nav-panel">
+	<i class="icon-reorder icon-large"></i>
+</div>
+<header id="header">
+	<h1 class="blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<nav class="nav">
+		<ul>
+			<li><a href="/">Home</a></li><li><a href="/archives">Archives</a></li><li><a href="/tags">Tags</a></li><li><a href="/NOTEBOOK">NoteBook</a></li>
+			<li><a id="nav-search-btn" class="nav-icon" title="Search"></a></li>
+			<li><a href="https://www.github.com/asxalex" id="nav-github-link" class="nav-icon" title="github"></a></li>
+			<li><a href="mailto:asxalex@163.com" id="nav-mail-link" class="nav-icon" title="mail to asxalex"></a></li>
+			<li><a href="https://twitter.com/asxalex" id="nav-tt-link" class="nav-icon" title="@asxalex"></a></li>
+			
+		</ul>
+	</nav>
+	<div id="search-form-wrap">
+		<form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://asxalex.pw"></form>
+	</div>
+</header>
+
+    <div id="main">
+      <article id="post-netfilter" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2017/04/17/netfilter/" class="article-date">
+  <time datetime="2017-04-17T03:18:12.000Z" itemprop="datePublished">2017-04-17</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 class="article-title entry-title" itemprop="name">
+      linux内核netfilter框架
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+    	<p>linux中的netfilter是一个网络子系统，它的名字表示：</p>
+<ul>
+<li>它是一个filter，用于过滤网络中传输的包（还可以修改包的内容，正是因为这个可修改的原因，它可以用来实现更加复杂的功能，比如NAT等）。</li>
+<li>它属于网络层</li>
+</ul>
+<p>下面是在网络层处理分组的一个简单示意图：</p>
+<p><img src="http://asxalex.qiniudn.com/netfilter.png" alt="img"></p>
+<a id="more"></a>
+<p>netfilter定义了5个钩子点，对应于网络层中包处理的5个阶段，这些钩子点定义于<code>include/linux/netfilter.h</code>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">enum</span> nf_inet_hooks &#123;</div><div class="line">    NF_INET_PRE_ROUTING,</div><div class="line">    NF_INET_LOCAL_IN,</div><div class="line">    NF_INET_FORWARD,</div><div class="line">    NF_INET_LOCAL_OUT,</div><div class="line">    NF_INET_POST_ROUTING,</div><div class="line">    NF_INET_NUMHOOKS</div><div class="line">&#125;;</div><div class="line">&nbsp;</div><div class="line"><span class="keyword">enum</span> &#123;</div><div class="line">    NFPROTO_UNSPEC = <span class="number">0</span>,</div><div class="line">    NFPROTO_IPV4 = <span class="number">3</span>,</div><div class="line">    NFPROTO_ARP = <span class="number">3</span>,</div><div class="line">    NFPROTO_BRIDGE = <span class="number">7</span>,</div><div class="line">    NFPROTO_IPV6 = <span class="number">10</span>,</div><div class="line">    NFPROTO_DECNET = <span class="number">12</span>,</div><div class="line">    NFPROTO_NUMPROTO,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>对于同一个钩子点，内核可能植入了多个钩子，而且不同的协议，处理方式也应该分开，内核对此定义了一个链表，将这些钩子函数分门别类存放，每种协议对应的每个钩子点上的钩子函数用链表依次存储：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> list_head nf_hooks[NFPROTO_NUMPROTO][NF_MAX_HOOKS];</div></pre></td></tr></table></figure>
+<h2 id="钩子点的处理"><a href="#钩子点的处理" class="headerlink" title="钩子点的处理"></a>钩子点的处理</h2><p>为了更清晰地了解这些钩子的处理流程，我们选一个<code>NF_INET_PRE_ROUTING</code>做详细跟踪。</p>
+<p>从上面的图中可以看出，<code>NF_INET_PRE_ROUTING</code>是在数据包到达网络层后调用的，在数据包到达网络层时调用的相应函数是<code>ip_rcv</code>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">ip_rcv</span><span class="params">(<span class="keyword">struct</span> sk_buff *skb, <span class="keyword">struct</span> net_device *dev, <span class="keyword">struct</span> packet_type *pt, <span class="keyword">struct</span> net_device *origin_dev)</span> </span>&#123;</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * 做一些包的验证等处理，丢弃不符合规范的包</div><div class="line">     *</div><div class="line">     * 如果这个包被验证是有效的，最后会到达这行代码</div><div class="line">     */</div><div class="line">    ...</div><div class="line">    <span class="keyword">return</span> NF_HOOK(NFPROTO_IPV4, NF_INET_PRE_ROUTING, skb, dev, <span class="literal">NULL</span>, ip_rcv_finish);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从代码的命名上可以明显看出，我们的<code>HOOK</code>跟<code>NF_HOOK</code>有关，经过查看代码，调用链依次是<code>NF_HOOK -&gt; NF_HOOK_THRESH -&gt; nf_hook_thresh -&gt; nf_hook_slow</code>。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line"> * pf参数指明属于哪个协议族，这里用NFPROTO_IPV4指明是ipv4</div><div class="line"> * hook知名钩子点</div><div class="line"> * 如上所述，pf和hook两个参数可以从nf_hooks全局变量里面唯一确定一个钩子函数链。</div><div class="line"> *</div><div class="line"> * 该函数主要操作是拿到nf_hooks链表上的所有钩子，逐个调用每个钩子定义</div><div class="line"> * 的hook函数指针，并根据该函数的返回值做相应处理，返回NF_ACCEPT等</div><div class="line"> */</div><div class="line">static inline int</div><div class="line">nf_hook_slow(uint8_t pf, unsigned int hook, struct sk_buff *skb,</div><div class="line">        struct net_device *indev, struct net_device *outdev,</div><div class="line">        int (*okfn)(struct sk_buff*), int thresh) &#123;</div><div class="line">&nbsp;</div><div class="line">    struct nf_hook_ops *elem;</div><div class="line">    unsigned int verdict;</div><div class="line">    // 一些锁相关的操作</div><div class="line">    ...</div><div class="line">&nbsp;</div><div class="line">    elem = list_entry_rcu(&amp;nf_hooks[pf][hooks], struct nf_hook_ops, list);</div><div class="line">next_hook:</div><div class="line">    verdict = nf_iterate(&amp;nf_hooks[pf][hook], skb, hook, indev, </div><div class="line">            outdev, &amp;elem, okfn, hook_thresh);</div><div class="line">&nbsp;</div><div class="line">    if (verdict == NF_ACCEPT || VERDICT = NF_STOP) </div><div class="line">        return 1;</div><div class="line">&nbsp;</div><div class="line">    ...</div><div class="line">&#125;</div><div class="line">&nbsp;</div><div class="line">// 实际的hook函数调用是在nf_iterate中，下面的代码是在nf_iterate中的</div><div class="line">list_for_each_entry_continue_rcu((*elemp), head, list) &#123;</div><div class="line">    if (hook_thresh &gt; (*elemp)-&gt;priority)</div><div class="line">        continue;</div><div class="line">    verdict = (*elemp)-&gt;hook(hook, skb, indev, outdev, okfn);</div><div class="line">    if (verdict != NF_ACCEPT)</div><div class="line">        ...</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里，实际的hook函数被调用。</p>
+<h2 id="netfilter植入钩子函数"><a href="#netfilter植入钩子函数" class="headerlink" title="netfilter植入钩子函数"></a>netfilter植入钩子函数</h2><p>从上面钩子函数的处理可以看出，钩子的最主要的一个数据结构是<code>struct nf_hook_ops</code>:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">typedef unsigned int nf_hookfn(unsigned int hooknum,</div><div class="line">                            struct sk_buff *skb,</div><div class="line">                            const struct net_device *in,</div><div class="line">                            const struct net_device *out,</div><div class="line">                            int (*okfn)(struct sk_buff *));</div><div class="line">&nbsp;</div><div class="line">struct nf_hook_ops &#123;</div><div class="line">    struct list_head list;</div><div class="line">    nf_hookfn *hook;</div><div class="line">    struct module *owner;</div><div class="line">    u_int8_t pf;</div><div class="line">    unsigned int hooknum;</div><div class="line">&nbsp;</div><div class="line">    /* 所有钩子在链表上以priority的增序排序 */</div><div class="line">    int priority;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>从定义里面，钩子通过<code>nf_hook_ops</code>的list成员链接，里面最主要的是那个<code>hook</code>成员，<code>owner</code>指定了该钩子属于哪个模块，<code>pf</code>和<code>hooknum</code>跟上面介绍的用途一样，主要用于定位<code>nf_hooks</code>中的位置。</p>
+<p>要植入钩子，需要调用<code>nf_register_hook</code>函数，该函数接受一个<code>nf_hook_ops</code>类型的函数，主要作用很明显，就是根据<code>pf</code>和<code>hooknum</code>以及<code>priority</code>将这个结构插入到对应的<code>nf_hooks</code>中的位置。里面还牵涉到一些锁来防止并发操作，具体细节就略过了。</p>
+<p>相对应的，在不需要某个钩子了，就需要调用<code>nf_unregister_hook</code>注销。</p>
+<p>注： 这里使用的内核代码为3.8版本</p>
+<p>（以上）</p>
+
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kernel/">Kernel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+
+  
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-netfilter" data-title="linux内核netfilter框架" data-url="http://asxalex.pw/2017/04/17/netfilter/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'asxalexpw'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+    </div>
+    <div class="mb-search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:asxalex.pw">
+  </form>
+</div>
+<footer id="footer">
+	<h1 class="footer-blog-title">
+		<a href="/">asxalex&#39;s blog</a>
+	</h1>
+	<span class="copyright">
+		copyright &copy; 2017 asxalex<br>
+		<!-- Modify from <a href="http://sanographix.github.io/tumblr/apollo/" target="_blank">Apollo</a> theme, designed by <a href="http://www.sanographix.net/" target="_blank">SANOGRAPHIX.NET</a><br> -->
+		Powered by <a href="http://www.asxalex.pw/" target="_blank">asxalex</a>
+	</span>
+</footer>
+
+    
+
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

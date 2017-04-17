@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://asxalex.pw/"/>
-  <updated>2017-02-10T02:13:12.995Z</updated>
+  <updated>2017-04-17T06:39:00.356Z</updated>
   <id>http://asxalex.pw/</id>
   
   <author>
@@ -14,6 +14,107 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>linux内核netfilter框架</title>
+    <link href="http://asxalex.pw/2017/04/17/netfilter/"/>
+    <id>http://asxalex.pw/2017/04/17/netfilter/</id>
+    <published>2017-04-17T03:18:12.000Z</published>
+    <updated>2017-04-17T06:39:00.356Z</updated>
+    
+    <content type="html"><![CDATA[<p>linux中的netfilter是一个网络子系统，它的名字表示：</p>
+<ul>
+<li>它是一个filter，用于过滤网络中传输的包（还可以修改包的内容，正是因为这个可修改的原因，它可以用来实现更加复杂的功能，比如NAT等）。</li>
+<li>它属于网络层</li>
+</ul>
+<p>下面是在网络层处理分组的一个简单示意图：</p>
+<p><img src="http://asxalex.qiniudn.com/netfilter.png" alt="img"></p>
+<a id="more"></a>
+<p>netfilter定义了5个钩子点，对应于网络层中包处理的5个阶段，这些钩子点定义于<code>include/linux/netfilter.h</code>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">enum</span> nf_inet_hooks &#123;</div><div class="line">    NF_INET_PRE_ROUTING,</div><div class="line">    NF_INET_LOCAL_IN,</div><div class="line">    NF_INET_FORWARD,</div><div class="line">    NF_INET_LOCAL_OUT,</div><div class="line">    NF_INET_POST_ROUTING,</div><div class="line">    NF_INET_NUMHOOKS</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">enum</span> &#123;</div><div class="line">    NFPROTO_UNSPEC = <span class="number">0</span>,</div><div class="line">    NFPROTO_IPV4 = <span class="number">3</span>,</div><div class="line">    NFPROTO_ARP = <span class="number">3</span>,</div><div class="line">    NFPROTO_BRIDGE = <span class="number">7</span>,</div><div class="line">    NFPROTO_IPV6 = <span class="number">10</span>,</div><div class="line">    NFPROTO_DECNET = <span class="number">12</span>,</div><div class="line">    NFPROTO_NUMPROTO,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>对于同一个钩子点，内核可能植入了多个钩子，而且不同的协议，处理方式也应该分开，内核对此定义了一个链表，将这些钩子函数分门别类存放，每种协议对应的每个钩子点上的钩子函数用链表依次存储：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> list_head nf_hooks[NFPROTO_NUMPROTO][NF_MAX_HOOKS];</div></pre></td></tr></table></figure>
+<h2 id="钩子点的处理"><a href="#钩子点的处理" class="headerlink" title="钩子点的处理"></a>钩子点的处理</h2><p>为了更清晰地了解这些钩子的处理流程，我们选一个<code>NF_INET_PRE_ROUTING</code>做详细跟踪。</p>
+<p>从上面的图中可以看出，<code>NF_INET_PRE_ROUTING</code>是在数据包到达网络层后调用的，在数据包到达网络层时调用的相应函数是<code>ip_rcv</code>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">ip_rcv</span><span class="params">(<span class="keyword">struct</span> sk_buff *skb, <span class="keyword">struct</span> net_device *dev, <span class="keyword">struct</span> packet_type *pt, <span class="keyword">struct</span> net_device *origin_dev)</span> </span>&#123;</div><div class="line">    <span class="comment">/*</span></div><div class="line">     * 做一些包的验证等处理，丢弃不符合规范的包</div><div class="line">     *</div><div class="line">     * 如果这个包被验证是有效的，最后会到达这行代码</div><div class="line">     */</div><div class="line">    ...</div><div class="line">    <span class="keyword">return</span> NF_HOOK(NFPROTO_IPV4, NF_INET_PRE_ROUTING, skb, dev, <span class="literal">NULL</span>, ip_rcv_finish);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从代码的命名上可以明显看出，我们的<code>HOOK</code>跟<code>NF_HOOK</code>有关，经过查看代码，调用链依次是<code>NF_HOOK -&gt; NF_HOOK_THRESH -&gt; nf_hook_thresh -&gt; nf_hook_slow</code>。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line"> * pf参数指明属于哪个协议族，这里用NFPROTO_IPV4指明是ipv4</div><div class="line"> * hook知名钩子点</div><div class="line"> * 如上所述，pf和hook两个参数可以从nf_hooks全局变量里面唯一确定一个钩子函数链。</div><div class="line"> *</div><div class="line"> * 该函数主要操作是拿到nf_hooks链表上的所有钩子，逐个调用每个钩子定义</div><div class="line"> * 的hook函数指针，并根据该函数的返回值做相应处理，返回NF_ACCEPT等</div><div class="line"> */</div><div class="line">static inline int</div><div class="line">nf_hook_slow(uint8_t pf, unsigned int hook, struct sk_buff *skb,</div><div class="line">        struct net_device *indev, struct net_device *outdev,</div><div class="line">        int (*okfn)(struct sk_buff*), int thresh) &#123;</div><div class="line"></div><div class="line">    struct nf_hook_ops *elem;</div><div class="line">    unsigned int verdict;</div><div class="line">    // 一些锁相关的操作</div><div class="line">    ...</div><div class="line"></div><div class="line">    elem = list_entry_rcu(&amp;nf_hooks[pf][hooks], struct nf_hook_ops, list);</div><div class="line">next_hook:</div><div class="line">    verdict = nf_iterate(&amp;nf_hooks[pf][hook], skb, hook, indev, </div><div class="line">            outdev, &amp;elem, okfn, hook_thresh);</div><div class="line"></div><div class="line">    if (verdict == NF_ACCEPT || VERDICT = NF_STOP) </div><div class="line">        return 1;</div><div class="line"></div><div class="line">    ...</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 实际的hook函数调用是在nf_iterate中，下面的代码是在nf_iterate中的</div><div class="line">list_for_each_entry_continue_rcu((*elemp), head, list) &#123;</div><div class="line">    if (hook_thresh &gt; (*elemp)-&gt;priority)</div><div class="line">        continue;</div><div class="line">    verdict = (*elemp)-&gt;hook(hook, skb, indev, outdev, okfn);</div><div class="line">    if (verdict != NF_ACCEPT)</div><div class="line">        ...</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里，实际的hook函数被调用。</p>
+<h2 id="netfilter植入钩子函数"><a href="#netfilter植入钩子函数" class="headerlink" title="netfilter植入钩子函数"></a>netfilter植入钩子函数</h2><p>从上面钩子函数的处理可以看出，钩子的最主要的一个数据结构是<code>struct nf_hook_ops</code>:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">typedef unsigned int nf_hookfn(unsigned int hooknum,</div><div class="line">                            struct sk_buff *skb,</div><div class="line">                            const struct net_device *in,</div><div class="line">                            const struct net_device *out,</div><div class="line">                            int (*okfn)(struct sk_buff *));</div><div class="line"></div><div class="line">struct nf_hook_ops &#123;</div><div class="line">    struct list_head list;</div><div class="line">    nf_hookfn *hook;</div><div class="line">    struct module *owner;</div><div class="line">    u_int8_t pf;</div><div class="line">    unsigned int hooknum;</div><div class="line"></div><div class="line">    /* 所有钩子在链表上以priority的增序排序 */</div><div class="line">    int priority;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>从定义里面，钩子通过<code>nf_hook_ops</code>的list成员链接，里面最主要的是那个<code>hook</code>成员，<code>owner</code>指定了该钩子属于哪个模块，<code>pf</code>和<code>hooknum</code>跟上面介绍的用途一样，主要用于定位<code>nf_hooks</code>中的位置。</p>
+<p>要植入钩子，需要调用<code>nf_register_hook</code>函数，该函数接受一个<code>nf_hook_ops</code>类型的函数，主要作用很明显，就是根据<code>pf</code>和<code>hooknum</code>以及<code>priority</code>将这个结构插入到对应的<code>nf_hooks</code>中的位置。里面还牵涉到一些锁来防止并发操作，具体细节就略过了。</p>
+<p>相对应的，在不需要某个钩子了，就需要调用<code>nf_unregister_hook</code>注销。</p>
+<p>注： 这里使用的内核代码为3.8版本</p>
+<p>（以上）</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;linux中的netfilter是一个网络子系统，它的名字表示：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;它是一个filter，用于过滤网络中传输的包（还可以修改包的内容，正是因为这个可修改的原因，它可以用来实现更加复杂的功能，比如NAT等）。&lt;/li&gt;
+&lt;li&gt;它属于网络层&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下面是在网络层处理分组的一个简单示意图：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://asxalex.qiniudn.com/netfilter.png&quot; alt=&quot;img&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Kernel" scheme="http://asxalex.pw/tags/Kernel/"/>
+    
+      <category term="Linux" scheme="http://asxalex.pw/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>proc文件系统</title>
+    <link href="http://asxalex.pw/2017/04/08/proc/"/>
+    <id>http://asxalex.pw/2017/04/08/proc/</id>
+    <published>2017-04-08T06:56:15.000Z</published>
+    <updated>2017-04-17T07:09:21.927Z</updated>
+    
+    <content type="html"><![CDATA[<p>proc是linux下的一个虚拟的文件系统，用于动态向内核获取信息，或者通过文件接口向内核发送指令，从而影响系统的行为。该文件系统符合linux下虚拟文件系统的抽象规范。</p>
+<h2 id="proc的注册"><a href="#proc的注册" class="headerlink" title="proc的注册"></a>proc的注册</h2><p>跟所有的文件系统一样，<code>/proc</code>文件系统<a id="more"></a>首先必须向系统注册该文件系统，每个文件系统在内核中都对应一个<code>file_system_type</code>类型的结构，而<code>proc</code>的结构如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">struct</span> file_system_type proc_fs_type &#123;</div><div class="line">    .name = <span class="string">"proc"</span>,</div><div class="line">    .mount = proc_mount,</div><div class="line">    .kill_sb = proc_kill_sb,</div><div class="line">    .fs_flags = FS_USERNS_MOUNT,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>文件系统类型指明了一些在获取、丢弃该类型文件系统的超级块时的一些操作函数，以及相关的名称等信息。该类型在系统初始化的时候，通过调用<code>proc_root_init</code>函数得到初始化，该函数进一步调用<code>register_file_system</code>进行真正的注册工作。</p>
+<h2 id="挂载proc文件系统"><a href="#挂载proc文件系统" class="headerlink" title="挂载proc文件系统"></a>挂载proc文件系统</h2><p>在向系统注册文件系统类型之后，在恰当的时机，<code>/proc</code>会被挂载，内核中通过一系列调用（<code>sys_mount -&gt; do_mount -&gt; do_new_mount -&gt; vfs_kern_mount -&gt; mount_fs</code>）最后真正调用到在注册文件系统时候指定的。<code>mount</code>成员，在这边的实例中，是<code>proc_mount</code>。</p>
+<p>在该挂载函数中，调用了<code>proc_fill_super</code>将该挂载点对应的<code>super block</code>的<code>root</code>设置为一个封装了多层的<code>dentry</code>结构，该结构最内部核心是<code>proc_root</code>:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> proc_dir_entry proc_root = &#123;</div><div class="line">    .low_ino    = PROC_ROOT_INO,</div><div class="line">    .namelen    = <span class="number">5</span>,</div><div class="line">    .mode        = S_IFDIR | S_IRUGO | S_IXUGO,</div><div class="line">    .nlink        = <span class="number">2</span>,</div><div class="line">    .count        = ATOMIC_INIT(<span class="number">1</span>),</div><div class="line">    .proc_iops    = &amp;proc_root_inode_operations,</div><div class="line">    .proc_fops    = &amp;proc_root_operations,</div><div class="line">    .parent        = &amp;proc_root,</div><div class="line">    .name        = <span class="string">"/proc"</span>,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>该结构是一个<code>proc_dir_entry</code>类型，该结构被封装在<code>proc_inode</code>中，而<code>proc_inode</code>里面镶嵌了一个经典的<code>inode</code>结构，通过内核中独有的<code>container_of</code>可以获取对应的外层的<code>proc_inode</code>，进而获取这个<code>proc_root</code>。</p>
+<h2 id="proc文件系统数据项的操作"><a href="#proc文件系统数据项的操作" class="headerlink" title="proc文件系统数据项的操作"></a>proc文件系统数据项的操作</h2><p>在实际使用<code>proc</code>之前，需要首先创建数据项，数据项的创建中的一个核心函数是<code>create_proc_entry</code>，大致步骤如下：</p>
+<ul>
+<li>创建一个pde(<code>proc_dir_entry</code>)结构并填充</li>
+<li>向所创建文件（或目录）的上级目录注册这个新的pde<ul>
+<li>分配一个inode号</li>
+<li>根据创建的文件类型，为pde的<code>proc_fops</code>和<code>proc_iops</code>设置合适的函数指针</li>
+<li>在父目录的子目录链表中遍历，如果该名字已经被使用，则告警</li>
+</ul>
+</li>
+</ul>
+<p>若上述过程中，创建了一个文件，则该文件的<code>proc_fops</code>和<code>proc_iops</code>分别被设置为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">struct</span> file_operations proc_file_operations &#123;</div><div class="line">    .llseek = proc_file_llseek,</div><div class="line">    .read = proc_file_read,</div><div class="line">    .write = proc_file_write,</div><div class="line">&#125;;</div><div class="line"> </div><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">struct</span> inode_operations proc_file_inode_operations &#123;</div><div class="line">    .setattr = proc_notify_change,</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>之后，在文件被打开时，像普通的<code>inode</code>一样，打开文件的<code>f_ops</code>指针会被设置为<code>proc_fops</code>，即上述的<code>proc_file_read</code>和<code>proc_file_write</code>等函数被与文件相关联上。<br>之后的一些文件操作，即会被反映到相应的<code>proc_file_*</code>操作上来。</p>
+<p>但如何让访问不同的文件获取不同的数据呢？这个跟<code>pde</code>结构中的两个成员有关：<code>proc_read</code>和<code>proc_write</code>，这两个函数一般在调用<code>create_proc_entry</code>之后被设置，相关的代码可以到<code>fs/proc/generic.c</code>中找到，该调用链为：<code>proc_file_read -&gt; __proc_file_read -&gt; proc_read</code>。</p>
+<p>用户定义的<code>proc_read</code>函数用于输出/返回真正收集到的内核的信息。</p>
+<p>注： 这里使用的内核代码为3.8版本。</p>
+<p>（以上）</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;proc是linux下的一个虚拟的文件系统，用于动态向内核获取信息，或者通过文件接口向内核发送指令，从而影响系统的行为。该文件系统符合linux下虚拟文件系统的抽象规范。&lt;/p&gt;
+&lt;h2 id=&quot;proc的注册&quot;&gt;&lt;a href=&quot;#proc的注册&quot; class=&quot;headerlink&quot; title=&quot;proc的注册&quot;&gt;&lt;/a&gt;proc的注册&lt;/h2&gt;&lt;p&gt;跟所有的文件系统一样，&lt;code&gt;/proc&lt;/code&gt;文件系统
+    
+    </summary>
+    
+    
+      <category term="Kernel" scheme="http://asxalex.pw/tags/Kernel/"/>
+    
+      <category term="Linux" scheme="http://asxalex.pw/tags/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title>vfs浅析（一）—— 基本数据结构</title>
@@ -804,62 +905,6 @@ tagImg.onerror=function(){tagImg.src=backURL;}
     
     
       <category term="Books" scheme="http://asxalex.pw/tags/Books/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式（21）——模板方法模式</title>
-    <link href="http://asxalex.pw/2013/08/21/template-method/"/>
-    <id>http://asxalex.pw/2013/08/21/template-method/</id>
-    <published>2013-08-21T05:23:00.000Z</published>
-    <updated>2016-11-14T09:32:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>模板方法模式（Template Method）定义操作中一个算法的架构而将一些步骤延迟到子类中。它使得一个子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
-<p>考虑一个我们应聘时填写表格的步骤：我们需要填写个人信息、教育背景以及项目经验。每个应聘者都需要填写这些内容。所以我们可以从这些填写步骤中抽象出一些算法的<strong>骨架</strong>。虽然每个人具体要填写的内容不同，但填写的步骤一样。当从定义好骨架的基类派生出子类时，我们可以根据个人情况重定义填写内容，而与算法架构无关。<a id="more"></a>看下面类图：</p>
-<img src="http://asxalex.qiniudn.com/template_method.png">
-<p>代码如下：</p>
-<figure class="highlight c++"><figcaption><span>template_method.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">class</span> resume&#123;</div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setPersonalInfo</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setEducation</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setWorkExp</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">fillForm</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"use base class"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">            setPersonalInfo();</div><div class="line">            setEducation();</div><div class="line">            setWorkExp();</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> resumeA : <span class="keyword">public</span> resume&#123;</div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setPersonalInfo</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Set A's Personal Infomation"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setEducation</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"set A's Education infomation"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setWorkExp</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"set A's Work experience infomation"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">fillForm</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"use sub class"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">            setPersonalInfo();</div><div class="line">            setEducation();</div><div class="line">            setWorkExp();</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> resumeB : <span class="keyword">public</span> resume&#123;</div><div class="line">    <span class="keyword">protected</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setPersonalInfo</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"set B's Personal Infomation"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setEducation</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"set B's Education Infomation"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">setWorkExp</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"set B's Work experience infomation"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">fillForm</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"use sub class"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">            setPersonalInfo();</div><div class="line">            setEducation();</div><div class="line">            setWorkExp();</div><div class="line">        &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<figure class="highlight c++"><figcaption><span>template_method.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"template_method.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    resume *res = <span class="keyword">new</span> resumeA;</div><div class="line">    res -&gt; fillForm();</div><div class="line">    resumeB res2;</div><div class="line">    res2.fillForm();</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>（EOF）</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;模板方法模式（Template Method）定义操作中一个算法的架构而将一些步骤延迟到子类中。它使得一个子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。&lt;/p&gt;
-&lt;p&gt;考虑一个我们应聘时填写表格的步骤：我们需要填写个人信息、教育背景以及项目经验。每个应聘者都需要填写这些内容。所以我们可以从这些填写步骤中抽象出一些算法的&lt;strong&gt;骨架&lt;/strong&gt;。虽然每个人具体要填写的内容不同，但填写的步骤一样。当从定义好骨架的基类派生出子类时，我们可以根据个人情况重定义填写内容，而与算法架构无关。
-    
-    </summary>
-    
-    
-      <category term="DesignPatterns" scheme="http://asxalex.pw/tags/DesignPatterns/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>设计模式（20）——策略模式</title>
-    <link href="http://asxalex.pw/2013/08/21/strategy/"/>
-    <id>http://asxalex.pw/2013/08/21/strategy/</id>
-    <published>2013-08-21T05:04:00.000Z</published>
-    <updated>2016-11-14T09:32:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>策略模式（Strategy）定义一系列算法，把他们一个个封装起来，并且使他们可以相互替换。此模式可以使得算法可独立于使用他们的客户的变化而变化。</p>
-<p>比如说我们现在要去某个风景名胜旅游。于是你在网上查好了路线。有许多策略：你可以选择A——B——C——D，或者A——E——F——D，或者A——G——D。你可以不关心具体路线，只要到达目的就行。于是这些路线就成了算法，他们应该独立于我们客户——即我们可以随时更换这些策略。<a id="more"></a>为了简化，看下面的类图：</p>
-<img src="http://asxalex.qiniudn.com/stategy.png">
-<p>这是最简单的类之间的继承关系，实现代码如下：</p>
-<figure class="highlight c++"><figcaption><span>strategy.h</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">enum</span> APPROACH&#123;AP1, AP2&#125;;</div><div class="line"><span class="keyword">class</span> approach&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">means</span><span class="params">()</span> </span>= <span class="number">0</span>;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> approach1 : <span class="keyword">public</span> approach&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">means</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"this is approach one"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> approach2 : <span class="keyword">public</span> approach&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">means</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"this is approach two"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line">        &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">class</span> select_approach&#123;</div><div class="line">    <span class="keyword">public</span>:</div><div class="line">        select_approach(APPROACH);</div><div class="line">        ~select_approach()&#123;<span class="keyword">delete</span> _app;&#125;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">show_approach</span><span class="params">()</span> <span class="keyword">const</span></span>;</div><div class="line">    <span class="keyword">private</span>:</div><div class="line">        approach *_app;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">select_approach::select_approach(APPROACH app)&#123;</div><div class="line">    <span class="keyword">switch</span>(app)&#123;</div><div class="line">        <span class="keyword">case</span> AP1:</div><div class="line">            _app = <span class="keyword">new</span> approach1;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">case</span> AP2:</div><div class="line">            _app = <span class="keyword">new</span> approach2;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            _app = <span class="literal">NULL</span>;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">void</span> select_approach::show_approach() <span class="keyword">const</span>&#123;</div><div class="line">    _app -&gt; means();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight c++"><figcaption><span>strategy.cpp</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"strategy.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="function">select_approach <span class="title">sele_app1</span><span class="params">(AP1)</span></span>;</div><div class="line">    sele_app1.show_approach();</div><div class="line">    <span class="function">select_approach <span class="title">sele_app2</span><span class="params">(AP2)</span></span>;</div><div class="line">    sele_app2.show_approach();</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在这个栗子中，我们通过向select_approach传递参数来选择具体的策略。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;策略模式（Strategy）定义一系列算法，把他们一个个封装起来，并且使他们可以相互替换。此模式可以使得算法可独立于使用他们的客户的变化而变化。&lt;/p&gt;
-&lt;p&gt;比如说我们现在要去某个风景名胜旅游。于是你在网上查好了路线。有许多策略：你可以选择A——B——C——D，或者A——E——F——D，或者A——G——D。你可以不关心具体路线，只要到达目的就行。于是这些路线就成了算法，他们应该独立于我们客户——即我们可以随时更换这些策略。
-    
-    </summary>
-    
-    
-      <category term="DesignPatterns" scheme="http://asxalex.pw/tags/DesignPatterns/"/>
     
   </entry>
   

@@ -49,6 +49,118 @@
     <div id="main">
       
   
+    <article id="post-abstract-method" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/16/abstract-method/" class="article-date">
+  <time datetime="2013-08-16T06:23:00.000Z" itemprop="datePublished">2013-08-16</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/16/abstract-method/">设计模式（3）——抽象工厂模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>抽象工厂模式（abstract factory）也是一种创建型模式。《Design Patterns》上说：抽象工厂模式的意图为提供一个创建<strong>一系列</strong>相关或相互依赖对象的接口，而无需指定他们具体的类。</p>
+<p>上面那个“一系列”比较重要：还记得工厂方法模式的意图吗，工厂方法模式是创建一个对象的接口。所以这是那个<strong>一系列</strong>是区分他们两个的关键。在简单工厂模式中，我们利用参数来实现一个工厂生产“一系列”产品。在我看来，简单工厂模式与工厂方法模式的结合就<strong>类似于</strong>抽象工厂模式。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/16/abstract-method/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+    <article id="post-gong-han-fang-fa-mo-shi-(factory-method)" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/16/gong-han-fang-fa-mo-shi-(factory-method)/" class="article-date">
+  <time datetime="2013-08-16T05:04:00.000Z" itemprop="datePublished">2013-08-16</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/16/gong-han-fang-fa-mo-shi-(factory-method)/">设计模式（2）——工厂方法模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>根据经典的GoF的《Design Patterns》上的定义，工厂方法模式（Factory Method）的意图为：定义一个用于创建对象的接口，让子类决定实例化哪个类。它使一个类的实例化推迟到其子类。</p>
+<p>我们首先用为所生产的产品定义一个抽象的product类，用于提供接口。之后让具体的产品类继承这个product类。然后再定义一个抽象的工厂类。当我们要特别生产某个产品时，就从这个工厂类派生出某个类来生产它。这就相当于在一个有很多车间的工厂中会产生很多产品，而每个车间负责生产一个特定产品。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/16/gong-han-fang-fa-mo-shi-(factory-method)/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
     <article id="post-jian-dan-gong-han-mo-shi-(simple-factory)" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -479,116 +591,6 @@
 			<span class="tags">
 				
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CoolTool/">CoolTool</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-gitusage" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/07/28/gitusage/" class="article-date">
-  <time datetime="2013-07-28T07:15:00.000Z" itemprop="datePublished">2013-07-28</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/07/28/gitusage/">git基础用法</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>大概一年前就接触过git，刚使用那会还没有版本控制经验，不像许多大牛一样以前用过svn等，然后从那些迁徙过来。我是直接在一次我们学校的开源社区集会上第一次听过git这个词，我还清楚地记得当时的题目是：git大杀器。听完这个之后，我才开始使用git。
-			
-				<p class="article-more-link">
-					<a href="/2013/07/28/gitusage/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CoolTool/">CoolTool</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-keep-going" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/07/28/keep-going/" class="article-date">
-  <time datetime="2013-07-28T06:58:00.000Z" itemprop="datePublished">2013-07-28</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/07/28/keep-going/">Keep Going</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>最近一直在忙着我的期末考试，这次期末考试从上周一一直持续至今天，耗时大约两周。虽然这学期我们分专业了，我也自己选择了比较感兴趣的计算机学院（相较于通信工程学院与电子信息工程学院），但学校给安排的课却感觉不给力。我比较喜欢开源方面的内容，平时接触开源技术方面的东西比较多，自己也会主动去搜索喜欢的技术。与以往学期一样，前几个月几乎没认真听过课，直到考试前一个礼拜。
-			
-				<p class="article-more-link">
-					<a href="/2013/07/28/keep-going/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/life/">life</a></li></ul>
 
 			</span>
 		</div>

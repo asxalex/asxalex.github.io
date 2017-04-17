@@ -49,6 +49,118 @@
     <div id="main">
       
   
+    <article id="post-template-method" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/21/template-method/" class="article-date">
+  <time datetime="2013-08-21T05:23:00.000Z" itemprop="datePublished">2013-08-21</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/21/template-method/">设计模式（21）——模板方法模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>模板方法模式（Template Method）定义操作中一个算法的架构而将一些步骤延迟到子类中。它使得一个子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
+<p>考虑一个我们应聘时填写表格的步骤：我们需要填写个人信息、教育背景以及项目经验。每个应聘者都需要填写这些内容。所以我们可以从这些填写步骤中抽象出一些算法的<strong>骨架</strong>。虽然每个人具体要填写的内容不同，但填写的步骤一样。当从定义好骨架的基类派生出子类时，我们可以根据个人情况重定义填写内容，而与算法架构无关。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/21/template-method/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
+    <article id="post-strategy" class="post">
+	<footer class="entry-meta-header">
+		<span class="meta-elements date">
+			<a href="/2013/08/21/strategy/" class="article-date">
+  <time datetime="2013-08-21T05:04:00.000Z" itemprop="datePublished">2013-08-21</time>
+</a>
+		</span>
+		<span class="meta-elements author">asxalex</span>
+		<div class="commentscount">
+			
+		</div>
+	</footer>
+	
+	<header class="entry-header">
+		
+  
+    <h1 itemprop="name" class="entry-title">
+      <a class="article-title" href="/2013/08/21/strategy/">设计模式（20）——策略模式</a>
+    </h1>
+  
+
+	</header>
+	<div class="entry-content">
+		
+			<p>策略模式（Strategy）定义一系列算法，把他们一个个封装起来，并且使他们可以相互替换。此模式可以使得算法可独立于使用他们的客户的变化而变化。</p>
+<p>比如说我们现在要去某个风景名胜旅游。于是你在网上查好了路线。有许多策略：你可以选择A——B——C——D，或者A——E——F——D，或者A——G——D。你可以不关心具体路线，只要到达目的就行。于是这些路线就成了算法，他们应该独立于我们客户——即我们可以随时更换这些策略。
+			
+				<p class="article-more-link">
+					<a href="/2013/08/21/strategy/#more">Read More</a>
+				</p>
+      
+    
+    
+	</div>
+
+	<footer class="entry-footer">
+		<div class="entry-meta-footer">
+			<span class="category">
+				
+			</span>
+			<span class="tags">
+				
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
+
+			</span>
+		</div>
+	</footer>
+</article>
+
+
+	<hr class="article-devider">
+
+
+  
+
+  
     <article id="post-state" class="post">
 	<footer class="entry-meta-header">
 		<span class="meta-elements date">
@@ -463,118 +575,6 @@
 			
 				<p class="article-more-link">
 					<a href="/2013/08/19/flyweight/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-facade" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/08/19/facade/" class="article-date">
-  <time datetime="2013-08-19T06:47:00.000Z" itemprop="datePublished">2013-08-19</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/08/19/facade/">设计模式（11）——外观模式</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>外观模式（facade）为子系统的一组接口提供一个一致的界面，它定义了一个高层接口，这个接口使得这个系统更加容易使用。</p>
-<p>就拿一个编译器系统来说吧，它可以分成许多步骤————词法分析，语法分析，语义分析，代码生成等。而我们在使用一个编译器的时候并不需要知道这些（比如在用gcc的时候，在最简单的情况下我们甚至只需要gcc filename 就行了，我们只要在这个编译器整体作用下生成我们所需要的目标代码即可）。否则，我们还得自己用gas、ld等工具，一步步生成中间代码。
-			
-				<p class="article-more-link">
-					<a href="/2013/08/19/facade/#more">Read More</a>
-				</p>
-      
-    
-    
-	</div>
-
-	<footer class="entry-footer">
-		<div class="entry-meta-footer">
-			<span class="category">
-				
-			</span>
-			<span class="tags">
-				
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DesignPatterns/">DesignPatterns</a></li></ul>
-
-			</span>
-		</div>
-	</footer>
-</article>
-
-
-	<hr class="article-devider">
-
-
-  
-
-  
-    <article id="post-decorator" class="post">
-	<footer class="entry-meta-header">
-		<span class="meta-elements date">
-			<a href="/2013/08/18/decorator/" class="article-date">
-  <time datetime="2013-08-18T15:51:00.000Z" itemprop="datePublished">2013-08-18</time>
-</a>
-		</span>
-		<span class="meta-elements author">asxalex</span>
-		<div class="commentscount">
-			
-		</div>
-	</footer>
-	
-	<header class="entry-header">
-		
-  
-    <h1 itemprop="name" class="entry-title">
-      <a class="article-title" href="/2013/08/18/decorator/">设计模式（10）——装饰模式</a>
-    </h1>
-  
-
-	</header>
-	<div class="entry-content">
-		
-			<p>装饰模式（Decorator）意在动态地给一个对象添加一些额外的职责。就增加功能来说，Decorator模式比生成子类更加灵活。</p>
-<p>这里的栗子是一个窗口。在实际中，窗口种类丰富繁多。我们的栗子中作为示意，定义了从Window基类派生的两个类————分别为NormalWindow与SpecialWindow。而一个窗口要添加的组件也很多，在代码实例中有两种组件————ToolBar与Menu。
-			
-				<p class="article-more-link">
-					<a href="/2013/08/18/decorator/#more">Read More</a>
 				</p>
       
     
